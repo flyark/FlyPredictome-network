@@ -95,7 +95,8 @@ canvas { display:block; }
 #modal h2 { font-size:18px; margin-bottom:14px; }
 #modal h3 { font-size:14px; margin:16px 0 6px; color:var(--accent); }
 #modal p, #modal li { font-size:13px; line-height:1.6; color:#555; }
-#modal ul { padding-left:20px; }
+#modal ul, #modal ol { padding-left:24px; }
+#modal ol li { padding-left:4px; }
 #modal kbd { background:#f0f0f0; border:1px solid #ccc; border-radius:3px; padding:1px 6px; font-size:12px; }
 #modal .close-btn { float:right; background:none; border:none; font-size:22px; cursor:pointer; color:#999; }
 #modal .close-btn:hover { color:#333; }
@@ -266,7 +267,7 @@ canvas { display:block; }
 <button class="close-btn" onclick="document.getElementById('modal-bg').classList.remove('show')">&times;</button>
 <h2>FlyPredictome Network Viewer</h2>
 <p>Interactive exploration of the <em>Drosophila</em> protein-protein interaction atlas.</p>
-<p style="margin-top:8px"><a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" style="color:var(--accent);font-weight:600">FlyPredictome Database →</a> — search any protein pair for predicted structures, PAE heatmaps, and iLIS scores.</p>
+<p style="margin-top:8px"><a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" style="color:var(--accent);font-weight:600">FlyPredictome Database →</a> — search any protein pair for predicted structures, PAE heatmaps, and the <a href="https://github.com/flyark/AFM-LIS" target="_blank" style="color:var(--accent)">iLIS metric</a>.</p>
 <h3>Network Construction</h3>
 <p>This network shows <b>evidence-supported positive PPIs</b> from the FlyPredictome atlas:</p>
 <ol style="font-size:12px">
@@ -321,16 +322,16 @@ canvas { display:block; }
 </ul>
 <h3>Links</h3>
 <ul>
-<li><a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" style="color:var(--accent)">FlyPredictome Database</a> — predicted structures, PAE heatmaps, iLIS scores</li>
+<li><a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" style="color:var(--accent)">FlyPredictome Database</a> — search any protein pair for predicted structures, PAE heatmaps, and the iLIS metric</li>
+<li><a href="https://github.com/flyark/AFM-LIS" target="_blank" style="color:var(--accent)">AFM-LIS</a> — iLIS analysis pipeline</li>
 <li><a href="https://flyark.github.io/LIVIA" target="_blank" style="color:var(--accent)">LIVIA</a> — interactive 3D structure visualization and interface analysis</li>
-<li><a href="https://github.com/flyark/AFM-LIS" target="_blank" style="color:var(--accent)">AFM-LIS</a> — iLIS scoring pipeline</li>
-<li><a href="https://github.com/flyark/FlyPredictome-network" target="_blank" style="color:var(--accent)">GitHub</a> — source code and data</li>
+<li><a href="https://github.com/flyark/FlyPredictome-network" target="_blank" style="color:var(--accent)">GitHub</a> — source code and data for this viewer</li>
 </ul>
 <h3>Sharing</h3>
 <p style="font-size:12px">Direct links to proteins and clusters are supported via URL hash:<br>
 <code>#gene/Akt1</code> · <code>#cluster/5</code> · <code>#sub/2/6</code> · <code>#overview</code></p>
 <h3>How to Cite</h3>
-<p style="font-size:11px;color:#666">Kim et al., FlyPredictome: a structural atlas of predicted protein-protein interactions in <em>Drosophila</em>. (2026)</p>
+<p style="font-size:11px;color:#666">Kim et al., FlyPredictome: a structural atlas of predicted protein-protein interactions in <em>Drosophila</em>. <em>bioRxiv</em> (2026). doi: <a href="https://doi.org/10.64898/2026.04.14.718529" target="_blank" style="color:var(--accent)">10.64898/2026.04.14.718529</a></p>
 <p style="font-size:10px;color:#aaa">Interactive network viewer: <a href="https://flyark.github.io/FlyPredictome-network/" style="color:#aaa">flyark.github.io/FlyPredictome-network</a></p>
 </div>
 </div>
