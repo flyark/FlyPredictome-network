@@ -30,4 +30,18 @@ Leiden community detection identified 31 clusters, each corresponding to a coher
 
 ## Citation
 
-Kim et al., FlyPredictome: A structural atlas of predicted protein-protein interactions in *Drosophila*. (2026)
+If you use FlyPredictome in your research, please cite:
+
+> Kim, A.-R., Comjean, A., Veal, A., Rodiger, J., Han, M., Hu, Y., & Perrimon, N. (2026). FlyPredictome: A structural atlas of predicted protein-protein interactions in *Drosophila*. *bioRxiv*. https://doi.org/10.64898/2026.04.14.718529
+
+```bibtex
+@article{kim2026flypredictome,
+  title   = {FlyPredictome: A structural atlas of predicted protein-protein interactions in {Drosophila}},
+  author  = {Kim, Ah-Ram and Comjean, Aram and Veal, Austin and Rodiger, Jonathan and Han, Myeonghoon and Hu, Yanhui and Perrimon, Norbert},
+  journal = {bioRxiv},
+  year    = {2026},
+  month   = apr,
+  doi     = {10.64898/2026.04.14.718529},
+  url     = {https://doi.org/10.64898/2026.04.14.718529}
+}
+```
