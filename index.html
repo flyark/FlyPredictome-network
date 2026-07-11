@@ -366,6 +366,10 @@ new Response(new Blob([_bin]).stream().pipeThrough(new DecompressionStream('gzip
 function init(D){
 const OV_NODES=D.ov[0], OV_EDGES=D.ov[1], CX_EDGES=D.cx, CL=D.cl, EV=D.ev;
 
+// cLIP availability: genes with a pre-computed bundle (≥2 network partners). Gates the per-node cLIP link.
+let CLIP_AVAIL=null;
+fetch('https://flyark.github.io/FlyPredictome-clip-data/available.json').then(r=>r.ok?r.json():null).then(j=>{if(j)CLIP_AVAIL=new Set(Object.keys(j));}).catch(()=>{});
+
 const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
 const wrap=document.getElementById('cv-wrap'),tip=document.getElementById('tip');
 const side=document.getElementById('side'),bc_=document.getElementById('bc');
@@ -908,6 +912,7 @@ function showGene(gid){
     ${fbgnStr?`<a href="https://flybase.org/reports/${fbgnStr}" target="_blank" style="color:var(--accent)">FlyBase</a>`:''}
     <a href="https://www.flyrnai.org/tools/fly_predictome/web/famdb_summary/${fbgnStr}" target="_blank" style="color:var(--accent)">FlyPredictome</a>
     <a href="https://flyark.github.io/LIVIA/flypredictome.html?gene=${gid}" target="_blank" style="color:#59A14F">LIVIA</a>
+    ${fbgnStr&&(!CLIP_AVAIL||CLIP_AVAIL.has(fbgnStr))?`<a href="https://flyark.github.io/LIVIA/clip.html?data=https://flyark.github.io/FlyPredictome-clip-data/${fbgnStr}.zip&gene=${gid}" target="_blank" style="color:#B07AA1;font-weight:600" title="cLIP — cluster this protein's partners by their contact residues">cLIP</a>`:''}
     </div>`;
   side.appendChild(card);
 
