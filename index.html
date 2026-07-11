@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>FlyPredictome Interactive Network</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
 :root { --accent: #2C73A8; --blue: #2C73A8; --lightblue: #5DADE2; }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -14,6 +18,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 #hdr { display:flex; align-items:center; gap:12px; padding:8px 16px; background:#f5f5f7; border-bottom:1px solid #ddd; flex-wrap:wrap; }
 #hdr h1 { font-size:16px; color:#222; white-space:nowrap; font-weight:700; }
 #hdr h1 em { color:var(--accent); font-style:normal; }
+#hdr h1 a { text-decoration:none; color:inherit; }
+#hdr h1 a:hover em { text-decoration:underline; }
 #bc { font-size:13px; color:#666; }
 #bc a { color:var(--accent); cursor:pointer; text-decoration:underline; }
 
@@ -146,7 +152,7 @@ canvas { display:block; }
 <div id="app">
 <div id="hdr">
   <button id="sidebar-toggle" onclick="toggleSidebar()" style="display:none;background:none;border:1px solid #ccc;border-radius:4px;padding:4px 8px;font-size:18px;cursor:pointer;margin-right:8px">&#9776;</button>
-  <h1><em>FlyPredictome</em> Network</h1>
+  <h1><a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" rel="noopener" title="Go to the FlyPredictome database"><em>FlyPredictome</em></a> Network</h1>
   <div id="bc"></div>
   <div id="ev-filter">
     <label>Evidence:</label>
