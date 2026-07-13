@@ -81,6 +81,7 @@ canvas { display:block; }
 #clip-fab:hover { background:#9a6a8d; box-shadow:0 4px 14px rgba(0,0,0,.30); transform:translateY(-1px); }
 #clip-fab .clip-fab-top { font-size:16px; font-weight:800; letter-spacing:.2px; }
 #clip-fab .clip-fab-sub { font-size:11px; font-weight:500; opacity:.92; }
+#clip-fab .clip-fab-sub .k { font-weight:800; text-decoration:underline; }
 #pick-bar { padding:0 8px; font-size:12px; display:none; border-bottom:1px solid #eee; }
 #pick-bar.show { display:block; padding:8px; }
 .pick-gene { display:inline-block; background:var(--accent); color:#fff; padding:2px 8px; border-radius:10px; margin:2px; font-size:11px; cursor:pointer; }
@@ -228,7 +229,7 @@ canvas { display:block; }
         <canvas id="cv"></canvas>
         <a id="clip-fab" href="#" target="_blank" rel="noopener" title="Open this protein's interactome in cLIP — cluster its partners by contact residues">
           <span class="clip-fab-top">cLIP&nbsp;·&nbsp;<span class="clip-fab-gene"></span></span>
-          <span class="clip-fab-sub">clustered Local Interaction Profiler</span>
+          <span class="clip-fab-sub"><span class="k">c</span>lustered <span class="k">L</span>ocal <span class="k">I</span>nteraction <span class="k">P</span>rofiler</span>
         </a>
         <div id="legend"></div>
         <div id="edge-ctrl">
