@@ -75,6 +75,12 @@ canvas { display:block; }
 #edge-ctrl button:not(.ev-btn) { font-size:11px; padding:4px 10px; border:1px solid #ccc; border-radius:4px; cursor:pointer; background:#fff; color:#555; }
 #edge-ctrl button:not(.ev-btn):hover { border-color:var(--accent); color:var(--accent); }
 #edge-ctrl .ev-btn { font-size:11px; padding:4px 8px; }
+#clip-fab { position:absolute; left:12px; top:48px; z-index:6; display:none; flex-direction:column; line-height:1.25;
+  background:#B07AA1; color:#fff; text-decoration:none; padding:8px 16px; border-radius:9px;
+  box-shadow:0 3px 10px rgba(0,0,0,.20); transition:background .15s, box-shadow .15s, transform .1s; }
+#clip-fab:hover { background:#9a6a8d; box-shadow:0 4px 14px rgba(0,0,0,.30); transform:translateY(-1px); }
+#clip-fab .clip-fab-top { font-size:16px; font-weight:800; letter-spacing:.2px; }
+#clip-fab .clip-fab-sub { font-size:11px; font-weight:500; opacity:.92; }
 #pick-bar { padding:0 8px; font-size:12px; display:none; border-bottom:1px solid #eee; }
 #pick-bar.show { display:block; padding:8px; }
 .pick-gene { display:inline-block; background:var(--accent); color:#fff; padding:2px 8px; border-radius:10px; margin:2px; font-size:11px; cursor:pointer; }
@@ -220,9 +226,13 @@ canvas { display:block; }
     <div id="network-view" style="display:none;flex:1;position:relative;overflow:hidden">
       <div id="cv-wrap" style="flex:1;position:relative;overflow:hidden;height:100%">
         <canvas id="cv"></canvas>
+        <a id="clip-fab" href="#" target="_blank" rel="noopener" title="Open this protein's interactome in cLIP — cluster its partners by contact residues">
+          <span class="clip-fab-top">cLIP&nbsp;·&nbsp;<span class="clip-fab-gene"></span></span>
+          <span class="clip-fab-sub">clustered Local Interaction Profiler</span>
+        </a>
         <div id="legend"></div>
         <div id="edge-ctrl">
-          <span id="edge-ctrl-toggle" onclick="const b=document.getElementById('edge-ctrl-body');b.classList.toggle('opts-open');this.textContent=b.classList.contains('opts-open')?'Options ▾':'Options ▸'" style="cursor:pointer;font-weight:600;font-size:11px;color:#666;user-select:none">Options ▾</span>
+          <span id="edge-ctrl-toggle" onclick="const b=document.getElementById('edge-ctrl-body');b.classList.toggle('opts-open');this.textContent=b.classList.contains('opts-open')?'Options ▾':'Options ▸';window.positionClipFab&&window.positionClipFab()" style="cursor:pointer;font-weight:600;font-size:11px;color:#666;user-select:none">Options ▾</span>
           <span id="edge-ctrl-body" class="opts-open" style="align-items:center;gap:10px;flex-wrap:wrap">
           <label>Edge opacity <input type="range" id="eo" min="1" max="80" value="20"></label>
           <label>Edge width <input type="range" id="ew" min="1" max="30" value="4"></label>
@@ -374,7 +384,22 @@ const OV_NODES=D.ov[0], OV_EDGES=D.ov[1], CX_EDGES=D.cx, CL=D.cl, EV=D.ev;
 
 // cLIP availability: genes with a pre-computed bundle (≥2 network partners). Gates the per-node cLIP link.
 let CLIP_AVAIL=null;
-fetch('https://flyark.github.io/FlyPredictome-clip-data/available.json').then(r=>r.ok?r.json():null).then(j=>{if(j)CLIP_AVAIL=new Set(Object.keys(j));}).catch(()=>{});
+fetch('https://flyark.github.io/FlyPredictome-clip-data/available.json').then(r=>r.ok?r.json():null).then(j=>{if(j){CLIP_AVAIL=new Set(Object.keys(j));if(CURRENT_GENE)updateClipFab(CURRENT_GENE);}}).catch(()=>{});
+// Prominent floating cLIP button (sits just under the Options bar), shown for a selected node with a bundle.
+let CURRENT_GENE=null;
+function positionClipFab(){ const fab=document.getElementById('clip-fab'); if(!fab||fab.style.display==='none')return; const ec=document.getElementById('edge-ctrl'); fab.style.top=(ec?ec.offsetTop+ec.offsetHeight+8:8)+'px'; }
+function updateClipFab(gid){
+  CURRENT_GENE=gid||null;
+  const fab=document.getElementById('clip-fab'); if(!fab)return;
+  const node=gid?OV_NODES.find(n=>n[0]===gid):null;
+  const fbgn=node&&node[1]!==gid?node[1]:'';
+  if(!gid||!fbgn||(CLIP_AVAIL&&!CLIP_AVAIL.has(fbgn))){ fab.style.display='none'; return; }
+  fab.href='https://flyark.github.io/LIVIA/clip.html?data=https://flyark.github.io/FlyPredictome-clip-data/'+fbgn+'.zip&gene='+encodeURIComponent(gid);
+  const g=fab.querySelector('.clip-fab-gene'); if(g)g.textContent=gid;
+  fab.style.display='flex'; positionClipFab();
+}
+window.positionClipFab=positionClipFab;
+window.addEventListener('resize',positionClipFab);
 
 const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
 const wrap=document.getElementById('cv-wrap'),tip=document.getElementById('tip');
@@ -563,7 +588,7 @@ function autoLabelSettings(nNodes){
   document.getElementById('ns').value=nodeScale*10;
 }
 
-function showOverview(){
+function showOverview(){ updateClipFab(null);
   hideLanding();hideGrid();
   // Recalc canvas size after showing cv-wrap
   W=wrap.clientWidth;H=wrap.clientHeight;
@@ -579,7 +604,7 @@ function showOverview(){
   autoLabelSettings(nodes.length);updateEvCount();buildSide();draw();
 }
 
-function showCluster(ci){
+function showCluster(ci){ updateClipFab(null);
   hideLanding();
   level='cluster';curCi=ci;curSi=null;hits.clear();nbrs.clear();focus=null;savedLayout=null;_savedAllNodes=null;_savedAllEdges=null;if(minPPIInput)minPPIInput.value='1';
   const c=CL[ci];
@@ -740,7 +765,7 @@ function autoFit(){
   py=H/2-(y0+y1)/2*sc;
 }
 
-function showSub(ci,si){
+function showSub(ci,si){ updateClipFab(null);
   hideGrid();resize();
   level='sub';curCi=ci;curSi=si;hits.clear();nbrs.clear();focus=null;savedLayout=null;_savedAllNodes=null;_savedAllEdges=null;if(minPPIInput)minPPIInput.value='1';
   const c=CL[ci],sc_=c[8][si];
@@ -810,7 +835,7 @@ function showSub(ci,si){
   draw();
 }
 
-function showSubSub(ci,si,ssi){
+function showSubSub(ci,si,ssi){ updateClipFab(null);
   hideGrid();resize();
   level='subsub';curCi=ci;curSi=si;hits.clear();nbrs.clear();focus=null;savedLayout=null;_savedAllNodes=null;_savedAllEdges=null;if(minPPIInput)minPPIInput.value='1';
   const c=CL[ci],sc_=c[8][si];
@@ -921,6 +946,7 @@ function showGene(gid){
     ${fbgnStr&&(!CLIP_AVAIL||CLIP_AVAIL.has(fbgnStr))?`<a href="https://flyark.github.io/LIVIA/clip.html?data=https://flyark.github.io/FlyPredictome-clip-data/${fbgnStr}.zip&gene=${gid}" target="_blank" style="color:#B07AA1;font-weight:600" title="cLIP — cluster this protein's partners by their contact residues">cLIP</a>`:''}
     </div>`;
   side.appendChild(card);
+  updateClipFab(gid);
 
   const btnRow=el('div');btnRow.style.cssText='display:flex;gap:4px;margin-bottom:6px;';
   const backBtn=el('button','btn');backBtn.textContent=`← ${sc_[0]}`;backBtn.style.cssText='flex:1;background:#777;font-size:11px;padding:5px;';
