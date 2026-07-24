@@ -16,25 +16,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 /* ── Header bar ── */
 #hdr { display:flex; align-items:center; gap:12px; padding:8px 16px; background:#f5f5f7; border-bottom:1px solid #ddd; flex-wrap:wrap; }
-#hdr h1 { font-size:16px; color:#222; white-space:nowrap; font-weight:700; }
+#hdr h1 { font-size:18px; color:#222; white-space:nowrap; font-weight:700; }
 #hdr h1 em { color:var(--accent); font-style:normal; }
 #hdr h1 a { text-decoration:none; color:inherit; }
 #hdr h1 a:hover em { text-decoration:underline; }
-#bc { font-size:13px; color:#666; }
+#bc { font-size:14.5px; color:#666; }
 #bc a { color:var(--accent); cursor:pointer; text-decoration:underline; }
 
 /* ── Filter buttons ── */
 #ev-filter { display:flex; align-items:center; gap:6px; margin-left:12px; }
-#ev-filter label { font-size:11px; font-weight:600; color:#777; text-transform:uppercase; letter-spacing:0.3px; }
-.ev-btn { padding:4px 10px; font-size:12px; border:1px solid #ccc; border-radius:4px; cursor:pointer; background:#fff; color:#555; transition:all 0.15s; }
+#ev-filter label { font-size:12.5px; font-weight:600; color:#777; text-transform:uppercase; letter-spacing:0.3px; }
+.ev-btn { padding:4px 10px; font-size:13.5px; border:1px solid #ccc; border-radius:4px; cursor:pointer; background:#fff; color:#555; transition:all 0.15s; }
 .ev-btn:hover { border-color:var(--accent); color:var(--accent); }
 .ev-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
-#ev-count { font-size:11px; color:#999; }
+#ev-count { font-size:12.5px; color:#999; }
 
 /* ── Search ── */
 #q:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 2px rgba(44,115,168,0.15); }
-#stats { font-size:11px; color:#999; align-self:center; }
-.btn-help { background:none; border:1px solid #bbb; color:#555; font-size:14px; font-weight:600; padding:2px 10px; border-radius:14px; cursor:pointer; margin-left:4px; }
+#stats { font-size:12.5px; color:#999; align-self:center; }
+.btn-help { background:none; border:1px solid #bbb; color:#555; font-size:15.5px; font-weight:600; padding:2px 10px; border-radius:14px; cursor:pointer; margin-left:4px; }
 .btn-help:hover { border-color:var(--accent); color:var(--accent); }
 
 /* ── Sidebar ── */
@@ -45,48 +45,48 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .subplot { background:#fff; border:1px solid #e0e0e0; border-radius:6px; cursor:pointer; overflow:hidden; transition:all 0.15s; }
 .subplot:hover { border-color:var(--accent); box-shadow:0 2px 8px rgba(0,0,0,0.1); }
 .subplot canvas { display:block; }
-.subplot-title { font-size:12px; font-weight:700; padding:5px 8px; text-align:center; }
-.subplot-stats { font-size:10px; color:#888; text-align:center; padding:0 8px 5px; }
+.subplot-title { font-size:13.5px; font-weight:700; padding:5px 8px; text-align:center; }
+.subplot-stats { font-size:11px; color:#888; text-align:center; padding:0 8px 5px; }
 
-.sh { font-size:11px; font-weight:600; color:#888; text-transform:uppercase; letter-spacing:0.5px; padding:5px 4px 3px; }
-.si { display:flex; align-items:center; gap:6px; padding:4px 6px; margin:1px 0; border-radius:4px; cursor:pointer; font-size:12px; line-height:1.4; }
+.sh { font-size:12.5px; font-weight:600; color:#888; text-transform:uppercase; letter-spacing:0.5px; padding:5px 4px 3px; }
+.si { display:flex; align-items:center; gap:6px; padding:4px 6px; margin:1px 0; border-radius:4px; cursor:pointer; font-size:13.5px; line-height:1.4; }
 .si:hover { background:#e8e8e8; }
 .si.act { background:#d0dde8; font-weight:600; }
 .dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
 .si input[type=checkbox] { width:14px; height:14px; margin:0; }
-.btn { display:block; width:100%; padding:6px; margin:5px 0; font-size:12px; background:var(--accent); color:#fff; border:none; border-radius:4px; cursor:pointer; }
+.btn { display:block; width:100%; padding:6px; margin:5px 0; font-size:13.5px; background:var(--accent); color:#fff; border:none; border-radius:4px; cursor:pointer; }
 .btn:hover { opacity:0.9; }
 
 /* ── Canvas overlays ── */
 #cv-wrap { flex:1; position:relative; }
 canvas { display:block; }
-#tip { position:absolute; background:rgba(0,0,0,0.85); color:#fff; padding:6px 12px; border-radius:5px; font-size:12px; pointer-events:none; display:none; z-index:10; max-width:340px; line-height:1.5; }
-#legend { position:absolute; bottom:10px; left:14px; background:rgba(255,255,255,0.94); border:1px solid #ddd; border-radius:6px; padding:8px 12px; font-size:11px; line-height:1.8; z-index:5; }
+#tip { position:absolute; background:rgba(0,0,0,0.85); color:#fff; padding:6px 12px; border-radius:5px; font-size:13.5px; pointer-events:none; display:none; z-index:10; max-width:340px; line-height:1.5; }
+#legend { position:absolute; bottom:10px; left:14px; background:rgba(255,255,255,0.94); border:1px solid #ddd; border-radius:6px; padding:8px 12px; font-size:12.5px; line-height:1.8; z-index:5; }
 .leg-row { display:flex; align-items:center; gap:6px; }
 .leg-circle { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
 .leg-line { width:18px; height:0; border-top:2.5px solid; flex-shrink:0; }
-#help { position:absolute; bottom:10px; right:14px; font-size:11px; color:#bbb; pointer-events:none; }
-#edge-ctrl { position:absolute; top:8px; left:12px; background:rgba(255,255,255,.92); border:1px solid #ddd; border-radius:5px; padding:6px 12px; font-size:12px; z-index:5; display:flex; align-items:center; gap:10px; flex-wrap:wrap; max-width:calc(100% - 24px); }
-#edge-ctrl label { color:#666; font-size:12px; white-space:nowrap; }
+#help { position:absolute; bottom:10px; right:14px; font-size:12.5px; color:#bbb; pointer-events:none; }
+#edge-ctrl { position:absolute; top:8px; left:12px; background:rgba(255,255,255,.92); border:1px solid #ddd; border-radius:5px; padding:6px 12px; font-size:13.5px; z-index:5; display:flex; align-items:center; gap:10px; flex-wrap:wrap; max-width:calc(100% - 24px); }
+#edge-ctrl label { color:#666; font-size:13.5px; white-space:nowrap; }
 #edge-ctrl-body { display: none; }
 #edge-ctrl-body.opts-open { display: flex; }
-#edge-ctrl span { font-size:12px; color:#666; }
+#edge-ctrl span { font-size:13.5px; color:#666; }
 #edge-ctrl input[type=range] { width:60px; height:3px; vertical-align:middle; }
-#edge-ctrl button:not(.ev-btn) { font-size:11px; padding:4px 10px; border:1px solid #ccc; border-radius:4px; cursor:pointer; background:#fff; color:#555; }
+#edge-ctrl button:not(.ev-btn) { font-size:12.5px; padding:4px 10px; border:1px solid #ccc; border-radius:4px; cursor:pointer; background:#fff; color:#555; }
 #edge-ctrl button:not(.ev-btn):hover { border-color:var(--accent); color:var(--accent); }
-#edge-ctrl .ev-btn { font-size:11px; padding:4px 8px; }
+#edge-ctrl .ev-btn { font-size:12.5px; padding:4px 8px; }
 #clip-fab { position:absolute; left:12px; top:48px; z-index:6; display:none; flex-direction:column; line-height:1.25;
   background:#B07AA1; color:#fff; text-decoration:none; padding:8px 16px; border-radius:9px;
   box-shadow:0 3px 10px rgba(0,0,0,.20); transition:background .15s, box-shadow .15s, transform .1s; }
 #clip-fab:hover { background:#9a6a8d; box-shadow:0 4px 14px rgba(0,0,0,.30); transform:translateY(-1px); }
-#clip-fab .clip-fab-top { font-size:16px; font-weight:800; letter-spacing:.2px; }
-#clip-fab .clip-fab-sub { font-size:11px; font-weight:500; opacity:.92; }
+#clip-fab .clip-fab-top { font-size:18px; font-weight:800; letter-spacing:.2px; }
+#clip-fab .clip-fab-sub { font-size:12.5px; font-weight:500; opacity:.92; }
 #clip-fab .clip-fab-sub .k { font-weight:800; text-decoration:underline; }
-#pick-bar { padding:0 8px; font-size:12px; display:none; border-bottom:1px solid #eee; }
+#pick-bar { padding:0 8px; font-size:13.5px; display:none; border-bottom:1px solid #eee; }
 #pick-bar.show { display:block; padding:8px; }
-.pick-gene { display:inline-block; background:var(--accent); color:#fff; padding:2px 8px; border-radius:10px; margin:2px; font-size:11px; cursor:pointer; }
+.pick-gene { display:inline-block; background:var(--accent); color:#fff; padding:2px 8px; border-radius:10px; margin:2px; font-size:12.5px; cursor:pointer; }
 .pick-gene:hover { opacity:0.8; }
-.btn-sm { padding:4px 10px; font-size:11px; border:none; border-radius:4px; cursor:pointer; margin:2px; }
+.btn-sm { padding:4px 10px; font-size:12.5px; border:none; border-radius:4px; cursor:pointer; margin:2px; }
 .btn-find { background:var(--accent); color:#fff; }
 .btn-find:hover { opacity:0.9; }
 .btn-clear { background:#eee; color:#666; }
@@ -95,10 +95,10 @@ canvas { display:block; }
 .sr-item { display:flex; align-items:center; gap:6px; padding:6px 4px; cursor:pointer; border-bottom:1px solid #f0f0f0; transition:background 0.1s; }
 .sr-item:last-child { border-bottom:none; }
 .sr-item:hover { background:#e8f0f8; }
-.sr-name { font-weight:600; font-size:12px; color:#333; }
-.sr-info { font-size:10px; color:#888; }
+.sr-name { font-weight:600; font-size:13.5px; color:#333; }
+.sr-info { font-size:11px; color:#888; }
 .sr-badges { display:flex; gap:3px; margin-left:auto; flex-shrink:0; }
-.sr-badge { font-size:10px; padding:2px 6px; border-radius:3px; border:1px solid #ddd; color:#555; cursor:pointer; white-space:nowrap; }
+.sr-badge { font-size:11px; padding:2px 6px; border-radius:3px; border:1px solid #ddd; color:#555; cursor:pointer; white-space:nowrap; }
 .sr-badge:hover { border-color:var(--accent); color:var(--accent); }
 .sr-badge-go { background:var(--accent); color:#fff; border-color:var(--accent); }
 .sr-badge-go:hover { opacity:0.85; }
@@ -107,13 +107,13 @@ canvas { display:block; }
 #modal-bg { display:none; position:fixed; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.5); z-index:100; }
 #modal-bg.show { display:flex; justify-content:center; align-items:center; }
 #modal { background:#fff; border-radius:10px; max-width:580px; width:90%; max-height:80vh; overflow-y:auto; padding:28px; box-shadow:0 10px 40px rgba(0,0,0,0.25); }
-#modal h2 { font-size:18px; margin-bottom:14px; }
-#modal h3 { font-size:14px; margin:16px 0 6px; color:var(--accent); }
-#modal p, #modal li { font-size:13px; line-height:1.6; color:#555; }
+#modal h2 { font-size:20px; margin-bottom:14px; }
+#modal h3 { font-size:15.5px; margin:16px 0 6px; color:var(--accent); }
+#modal p, #modal li { font-size:14.5px; line-height:1.6; color:#555; }
 #modal ul, #modal ol { padding-left:24px; }
 #modal ol li { padding-left:4px; }
-#modal kbd { background:#f0f0f0; border:1px solid #ccc; border-radius:3px; padding:1px 6px; font-size:12px; }
-#modal .close-btn { float:right; background:none; border:none; font-size:22px; cursor:pointer; color:#999; }
+#modal kbd { background:#f0f0f0; border:1px solid #ccc; border-radius:3px; padding:1px 6px; font-size:13.5px; }
+#modal .close-btn { float:right; background:none; border:none; font-size:24.5px; cursor:pointer; color:#999; }
 #modal .close-btn:hover { color:#333; }
 
 /* ── Mobile responsive ── */
@@ -128,17 +128,17 @@ canvas { display:block; }
 
   /* Header wraps better */
   #hdr { flex-wrap: wrap; padding: 6px 10px; }
-  #hdr h1 { font-size: 14px; }
+  #hdr h1 { font-size:15.5px; }
   #ev-filter { flex-wrap: wrap; gap: 4px; margin-left: 0; width: 100%; }
-  .ev-btn { padding: 6px 12px; font-size: 13px; } /* larger touch targets */
+  .ev-btn { padding: 6px 12px; font-size:14.5px; } /* larger touch targets */
 
   /* Edge control panel — collapsed by default on mobile */
-  #edge-ctrl { font-size: 11px; flex-wrap: wrap; max-width: calc(100% - 24px); padding: 4px 8px; }
+  #edge-ctrl { font-size:12.5px; flex-wrap: wrap; max-width: calc(100% - 24px); padding: 4px 8px; }
   #edge-ctrl input[type=range] { width: 50px; }
   /* panel collapsed by default on mobile — handled via .opts-open class toggle */
 
   /* Legend — right side on mobile to avoid overlap */
-  #legend { font-size: 9px; padding: 4px 6px; max-width: 160px; bottom: 8px !important; right: 8px; left: auto !important; }
+  #legend { font-size:10px; padding: 4px 6px; max-width: 160px; bottom: 8px !important; right: 8px; left: auto !important; }
 
   /* View toggle — right side above legend */
   #view-toggle { display: none !important; } /* hide on mobile */
@@ -148,7 +148,7 @@ canvas { display:block; }
 
   /* Landing page adjustments */
   #landing { padding: 16px; }
-  #landing h2 { font-size: 18px; }
+  #landing h2 { font-size:20px; }
 
   /* Hamburger button visible on mobile */
   #sidebar-toggle { display: block !important; }
@@ -158,7 +158,7 @@ canvas { display:block; }
 <body>
 <div id="app">
 <div id="hdr">
-  <button id="sidebar-toggle" onclick="toggleSidebar()" style="display:none;background:none;border:1px solid #ccc;border-radius:4px;padding:4px 8px;font-size:18px;cursor:pointer;margin-right:8px">&#9776;</button>
+  <button id="sidebar-toggle" onclick="toggleSidebar()" style="display:none;background:none;border:1px solid #ccc;border-radius:4px;padding:4px 8px;font-size:20px;cursor:pointer;margin-right:8px">&#9776;</button>
   <h1><a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" rel="noopener" title="Go to the FlyPredictome database"><em>FlyPredictome</em></a> Network</h1>
   <div id="bc"></div>
   <div id="ev-filter">
@@ -184,8 +184,8 @@ canvas { display:block; }
   <div style="width:240px;display:flex;flex-direction:column;flex-shrink:0;background:#fafafa;border-right:1px solid #eee">
     <div style="padding:8px;border-bottom:1px solid #eee">
       <div style="display:flex;gap:4px;align-items:center">
-        <input id="q" placeholder="Search protein or FBgn…" style="flex:1;padding:6px 10px;font-size:13px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box">
-        <button onclick="showGeneListModal()" title="Paste protein list" style="padding:6px 8px;font-size:11px;border:1px solid #B07AA1;border-radius:5px;background:none;color:#B07AA1;cursor:pointer;white-space:nowrap;font-weight:600">List</button>
+        <input id="q" placeholder="Search protein or FBgn…" style="flex:1;padding:6px 10px;font-size:14.5px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box">
+        <button onclick="showGeneListModal()" title="Paste protein list" style="padding:6px 8px;font-size:12.5px;border:1px solid #B07AA1;border-radius:5px;background:none;color:#B07AA1;cursor:pointer;white-space:nowrap;font-weight:600">List</button>
       </div>
       <div id="search-results" style="max-height:200px;overflow-y:auto"></div>
     </div>
@@ -197,28 +197,28 @@ canvas { display:block; }
     <!-- Landing page -->
     <div id="landing" style="flex:1;overflow-y:auto;padding:24px 30px;background:#f9f9f9">
       <div>
-      <h2 style="font-size:22px;color:#2C73A8;margin-bottom:8px;font-weight:700">FlyPredictome Network Explorer</h2>
-      <p style="font-size:12px;color:#666;margin-bottom:16px;line-height:1.5">An evidence-supported <em>Drosophila</em> protein-protein interaction network comprising fly literature, BioGRID, genetic interaction, and conserved interolog (DIOPT ≥ 4) evidence, scored with iLIS.</p>
-      <p style="font-size:11px;color:#999;margin-bottom:0;display:none" id="landing-stats"></p>
+      <h2 style="font-size:24.5px;color:#2C73A8;margin-bottom:8px;font-weight:700">FlyPredictome Network Explorer</h2>
+      <p style="font-size:13.5px;color:#666;margin-bottom:16px;line-height:1.5">An evidence-supported <em>Drosophila</em> protein-protein interaction network comprising fly literature, BioGRID, genetic interaction, and conserved interolog (DIOPT ≥ 4) evidence, scored with iLIS.</p>
+      <p style="font-size:12.5px;color:#999;margin-bottom:0;display:none" id="landing-stats"></p>
       <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;align-items:baseline">
-        <div style="font-size:11px;color:#888"><span style="font-size:20px;font-weight:700;color:#333" id="stat-nodes"></span> proteins</div>
-        <div style="font-size:11px;color:#888"><span style="font-size:20px;font-weight:700;color:#333" id="stat-edges"></span> PPIs</div>
-        <div style="font-size:11px;color:#888"><span style="font-size:20px;font-weight:700;color:#333" id="stat-clusters"></span> clusters</div>
+        <div style="font-size:12.5px;color:#888"><span style="font-size:22.5px;font-weight:700;color:#333" id="stat-nodes"></span> proteins</div>
+        <div style="font-size:12.5px;color:#888"><span style="font-size:22.5px;font-weight:700;color:#333" id="stat-edges"></span> PPIs</div>
+        <div style="font-size:12.5px;color:#888"><span style="font-size:22.5px;font-weight:700;color:#333" id="stat-clusters"></span> clusters</div>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;align-items:center">
-        <button class="btn" style="width:auto;padding:8px 20px;font-size:13px" onclick="showFullNetwork()">View Full Network</button>
-        <button class="btn" style="width:auto;padding:8px 20px;font-size:13px;background:#59A14F" onclick="showClusterGridLanding()">Cluster Grid</button>
+        <button class="btn" style="width:auto;padding:8px 20px;font-size:14.5px" onclick="showFullNetwork()">View Full Network</button>
+        <button class="btn" style="width:auto;padding:8px 20px;font-size:14.5px;background:#59A14F" onclick="showClusterGridLanding()">Cluster Grid</button>
         <span style="margin-left:8px;display:flex;gap:6px;align-items:center">
-          <button onclick="downloadData()" style="padding:5px 12px;font-size:11px;border:1px solid #ccc;border-radius:4px;cursor:pointer;background:#fff;color:#555">Nodes CSV</button>
-          <button onclick="downloadEdges()" style="padding:5px 12px;font-size:11px;border:1px solid #ccc;border-radius:4px;cursor:pointer;background:#fff;color:#555">Edges CSV</button>
-          <button class="btn" style="width:auto;padding:8px 20px;font-size:13px;background:#B07AA1" onclick="showGeneListModal()">Protein List</button>
-          <button class="btn" style="width:auto;padding:8px 20px;font-size:13px;background:#59A14F" onclick="downloadAllGO()">Download All GO (CSV)</button>
-          <a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" style="padding:5px 12px;font-size:11px;border:1px solid var(--accent);border-radius:4px;color:var(--accent);text-decoration:none">FlyPredictome DB ↗</a>
-          <a href="https://github.com/flyark/AFM-LIS" target="_blank" style="padding:5px 12px;font-size:11px;border:1px solid #333;border-radius:4px;color:#333;text-decoration:none">AFM-LIS ↗</a>
+          <button onclick="downloadData()" style="padding:5px 12px;font-size:12.5px;border:1px solid #ccc;border-radius:4px;cursor:pointer;background:#fff;color:#555">Nodes CSV</button>
+          <button onclick="downloadEdges()" style="padding:5px 12px;font-size:12.5px;border:1px solid #ccc;border-radius:4px;cursor:pointer;background:#fff;color:#555">Edges CSV</button>
+          <button class="btn" style="width:auto;padding:8px 20px;font-size:14.5px;background:#B07AA1" onclick="showGeneListModal()">Protein List</button>
+          <button class="btn" style="width:auto;padding:8px 20px;font-size:14.5px;background:#59A14F" onclick="downloadAllGO()">Download All GO (CSV)</button>
+          <a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" style="padding:5px 12px;font-size:12.5px;border:1px solid var(--accent);border-radius:4px;color:var(--accent);text-decoration:none">FlyPredictome DB ↗</a>
+          <a href="https://github.com/flyark/AFM-LIS" target="_blank" style="padding:5px 12px;font-size:12.5px;border:1px solid #333;border-radius:4px;color:#333;text-decoration:none">AFM-LIS ↗</a>
         </span>
       </div>
       <div style="display:flex;align-items:center;margin-bottom:8px">
-        <span style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:0.5px">Clusters — click to explore</span>
+        <span style="font-size:12.5px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:0.5px">Clusters — click to explore</span>
       </div>
       <div id="landing-grid" style="display:flex;flex-wrap:wrap;gap:10px"></div>
       </div>
@@ -233,7 +233,7 @@ canvas { display:block; }
         </a>
         <div id="legend"></div>
         <div id="edge-ctrl">
-          <span id="edge-ctrl-toggle" onclick="const b=document.getElementById('edge-ctrl-body');b.classList.toggle('opts-open');this.textContent=b.classList.contains('opts-open')?'Options ▾':'Options ▸';window.positionClipFab&&window.positionClipFab()" style="cursor:pointer;font-weight:600;font-size:11px;color:#666;user-select:none">Options ▾</span>
+          <span id="edge-ctrl-toggle" onclick="const b=document.getElementById('edge-ctrl-body');b.classList.toggle('opts-open');this.textContent=b.classList.contains('opts-open')?'Options ▾':'Options ▸';window.positionClipFab&&window.positionClipFab()" style="cursor:pointer;font-weight:600;font-size:12.5px;color:#666;user-select:none">Options ▾</span>
           <span id="edge-ctrl-body" class="opts-open" style="align-items:center;gap:10px;flex-wrap:wrap">
           <label>Edge opacity <input type="range" id="eo" min="1" max="80" value="20"></label>
           <label>Edge width <input type="range" id="ew" min="1" max="30" value="4"></label>
@@ -251,21 +251,21 @@ canvas { display:block; }
           <label>Font size <input type="range" id="fs" min="5" max="25" value="12"></label>
           <label>Labels <input type="range" id="ld" min="0" max="100" value="50" title="Label density"></label>
           <span style="color:#ddd;margin:0 2px">|</span>
-          <label>Min PPIs <input type="number" id="minppi" min="1" max="999" value="1" style="width:40px;font-size:11px;padding:2px 4px;border:1px solid #ccc;border-radius:3px;text-align:center"></label>
+          <label>Min PPIs <input type="number" id="minppi" min="1" max="999" value="1" style="width:40px;font-size:12.5px;padding:2px 4px;border:1px solid #ccc;border-radius:3px;text-align:center"></label>
           <span style="color:#ddd;margin:0 2px">|</span>
           <button onclick="exportPNG(false)">PNG</button>
           <button onclick="exportPNG(true)">PNG(transparent)</button>
           <button onclick="exportSVG()">SVG</button>
           </span>
         </div>
-        <div id="view-toggle" style="position:absolute;bottom:10px;left:14px;z-index:6;background:rgba(255,255,255,0.94);border:1px solid #ddd;border-radius:6px;padding:6px 10px;font-size:11px;display:none;align-items:center;gap:8px;flex-wrap:wrap">
-          <span style="display:flex;gap:3px;align-items:center"><span style="color:#888;font-size:10px">Color</span>
+        <div id="view-toggle" style="position:absolute;bottom:10px;left:14px;z-index:6;background:rgba(255,255,255,0.94);border:1px solid #ddd;border-radius:6px;padding:6px 10px;font-size:12.5px;display:none;align-items:center;gap:8px;flex-wrap:wrap">
+          <span style="display:flex;gap:3px;align-items:center"><span style="color:#888;font-size:11px">Color</span>
             <button class="ev-btn active" data-cm="role" onclick="setColorMode('role')">Default</button>
             <button class="ev-btn" data-cm="cluster" onclick="setColorMode('cluster')">Cluster</button>
             <button class="ev-btn" data-cm="subcluster" onclick="setColorMode('subcluster')">Sub</button>
             <button class="ev-btn" data-cm="subsubcluster" onclick="setColorMode('subsubcluster')">Sub-sub</button>
           </span>
-          <span style="display:flex;gap:3px;align-items:center"><span style="color:#888;font-size:10px">Label</span>
+          <span style="display:flex;gap:3px;align-items:center"><span style="color:#888;font-size:11px">Label</span>
             <button class="ev-btn active" data-la="gene" onclick="setLabelAnnotation('gene')">Name</button>
             <button class="ev-btn" data-la="cluster" onclick="setLabelAnnotation('cluster')">+Cluster</button>
             <button class="ev-btn" data-la="subcluster" onclick="setLabelAnnotation('subcluster')">+Sub</button>
@@ -289,7 +289,7 @@ canvas { display:block; }
 <p style="margin-top:8px"><a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" style="color:var(--accent);font-weight:600">FlyPredictome Database →</a> — search any protein pair for predicted structures, PAE heatmaps, and the <a href="https://github.com/flyark/AFM-LIS" target="_blank" style="color:var(--accent)">iLIS metric</a>.</p>
 <h3>Network Construction</h3>
 <p>This network shows <b>evidence-supported positive PPIs</b> from the FlyPredictome atlas:</p>
-<ol style="font-size:12px">
+<ol style="font-size:13.5px">
 <li><em>Drosophila</em> protein pairs were scored with AlphaFold-Multimer and iLIS</li>
 <li>Positive PPIs were selected at <b>iLIS &ge; 0.223</b> (10% FPR)</li>
 <li>Only PPIs with <b>prior evidence</b> were retained: fly literature, BioGRID, genetic interaction (MIST), or conserved interolog (DIOPT ≥ 4)</li>
@@ -303,7 +303,7 @@ canvas { display:block; }
 <li><b>Interolog only</b> — Conserved interologs (DIOPT ≥ 4) without fly evidence</li>
 <li><b>Both</b> — PPIs supported by both fly evidence and conserved interologs — highest confidence</li>
 </ul>
-<p style="font-size:11px;color:#888;margin-top:4px">Edge colors: <span style="color:rgb(44,115,168)">blue</span> = fly evidence, <span style="color:rgb(20,140,120)">teal</span> = both, <span style="color:rgb(210,120,40)">orange</span> = interolog only.</p>
+<p style="font-size:12.5px;color:#888;margin-top:4px">Edge colors: <span style="color:rgb(44,115,168)">blue</span> = fly evidence, <span style="color:rgb(20,140,120)">teal</span> = both, <span style="color:rgb(210,120,40)">orange</span> = interolog only.</p>
 <h3>FPR Filter</h3>
 <ul>
 <li><b>&le;10%</b> — All evidence-supported PPIs (iLIS &ge; 0.223)</li>
@@ -347,11 +347,11 @@ canvas { display:block; }
 <li><a href="https://github.com/flyark/FlyPredictome-network" target="_blank" style="color:var(--accent)">GitHub</a> — source code and data for this viewer</li>
 </ul>
 <h3>Sharing</h3>
-<p style="font-size:12px">Direct links to proteins and clusters are supported via URL hash:<br>
+<p style="font-size:13.5px">Direct links to proteins and clusters are supported via URL hash:<br>
 <code>#gene/Akt1</code> · <code>#cluster/5</code> · <code>#sub/2/6</code> · <code>#overview</code></p>
 <h3>How to Cite</h3>
-<p style="font-size:11px;color:#666">Kim et al., FlyPredictome: a structural atlas of predicted protein-protein interactions in <em>Drosophila</em>. <em>bioRxiv</em> (2026). doi: <a href="https://doi.org/10.64898/2026.04.14.718529" target="_blank" style="color:var(--accent)">10.64898/2026.04.14.718529</a></p>
-<p style="font-size:10px;color:#aaa">Interactive network viewer: <a href="https://flyark.github.io/FlyPredictome-network/" style="color:#aaa">flyark.github.io/FlyPredictome-network</a></p>
+<p style="font-size:12.5px;color:#666">Kim et al., FlyPredictome: a structural atlas of predicted protein-protein interactions in <em>Drosophila</em>. <em>bioRxiv</em> (2026). doi: <a href="https://doi.org/10.64898/2026.04.14.718529" target="_blank" style="color:var(--accent)">10.64898/2026.04.14.718529</a></p>
+<p style="font-size:11px;color:#aaa">Interactive network viewer: <a href="https://flyark.github.io/FlyPredictome-network/" style="color:#aaa">flyark.github.io/FlyPredictome-network</a></p>
 </div>
 </div>
 
@@ -382,6 +382,7 @@ new Response(new Blob([_bin]).stream().pipeThrough(new DecompressionStream('gzip
 
 function init(D){
 const OV_NODES=D.ov[0], OV_EDGES=D.ov[1], CX_EDGES=D.cx, CL=D.cl, EV=D.ev;
+window.CL=CL;   // exposed for the structure-surfacing add-on (member->cluster-path search)
 
 // cLIP availability: genes with a pre-computed bundle (≥2 network partners). Gates the per-node cLIP link.
 let CLIP_AVAIL=null;
@@ -391,6 +392,8 @@ let CURRENT_GENE=null;
 function positionClipFab(){ const fab=document.getElementById('clip-fab'); if(!fab||fab.style.display==='none')return; const ec=document.getElementById('edge-ctrl'); fab.style.top=(ec?ec.offsetTop+ec.offsetHeight+8:8)+'px'; }
 function updateClipFab(gid){
   CURRENT_GENE=gid||null;
+  if(window.onGeneComplex)window.onGeneComplex(gid||null);   // structure-surfacing add-on: show "3D complex" btn if this gene is in an AF3 complex
+  if(window.onSubView)window.onSubView(null,null,null);      // hide the cluster 3D FAB on any view change (showSub/showSubSub re-show it)
   const fab=document.getElementById('clip-fab'); if(!fab)return;
   const node=gid?OV_NODES.find(n=>n[0]===gid):null;
   const fbgn=node&&node[1]!==gid?node[1]:'';
@@ -408,7 +411,7 @@ const side=document.getElementById('side'),bc_=document.getElementById('bc');
 const stats_=document.getElementById('stats'),qInput=document.getElementById('q'),qInfo=document.getElementById('qinfo');
 
 let W,H,sc=1,px=0,py=0;
-let level='overview',curCi=null,curSi=null;
+let level='overview',curCi=null,curSi=null,curSsi=null;
 let nodes=[],edges=[],allEdges=[],nmap={};
 let drag=false,dnode=null,lm=null,moved=false;
 let hover=null,hits=new Set(),nbrs=new Set(),focus=null;
@@ -767,8 +770,8 @@ function autoFit(){
 }
 
 function showSub(ci,si){ updateClipFab(null);
-  hideGrid();resize();
-  level='sub';curCi=ci;curSi=si;hits.clear();nbrs.clear();focus=null;savedLayout=null;_savedAllNodes=null;_savedAllEdges=null;if(minPPIInput)minPPIInput.value='1';
+  hideLanding();hideGrid();resize();
+  level='sub';curCi=ci;curSi=si;curSsi=null;hits.clear();nbrs.clear();focus=null;savedLayout=null;_savedAllNodes=null;_savedAllEdges=null;if(minPPIInput)minPPIInput.value='1';
   const c=CL[ci],sc_=c[8][si];
   const hasSubSub=sc_[6]===1;
   const subsubs=sc_[7]||[];
@@ -788,6 +791,7 @@ function showSub(ci,si){ updateClipFab(null);
   nmap={};nodes.forEach(n=>nmap[n.id]=n);
   autoFit();
   bc_.innerHTML=`<a onclick="showOverview()">All</a> → <a onclick="showCluster(${ci})">${c[0]}</a> → <b>${sc_[0]} (${sc_[1]})</b>`;
+  if(window.onSubView)window.onSubView(ci,si,null);   // surface this sub-cluster's AF3 complex(es)
   const ssInfo=hasSubSub?` · ${subsubs.length} sub-groups`:'';
   stats_.textContent=`${sc_[2]} proteins · ${sc_[3]} PPIs${ssInfo}`;
   updateEvCount();
@@ -810,13 +814,13 @@ function showSub(ci,si){ updateClipFab(null);
       const col=SUB_PALETTE[ssi%SUB_PALETTE.length];
       const goHint=_goDataHint(ss[6]);
       const d=el('div','si');d.style.cssText='display:flex;align-items:flex-start;gap:6px;padding:5px 6px;';
-      const addBtn=el('span');addBtn.textContent='+';addBtn.style.cssText='width:16px;height:16px;display:flex;align-items:center;justify-content:center;border-radius:3px;border:1px solid #ccc;font-size:10px;font-weight:700;color:#888;cursor:pointer;flex-shrink:0;margin-top:2px;';
+      const addBtn=el('span');addBtn.textContent='+';addBtn.style.cssText='width:16px;height:16px;display:flex;align-items:center;justify-content:center;border-radius:3px;border:1px solid #ccc;font-size:11px;font-weight:700;color:#888;cursor:pointer;flex-shrink:0;margin-top:2px;';
       addBtn.onmouseenter=()=>{addBtn.style.borderColor='var(--accent)';addBtn.style.color='var(--accent)';};
       addBtn.onmouseleave=()=>{addBtn.style.borderColor='#ccc';addBtn.style.color='#888';};
       addBtn.onclick=(e)=>{e.stopPropagation();pickGroup('subsub',ci,si,ssi,ss[0],col);};
       d.appendChild(addBtn);
       const inner=el('div');inner.style.cssText='flex:1;min-width:0;cursor:pointer;';
-      inner.innerHTML=`<div class="dot" style="background:${col};display:inline-block;vertical-align:middle;margin-right:4px"></div><span style="font-size:12px"><b>${ss[0]}</b> <span style="color:#999">${ss[2]} proteins · ${ss[1]}</span></span>${goHint?'<div style="font-size:11px;color:#2C73A8;margin-top:1px">'+goHint+'</div>':''}`;
+      inner.innerHTML=`<div class="dot" style="background:${col};display:inline-block;vertical-align:middle;margin-right:4px"></div><span style="font-size:13.5px"><b>${ss[0]}</b> <span style="color:#999">${ss[2]} proteins · ${ss[1]}</span></span>${goHint?'<div style="font-size:12.5px;color:#2C73A8;margin-top:1px">'+goHint+'</div>':''}`;
       inner.onclick=()=>showSubSub(ci,si,ssi);
       d.appendChild(inner);
       side.appendChild(d);
@@ -830,15 +834,15 @@ function showSub(ci,si){ updateClipFab(null);
   const sorted=[...nodes].sort((a,b)=>b.deg-a.deg).slice(0,20);
   sorted.forEach(n=>{
     const d=el('div','si');
-    d.innerHTML=`<div class="dot" style="background:${n.col}"></div>${n.id} <span style="color:#aaa;font-size:9px">${n.deg} PPIs</span>`;
+    d.innerHTML=`<div class="dot" style="background:${n.col}"></div>${n.id} <span style="color:#aaa;font-size:10px">${n.deg} PPIs</span>`;
     d.onclick=()=>showGene(n.id);side.appendChild(d);
   });
   draw();
 }
 
 function showSubSub(ci,si,ssi){ updateClipFab(null);
-  hideGrid();resize();
-  level='subsub';curCi=ci;curSi=si;hits.clear();nbrs.clear();focus=null;savedLayout=null;_savedAllNodes=null;_savedAllEdges=null;if(minPPIInput)minPPIInput.value='1';
+  hideLanding();hideGrid();resize();
+  level='subsub';curCi=ci;curSi=si;curSsi=ssi;hits.clear();nbrs.clear();focus=null;savedLayout=null;_savedAllNodes=null;_savedAllEdges=null;if(minPPIInput)minPPIInput.value='1';
   const c=CL[ci],sc_=c[8][si];
   const subsubs=sc_[7]||[];
   const ss=subsubs[ssi];
@@ -854,6 +858,7 @@ function showSubSub(ci,si,ssi){ updateClipFab(null);
   nmap={};nodes.forEach(n=>nmap[n.id]=n);
   autoFit();
   bc_.innerHTML=`<a onclick="showOverview()">All</a> → <a onclick="showCluster(${ci})">${c[0]}</a> → <a onclick="showSub(${ci},${si})">${sc_[0]}</a> → <b>${ss[0]} (${ss[1]})</b>`;
+  if(window.onSubView)window.onSubView(ci,si,ssi);   // surface this sub-sub-cluster's AF3 complex(es)
   stats_.textContent=`${ss[2]} proteins · ${ss[3]} PPIs`;
   updateEvCount();
 
@@ -868,7 +873,7 @@ function showSubSub(ci,si,ssi){ updateClipFab(null);
   const sorted=[...nodes].sort((a,b)=>b.deg-a.deg);
   sorted.forEach(n=>{
     const d=el('div','si');
-    d.innerHTML=`<div class="dot" style="background:${n.col}"></div>${n.id} <span style="color:#aaa;font-size:9px">${n.deg} PPIs</span>`;
+    d.innerHTML=`<div class="dot" style="background:${n.col}"></div>${n.id} <span style="color:#aaa;font-size:10px">${n.deg} PPIs</span>`;
     d.onclick=()=>showGene(n.id);side.appendChild(d);
   });
   autoLabelSettings(nodes.length);draw();
@@ -933,14 +938,14 @@ function showGene(gid){
   card.style.cssText='background:#fff;border:1px solid #e0e0e0;border-radius:5px;padding:8px;margin-bottom:8px;';
   const gfbgn=OV_NODES.find(n=>n[0]===gid);
   const fbgnStr=gfbgn&&gfbgn[1]!==gid?gfbgn[1]:'';
-  card.innerHTML=`<div style="font-size:14px;font-weight:700;color:#2C73A8">${gid}</div>
-    ${fbgnStr?'<div style="font-size:10px;color:#888">'+fbgnStr+'</div>':''}
-    <div style="font-size:11px;margin-top:4px">
+  card.innerHTML=`<div style="font-size:15.5px;font-weight:700;color:#2C73A8">${gid}</div>
+    ${fbgnStr?'<div style="font-size:11px;color:#888">'+fbgnStr+'</div>':''}
+    <div style="font-size:12.5px;margin-top:4px">
     <div><span style="color:#888">Cluster:</span> <a onclick="showCluster(${ci})" style="color:${c[2]};cursor:pointer;font-weight:600">${c[0]}</a></div>
     <div><span style="color:#888">Sub-cluster:</span> <a onclick="showSub(${ci},${si})" style="color:${subColor(ci,si,c[8].length)};cursor:pointer;font-weight:600">${sc_[0]}</a></div>
     ${(()=>{const nd=sc_[4].find(n=>n[0]===gid);const ssi=nd?nd[4]:-1;if(ssi>=0&&sc_[7]&&sc_[7][ssi]){const ss=sc_[7][ssi];return '<div><span style="color:#888">Sub-sub:</span> <a onclick="showSubSub('+ci+','+si+','+ssi+')" style="color:'+SUB_PALETTE[ssi%SUB_PALETTE.length]+';cursor:pointer;font-weight:600">'+ss[0]+'</a></div>';}return '';})()}
     <div><span style="color:#888">PPIs:</span> <b>${filteredNbrs.length}</b></div></div>
-    <div style="margin-top:6px;font-size:10px;display:flex;gap:8px;flex-wrap:wrap">
+    <div style="margin-top:6px;font-size:11px;display:flex;gap:8px;flex-wrap:wrap">
     ${fbgnStr?`<a href="https://flybase.org/reports/${fbgnStr}" target="_blank" style="color:var(--accent)">FlyBase</a>`:''}
     <a href="https://www.flyrnai.org/tools/fly_predictome/web/famdb_summary/${fbgnStr}" target="_blank" style="color:var(--accent)">FlyPredictome</a>
     <a href="https://flyark.github.io/LIVIA/flypredictome.html?gene=${gid}" target="_blank" style="color:#59A14F">LIVIA</a>
@@ -950,18 +955,18 @@ function showGene(gid){
   updateClipFab(gid);
 
   const btnRow=el('div');btnRow.style.cssText='display:flex;gap:4px;margin-bottom:6px;';
-  const backBtn=el('button','btn');backBtn.textContent=`← ${sc_[0]}`;backBtn.style.cssText='flex:1;background:#777;font-size:11px;padding:5px;';
+  const backBtn=el('button','btn');backBtn.textContent=`← ${sc_[0]}`;backBtn.style.cssText='flex:1;background:#777;font-size:12.5px;padding:5px;';
   backBtn.onclick=()=>showSub(ci,si);btnRow.appendChild(backBtn);
-  const selBtn=el('button','btn');selBtn.textContent='+ Select';selBtn.style.cssText='flex:1;background:#E17000;font-size:11px;padding:5px;';
+  const selBtn=el('button','btn');selBtn.textContent='+ Select';selBtn.style.cssText='flex:1;background:#E17000;font-size:12.5px;padding:5px;';
   selBtn.onclick=()=>{pickGene(gid);updatePickBar();};btnRow.appendChild(selBtn);
   side.appendChild(btnRow);
 
   // Min PPIs filter for current view
   const filterRow=el('div');filterRow.style.cssText='display:flex;align-items:center;gap:6px;margin-bottom:8px;padding:4px 0;';
-  const filterLabel=el('label');filterLabel.style.cssText='font-size:11px;color:#666;white-space:nowrap;';
+  const filterLabel=el('label');filterLabel.style.cssText='font-size:12.5px;color:#666;white-space:nowrap;';
   filterLabel.textContent='Min PPIs in view:';
   const filterInput=el('input');filterInput.type='number';filterInput.min='1';filterInput.max='999';
-  filterInput.value='1';filterInput.style.cssText='width:50px;font-size:12px;padding:3px 6px;border:1px solid #ccc;border-radius:4px;text-align:center;';
+  filterInput.value='1';filterInput.style.cssText='width:50px;font-size:13.5px;padding:3px 6px;border:1px solid #ccc;border-radius:4px;text-align:center;';
   // Save original data for reset
   const _origNodes=nodes.map(n=>({...n}));
   const _origEdges=[...allEdges];
@@ -1014,7 +1019,7 @@ function showGene(gid){
       const edgeInfo=(adj[gid]||[]).find(x=>x.id===g.id);
       const ilis=edgeInfo&&edgeInfo.iLIS?edgeInfo.iLIS.toFixed(3):'';
       const evTag=edgeInfo?(edgeInfo.ev===1?'both':edgeInfo.ev===0?'fly':'interolog'):'';
-      d.innerHTML=`<div class="dot" style="background:${col}"></div><span style="flex:1">${g.id}</span><span style="color:#aaa;font-size:9px">${ilis}</span><span style="color:#bbb;font-size:8px;margin-left:2px">${evTag}</span>`;
+      d.innerHTML=`<div class="dot" style="background:${col}"></div><span style="flex:1">${g.id}</span><span style="color:#aaa;font-size:10px">${ilis}</span><span style="color:#bbb;font-size:9px;margin-left:2px">${evTag}</span>`;
       d.onclick=()=>showGene(g.id);side.appendChild(d);
     });
   });
@@ -1298,7 +1303,7 @@ function updatePickBar(){
   let h='';
   // Cluster picks
   if(pickedClusters.length){
-    h+='<div style="font-size:10px;font-weight:600;color:#888;margin-bottom:3px">CLUSTERS</div>';
+    h+='<div style="font-size:11px;font-weight:600;color:#888;margin-bottom:3px">CLUSTERS</div>';
     pickedClusters.forEach(c=>{h+=`<span class="pick-gene" style="background:${c.col}" onclick="unpickCluster(${c.ci})">${c.label} ×</span>`;});
     h+='<div style="margin-top:4px">';
     if(pickedClusters.length>=2)h+='<button class="btn-sm btn-find" onclick="compareClusterPicks()">Compare</button>';
@@ -1306,7 +1311,7 @@ function updatePickBar(){
   }
   // Sub-cluster picks
   if(pickedSubs.length){
-    h+='<div style="font-size:10px;font-weight:600;color:#888;margin-bottom:3px'+(pickedClusters.length?';margin-top:6px':'')+'">SUB-CLUSTERS</div>';
+    h+='<div style="font-size:11px;font-weight:600;color:#888;margin-bottom:3px'+(pickedClusters.length?';margin-top:6px':'')+'">SUB-CLUSTERS</div>';
     pickedSubs.forEach(s=>{h+=`<span class="pick-gene" style="background:${s.col}" onclick="unpickSub(${s.ci},${s.si})">${s.label} ×</span>`;});
     h+='<div style="margin-top:4px">';
     if(pickedSubs.length>=2)h+='<button class="btn-sm btn-find" onclick="compareSubPicks()">Compare</button>';
@@ -1315,7 +1320,7 @@ function updatePickBar(){
   // Gene picks
   if(pickedGenes.length){
     const hasAbove=pickedClusters.length||pickedSubs.length;
-    h+='<div style="font-size:10px;font-weight:600;color:#888;margin-bottom:3px'+(hasAbove?';margin-top:6px':'')+'">PROTEINS</div>';
+    h+='<div style="font-size:11px;font-weight:600;color:#888;margin-bottom:3px'+(hasAbove?';margin-top:6px':'')+'">PROTEINS</div>';
     pickedGenes.forEach(g=>{h+=`<span class="pick-gene" onclick="unpickGene('${g}')">${g} ×</span>`;});
     h+='<div style="margin-top:4px">';
     if(pickedGenes.length>=2)h+='<button class="btn-sm btn-find" onclick="showPickedSubnetwork()">Subnetwork</button><button class="btn-sm btn-find" onclick="findPaths()">Find Paths</button><button class="btn-sm btn-find" onclick="showSharedNetwork()">Shared</button>';
@@ -1362,24 +1367,24 @@ function findPaths(){
   updateEvCount();
   side.innerHTML='';
   pairs.forEach(pp=>{const d=el('div');d.style.cssText='background:#fff;border:1px solid #e8e8e8;border-radius:4px;padding:6px;margin:4px 0;';
-    let h=`<div style="font-size:11px;font-weight:700">${pp.a} ↔ ${pp.b}</div>`;
+    let h=`<div style="font-size:12.5px;font-weight:700">${pp.a} ↔ ${pp.b}</div>`;
     if(pp.path){
-      h+=`<div style="font-size:10px;color:#888">${pp.hops} hop${pp.hops>1?'s':''}</div><div style="font-size:10px;margin-top:2px">`;
+      h+=`<div style="font-size:11px;color:#888">${pp.hops} hop${pp.hops>1?'s':''}</div><div style="font-size:11px;margin-top:2px">`;
       pp.path.forEach((g,k)=>{
         const col=pickedGenes.includes(g)?'#2C73A8':'#5DADE2';
         const ann=geneAnnotation(g);
-        h+=`<span style="color:${col};cursor:pointer;font-weight:${pickedGenes.includes(g)?'700':'400'}" onclick="showGene('${g}')">${g}</span><span style="color:#aaa;font-size:8px">(${ann})</span>`;
+        h+=`<span style="color:${col};cursor:pointer;font-weight:${pickedGenes.includes(g)?'700':'400'}" onclick="showGene('${g}')">${g}</span><span style="color:#aaa;font-size:9px">(${ann})</span>`;
         if(k<pp.path.length-1){
           // Find iLIS between this gene and next
           const next=pp.path[k+1];
           const edgeInfo=(adj[g]||[]).find(x=>x.id===next);
           const ilis=edgeInfo&&edgeInfo.iLIS?edgeInfo.iLIS.toFixed(3):'?';
-          h+=` <span style="color:#999;font-size:9px">→(${ilis})</span> `;
+          h+=` <span style="color:#999;font-size:10px">→(${ilis})</span> `;
         }
       });
       h+='</div>';
     }
-    else h+='<div style="font-size:10px;color:#999">No path (>8 hops)</div>';
+    else h+='<div style="font-size:11px;color:#999">No path (>8 hops)</div>';
     d.innerHTML=h;side.appendChild(d);
   });
   autoLabelSettings(nodes.length);draw();
@@ -1404,9 +1409,9 @@ function showSharedNetwork(){
   updateEvCount();
   side.innerHTML='';
   if(shared.length){const h=el('div','sh');h.textContent='Shared ('+shared.length+')';side.appendChild(h);
-    shared.forEach(g=>{const e2=idxGet(g);const col2=e2&&CL[e2.ci]?CL[e2.ci][2]:'#999';const ann=geneAnnotation(g);const d=el('div','si');d.innerHTML=`<div class="dot" style="background:${col2}"></div><b>${g}</b> <span style="color:#aaa;font-size:9px">${ann}</span>`;d.onclick=()=>showGene(g);side.appendChild(d);});}
+    shared.forEach(g=>{const e2=idxGet(g);const col2=e2&&CL[e2.ci]?CL[e2.ci][2]:'#999';const ann=geneAnnotation(g);const d=el('div','si');d.innerHTML=`<div class="dot" style="background:${col2}"></div><b>${g}</b> <span style="color:#aaa;font-size:10px">${ann}</span>`;d.onclick=()=>showGene(g);side.appendChild(d);});}
   if(conn2.length){const h=el('div','sh');h.textContent='Connected ≥2 ('+conn2.length+')';side.appendChild(h);
-    conn2.forEach(g=>{const e=idxGet(g);const col=e&&CL[e.ci]?CL[e.ci][2]:'#999';const ann=geneAnnotation(g);const d=el('div','si');d.innerHTML=`<div class="dot" style="background:${col}"></div>${g} <span style="color:#999;font-size:9px">${ann} · ×${allNbrs[g]}</span>`;d.onclick=()=>showGene(g);side.appendChild(d);});}
+    conn2.forEach(g=>{const e=idxGet(g);const col=e&&CL[e.ci]?CL[e.ci][2]:'#999';const ann=geneAnnotation(g);const d=el('div','si');d.innerHTML=`<div class="dot" style="background:${col}"></div>${g} <span style="color:#999;font-size:10px">${ann} · ×${allNbrs[g]}</span>`;d.onclick=()=>showGene(g);side.appendChild(d);});}
   autoLabelSettings(nodes.length);draw();
 }
 
@@ -1576,11 +1581,11 @@ qInput.addEventListener('input',()=>{
   // Tag match type for sorting: exact=0, prefix=1, contains=2
   exact.forEach(v=>{v._mt=0;});prefix.forEach(v=>{v._mt=1;});contains.forEach(v=>{v._mt=2;});
   ms.push(...exact,...prefix,...contains);
-  if(!ms.length){searchPanel.innerHTML='<div style="padding:6px;font-size:11px;color:#999">No results</div>';draw();return;}
+  if(!ms.length){searchPanel.innerHTML='<div style="padding:6px;font-size:12.5px;color:#999">No results</div>';draw();return;}
   ms.forEach(m=>hits.add(m.id));
 
   // Build results in sidebar
-  const hdr=document.createElement('div');hdr.style.cssText='padding:4px 0;font-size:11px;color:#888;';
+  const hdr=document.createElement('div');hdr.style.cssText='padding:4px 0;font-size:12.5px;color:#888;';
   hdr.textContent=ms.length+' result'+(ms.length>1?'s':'');searchPanel.appendChild(hdr);
 
   // Sort: exact match first, then prefix, then contains; within each group by degree
@@ -1597,7 +1602,7 @@ qInput.addEventListener('input',()=>{
     searchPanel.appendChild(d);
   });
   if(ms.length>25){
-    const more=document.createElement('div');more.style.cssText='padding:4px;font-size:10px;color:#aaa;text-align:center;';
+    const more=document.createElement('div');more.style.cssText='padding:4px;font-size:11px;color:#aaa;text-align:center;';
     more.textContent='+'+(ms.length-25)+' more';searchPanel.appendChild(more);
   }
   draw();
@@ -1645,12 +1650,12 @@ qInput.addEventListener('keydown',e=>{
 function addViewToggle(gridFn, networkFn, backLabel, backFn){
   const wrap=el('div');wrap.style.cssText='display:flex;gap:4px;margin-bottom:6px;';
   if(backLabel){
-    const bb=el('button','btn');bb.textContent=backLabel;bb.style.cssText='flex:1;background:#777;font-size:11px;padding:5px;';
+    const bb=el('button','btn');bb.textContent=backLabel;bb.style.cssText='flex:1;background:#777;font-size:12.5px;padding:5px;';
     bb.onclick=backFn;wrap.appendChild(bb);
   }
-  const gb=el('button','btn');gb.textContent='Grid';gb.style.cssText='flex:1;background:#59A14F;font-size:11px;padding:5px;';
+  const gb=el('button','btn');gb.textContent='Grid';gb.style.cssText='flex:1;background:#59A14F;font-size:12.5px;padding:5px;';
   gb.onclick=gridFn;wrap.appendChild(gb);
-  const nb=el('button','btn');nb.textContent='Network';nb.style.cssText='flex:1;font-size:11px;padding:5px;';
+  const nb=el('button','btn');nb.textContent='Network';nb.style.cssText='flex:1;font-size:12.5px;padding:5px;';
   nb.onclick=networkFn;wrap.appendChild(nb);
   side.appendChild(wrap);
 }
@@ -1659,7 +1664,7 @@ function addViewToggle(gridFn, networkFn, backLabel, backFn){
 // Helper: layout toggle buttons (pre-computed vs force)
 function addLayoutToggle(container){
   const row=el('div');row.style.cssText='display:flex;gap:4px;margin:4px 0 8px;';
-  const mkBtn=(label,active)=>{const b=el('button','btn');b.textContent=label;b.style.cssText='flex:1;font-size:11px;padding:5px;background:'+(active?'var(--accent)':'#ddd;color:#666');return b;};
+  const mkBtn=(label,active)=>{const b=el('button','btn');b.textContent=label;b.style.cssText='flex:1;font-size:12.5px;padding:5px;background:'+(active?'var(--accent)':'#ddd;color:#666');return b;};
   const bPre=mkBtn('Pre-computed',!savedLayout);
   const bForce=mkBtn('Force layout',!!savedLayout);
   bPre.onclick=()=>{
@@ -1697,7 +1702,7 @@ function renderGO(container, goData, label){
   const wrap=el('div');wrap.style.cssText='padding:4px 6px;margin:2px 0 6px;';
   const hdr=el('div');hdr.style.cssText='display:flex;align-items:center;justify-content:space-between;';
   const sh=el('div','sh');sh.textContent='GO Enrichment';sh.style.margin='0';hdr.appendChild(sh);
-  const dlBtn=el('button');dlBtn.textContent='CSV';dlBtn.style.cssText='font-size:9px;padding:1px 6px;border:1px solid #ccc;border-radius:3px;background:#fff;color:#666;cursor:pointer;';
+  const dlBtn=el('button');dlBtn.textContent='CSV';dlBtn.style.cssText='font-size:10px;padding:1px 6px;border:1px solid #ccc;border-radius:3px;background:#fff;color:#666;cursor:pointer;';
   dlBtn.onclick=()=>{
     let csv='aspect,term,n,neg_log10_padj\n';
     allBP.forEach(g=>{csv+=`"BP","${g.term}",${g.k},${g.logp}\n`;});
@@ -1710,9 +1715,9 @@ function renderGO(container, goData, label){
   const aspects=[['Biological Process','#2C73A8',allBP],['Molecular Function','#59A14F',allMF],['Cellular Component','#E15759',allCC]];
   aspects.forEach(([title,color,terms])=>{
     if(!terms.length) return;
-    const ah=el('div');ah.style.cssText='font-size:10px;color:#888;font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;';ah.textContent=title;wrap.appendChild(ah);
+    const ah=el('div');ah.style.cssText='font-size:11px;color:#888;font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;';ah.textContent=title;wrap.appendChild(ah);
     terms.forEach(g=>{
-      const d=el('div');d.style.cssText='font-size:11px;color:#555;padding:2px 0;line-height:1.4;';
+      const d=el('div');d.style.cssText='font-size:12.5px;color:#555;padding:2px 0;line-height:1.4;';
       d.innerHTML=`<span style="color:${color};font-weight:600">·</span> ${g.term} <span style="color:#999">(n=${g.k}, ${fmtP(g.logp)})</span>`;
       wrap.appendChild(d);
     });
@@ -1776,14 +1781,14 @@ function buildSide(){
     CL.forEach((c,i)=>{
       const col=c[2];
       const d=el('div','si');d.style.cssText='display:flex;align-items:center;gap:4px;';
-      const addBtn=el('span');addBtn.textContent='+';addBtn.style.cssText='width:18px;height:18px;display:flex;align-items:center;justify-content:center;border-radius:3px;border:1px solid #ccc;font-size:11px;font-weight:700;color:#888;cursor:pointer;flex-shrink:0;';
+      const addBtn=el('span');addBtn.textContent='+';addBtn.style.cssText='width:18px;height:18px;display:flex;align-items:center;justify-content:center;border-radius:3px;border:1px solid #ccc;font-size:12.5px;font-weight:700;color:#888;cursor:pointer;flex-shrink:0;';
       addBtn.onmouseenter=()=>{addBtn.style.borderColor='var(--accent)';addBtn.style.color='var(--accent)';};
       addBtn.onmouseleave=()=>{addBtn.style.borderColor='#ccc';addBtn.style.color='#888';};
       addBtn.onclick=(e)=>{e.stopPropagation();pickCluster(i,'C'+(i+1),col);};
       d.appendChild(addBtn);
       const dot=el('div','dot');dot.style.background=col;d.appendChild(dot);
       const goHint=_goDataHint(c[9]);
-      const sp=el('span');sp.style.cssText='flex:1;cursor:pointer;font-size:12px;min-width:0;';sp.innerHTML=`<b>C${i+1}</b> <span style="color:#999">${c[3]} proteins · ${c[1]}</span>${goHint?'<div style="font-size:11px;color:#2C73A8;margin-top:1px">'+goHint+'</div>':''}`;sp.onclick=()=>showCluster(i);d.appendChild(sp);
+      const sp=el('span');sp.style.cssText='flex:1;cursor:pointer;font-size:13.5px;min-width:0;';sp.innerHTML=`<b>C${i+1}</b> <span style="color:#999">${c[3]} proteins · ${c[1]}</span>${goHint?'<div style="font-size:12.5px;color:#2C73A8;margin-top:1px">'+goHint+'</div>':''}`;sp.onclick=()=>showCluster(i);d.appendChild(sp);
       side.appendChild(d);
     });
   }else if(level==='cluster'){
@@ -1799,21 +1804,21 @@ function buildSide(){
     c[8].forEach((sc_,si)=>{
       const col=subColor(curCi,si,c[8].length);
       const d=el('div','si');d.style.cssText='display:flex;align-items:center;gap:4px;';
-      const addBtn=el('span');addBtn.textContent='+';addBtn.style.cssText='width:18px;height:18px;display:flex;align-items:center;justify-content:center;border-radius:3px;border:1px solid #ccc;font-size:11px;font-weight:700;color:#888;cursor:pointer;flex-shrink:0;';
+      const addBtn=el('span');addBtn.textContent='+';addBtn.style.cssText='width:18px;height:18px;display:flex;align-items:center;justify-content:center;border-radius:3px;border:1px solid #ccc;font-size:12.5px;font-weight:700;color:#888;cursor:pointer;flex-shrink:0;';
       addBtn.onmouseenter=()=>{addBtn.style.borderColor='var(--accent)';addBtn.style.color='var(--accent)';};
       addBtn.onmouseleave=()=>{addBtn.style.borderColor='#ccc';addBtn.style.color='#888';};
       addBtn.onclick=(e)=>{e.stopPropagation();pickSub(curCi,si,sc_[0],col);};
       d.appendChild(addBtn);
       const dot=el('div','dot');dot.style.background=col;d.appendChild(dot);
       const goHint=_goDataHint(sc_[8]);
-      const sp=el('span');sp.style.cssText='flex:1;cursor:pointer;font-size:12px;min-width:0;';sp.innerHTML=`<b>${sc_[0]}</b> <span style="color:#999">${sc_[2]} proteins · ${sc_[1]}</span>${goHint?'<div style="font-size:11px;color:#2C73A8;margin-top:1px">'+goHint+'</div>':''}`;sp.onclick=()=>showSub(curCi,si);d.appendChild(sp);
+      const sp=el('span');sp.style.cssText='flex:1;cursor:pointer;font-size:13.5px;min-width:0;';sp.innerHTML=`<b>${sc_[0]}</b> <span style="color:#999">${sc_[2]} proteins · ${sc_[1]}</span>${goHint?'<div style="font-size:12.5px;color:#2C73A8;margin-top:1px">'+goHint+'</div>':''}`;sp.onclick=()=>showSub(curCi,si);d.appendChild(sp);
       side.appendChild(d);
     });
     // Top proteins by degree
     const ph=el('div','sh');ph.style.marginTop='8px';ph.textContent='Top proteins';side.appendChild(ph);
     [...c[6]].sort((a,b)=>b[3]-a[3]).slice(0,30).forEach(n=>{
       const col=subColor(curCi,n[4],c[8].length);
-      const d=el('div','si');d.innerHTML=`<div class="dot" style="background:${col}"></div>${n[0]} <span style="color:#aaa;font-size:9px">${n[3]} PPIs</span>`;
+      const d=el('div','si');d.innerHTML=`<div class="dot" style="background:${col}"></div>${n[0]} <span style="color:#aaa;font-size:10px">${n[3]} PPIs</span>`;
       d.onclick=()=>showGene(n[0]);side.appendChild(d);
     });
   }
@@ -1826,7 +1831,7 @@ function updateLegend(){
   const ln=(c,l)=>`<div class="leg-row"><div class="leg-line" style="border-color:${c}"></div>${l}</div>`;
   let h='';
   const eln=ln('rgba(44,115,168,0.5)','Fly evidence')+ln('rgba(20,140,120,0.5)','Both (fly + interolog)')+ln('rgba(210,120,40,0.5)','Interolog only');
-  if(level==='overview'){h=row('#4E79A7','Cluster (color)')+'<div style="font-size:9px;color:#999">Size = degree</div>'+eln;}
+  if(level==='overview'){h=row('#4E79A7','Cluster (color)')+'<div style="font-size:10px;color:#999">Size = degree</div>'+eln;}
   else if(level==='cluster'){h=row('#E15759','Sub-cluster (distinct colors)')+eln;}
   else if(level==='sub'){h=row('#E15759','Sub-group (color)')+eln;}
   else if(level==='subsub'){h=row('#4E79A7','Protein')+eln;}
@@ -1959,7 +1964,7 @@ cv.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect(),mx=e.clie
     const fbgn=OV_NODES.find(n=>n[0]===f.id);
     const fbgnId=fbgn&&fbgn[1]!==f.id?fbgn[1]:'';
     let tipHtml='<b>'+f.lbl+'</b>';
-    if(fbgnId) tipHtml+=' <span style="opacity:0.6;font-size:10px">'+fbgnId+'</span>';
+    if(fbgnId) tipHtml+=' <span style="opacity:0.6;font-size:11px">'+fbgnId+'</span>';
     if(f.ci!==undefined&&CL[f.ci]) tipHtml+='<br><span style="color:'+CL[f.ci][2]+'">C'+(f.ci+1)+'</span>';
     if(f.sub!==undefined) tipHtml+='-'+(f.sub+1);
     if(f.info) tipHtml+=' · '+f.info;
@@ -2061,7 +2066,7 @@ cv.addEventListener('touchend', e => {
           const fbgn = OV_NODES.find(n => n[0] === dnode.id);
           const fbgnId = fbgn && fbgn[1] !== dnode.id ? fbgn[1] : '';
           let tipHtml = '<b>' + dnode.lbl + '</b>';
-          if(fbgnId) tipHtml += ' <span style="opacity:0.6;font-size:10px">' + fbgnId + '</span>';
+          if(fbgnId) tipHtml += ' <span style="opacity:0.6;font-size:11px">' + fbgnId + '</span>';
           if(dnode.info) tipHtml += ' &middot; ' + dnode.info;
           else tipHtml += ' &middot; ' + (dnode.deg||0) + ' PPIs';
           tip.innerHTML = tipHtml;
@@ -2242,7 +2247,7 @@ function applyGeneListSubnet(){
       const e=idxGet(g);
       const col=e&&CL[e.ci]?CL[e.ci][2]:'#999';
       const d=el('div','si');
-      d.innerHTML=`<div class="dot" style="background:${col}"></div>${g} <span style="color:#999;font-size:9px">x${nbrCount[g]}</span>`;
+      d.innerHTML=`<div class="dot" style="background:${col}"></div>${g} <span style="color:#999;font-size:10px">x${nbrCount[g]}</span>`;
       d.onclick=()=>showGene(g);side.appendChild(d);
     });
   }
@@ -2284,11 +2289,11 @@ function showLanding(){
     card.onmouseleave=()=>{card.style.borderColor='#e0e0e0';card.style.borderLeftColor=c[2];card.style.boxShadow='none';};
     card.onclick=()=>showCluster(ci);
     card.innerHTML=`<div style="display:flex;align-items:center;gap:5px;margin-bottom:4px">
-      <span style="font-weight:700;font-size:13px;color:${c[2]}">C${ci+1}</span>
-      <span style="color:#555;font-size:11px;font-weight:500">${c[1]}</span>
+      <span style="font-weight:700;font-size:14.5px;color:${c[2]}">C${ci+1}</span>
+      <span style="color:#555;font-size:12.5px;font-weight:500">${c[1]}</span>
     </div>
-    <div style="font-size:10px;color:#666">${c[3]} proteins &middot; ${c[5]} sub-clusters</div>
-    ${goHint?'<div style="font-size:9px;color:#2C73A8;margin-top:3px">'+goHint+'</div>':''}`;
+    <div style="font-size:11px;color:#666">${c[3]} proteins &middot; ${c[5]} sub-clusters</div>
+    ${goHint?'<div style="font-size:10px;color:#2C73A8;margin-top:3px">'+goHint+'</div>':''}`;
     lg.appendChild(card);
   });
 }
@@ -2384,7 +2389,7 @@ function buildNetworkSidebar(label,labelMap,nComm,opts){
     const col=SUB_PALETTE[comm%SUB_PALETTE.length];
     const h=el('div','sh');h.innerHTML=`<span style="color:${col}">●</span> Group ${+comm+1} (${genes.length})`;side.appendChild(h);
     genes.sort((a,b)=>(b.deg||0)-(a.deg||0)).slice(0,20).forEach(n=>{
-      const d=el('div','si');d.innerHTML=`<div class="dot" style="background:${col}"></div>${n.id} <span style="color:#999;font-size:9px">${n.deg||0} PPIs</span>`;
+      const d=el('div','si');d.innerHTML=`<div class="dot" style="background:${col}"></div>${n.id} <span style="color:#999;font-size:10px">${n.deg||0} PPIs</span>`;
       d.onclick=()=>showGene(n.id);side.appendChild(d);
     });
     if(genes.length>20){const m=el('div','si');m.style.color='#999';m.textContent=`+${genes.length-20} more`;side.appendChild(m);}
@@ -2465,26 +2470,30 @@ document.addEventListener('keydown',e=>{
 });
 
 // ═══ URL hash navigation ═══
+let _histNav=false;   // true while applying a back/forward pop, so updateHash does not create a new entry
 function updateHash(){
+  if(_histNav) return;
   let h='';
   if(level==='overview') h='#overview';
   else if(level==='cluster'&&curCi!==null) h='#cluster/'+(curCi+1);
   else if(level==='sub'&&curCi!==null&&curSi!==null) h='#sub/'+(curCi+1)+'/'+(curSi+1);
+  else if(level==='subsub'&&curCi!==null&&curSi!==null&&curSsi!==null) h='#subsub/'+(curCi+1)+'/'+(curSi+1)+'/'+(curSsi+1);
   else if(level==='gene'&&focus) h='#gene/'+focus;
-  else h='';
-  history.replaceState(null,'',h||window.location.pathname);
+  if(h && h!==window.location.hash) history.pushState(null,'',h);   // each in-network view gets its own history entry
 }
 
 // Hook updateHash into view changes
-const _showOverview=showOverview,_showCluster=showCluster,_showSub=showSub,_showGene=showGene,_showLanding=showLanding;
+const _showOverview=showOverview,_showCluster=showCluster,_showSub=showSub,_showSubSub=showSubSub,_showGene=showGene,_showLanding=showLanding;
 showOverview=function(){_showOverview();updateHash();};
 showCluster=function(ci){_showCluster(ci);updateHash();};
 showSub=function(ci,si){_showSub(ci,si);updateHash();};
+showSubSub=function(ci,si,ssi){_showSubSub(ci,si,ssi);updateHash();};
 showGene=function(gid){_showGene(gid);updateHash();};
 showLanding=function(){_showLanding();history.replaceState(null,'',window.location.pathname);};
+const _showGridLanding=showClusterGridLanding;showClusterGridLanding=function(){_showGridLanding();if(window.onGridView)window.onGridView();if(!_histNav&&window.location.hash!=='#grid')history.pushState(null,'','#grid');};window.showClusterGridLanding=showClusterGridLanding;
 
 // Re-export patched functions
-window.showOverview=showOverview;window.showCluster=showCluster;window.showSub=showSub;window.showSubSub=showSubSub;window.showGene=showGene;window.showLanding=showLanding;
+window.showOverview=showOverview;window.showCluster=showCluster;window.showSub=showSub;window.showSubSub=showSubSub;window.showGene=showGene;window.showLanding=showLanding;window.hideLanding=hideLanding;window.hideGrid=hideGrid;
 
 function parseHash(){
   const h=window.location.hash;
@@ -2492,9 +2501,13 @@ function parseHash(){
   const parts=h.slice(1).split('/');
   if(parts[0]==='gene'&&parts[1]){const g=parts[1];if(idxGet(g))showGene(g);}
   else if(parts[0]==='cluster'&&parts[1]){const ci=parseInt(parts[1])-1;if(ci>=0&&ci<CL.length)showCluster(ci);}
+  else if(parts[0]==='subsub'&&parts[1]&&parts[2]&&parts[3]){const ci=parseInt(parts[1])-1,si=parseInt(parts[2])-1,ssi=parseInt(parts[3])-1;if(ci>=0&&ci<CL.length)showSubSub(ci,si,ssi);}
   else if(parts[0]==='sub'&&parts[1]&&parts[2]){const ci=parseInt(parts[1])-1,si=parseInt(parts[2])-1;if(ci>=0&&ci<CL.length)showSub(ci,si);}
+  else if(parts[0]==='grid') showClusterGridLanding();
   else if(parts[0]==='overview') showOverview();
 }
+// Back/forward buttons: re-render the view for the URL we landed on, without pushing a new history entry.
+window.addEventListener('popstate',()=>{ _histNav=true; if(window.location.hash) parseHash(); else showLanding(); _histNav=false; });
 
 // Visual controls
 document.getElementById('eo').addEventListener('input',function(){edgeAlpha=this.value/100;draw();});
@@ -2598,33 +2611,33 @@ setTimeout(parseHash,100);
 </script>
 <div id="genelist-bg" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:100;">
 <div id="genelist-modal" style="position:relative;background:#fff;border-radius:10px;max-width:420px;width:90%;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,0.25);max-height:90vh;overflow-y:auto;">
-  <button onclick="document.getElementById('genelist-bg').style.display='none'" style="float:right;background:none;border:none;font-size:22px;cursor:pointer;color:#999">&times;</button>
+  <button onclick="document.getElementById('genelist-bg').style.display='none'" style="float:right;background:none;border:none;font-size:24.5px;cursor:pointer;color:#999">&times;</button>
   <h3 style="margin-bottom:12px;color:#2C73A8">Highlight Protein List</h3>
-  <p style="font-size:12px;color:#666;margin-bottom:8px">Paste protein symbols (one per line, comma-separated, or space-separated). Matching proteins will be highlighted on the network.</p>
-  <textarea id="genelist-input" placeholder="Akt1&#10;foxo&#10;InR&#10;chico&#10;S6k&#10;Thor" style="width:100%;height:150px;padding:10px;font-size:13px;font-family:monospace;border:1px solid #ccc;border-radius:5px;resize:vertical;box-sizing:border-box"></textarea>
-  <div style="margin-top:6px;font-size:11px;color:#888;display:flex;gap:4px;align-items:center;flex-wrap:wrap">
+  <p style="font-size:13.5px;color:#666;margin-bottom:8px">Paste protein symbols (one per line, comma-separated, or space-separated). Matching proteins will be highlighted on the network.</p>
+  <textarea id="genelist-input" placeholder="Akt1&#10;foxo&#10;InR&#10;chico&#10;S6k&#10;Thor" style="width:100%;height:150px;padding:10px;font-size:14.5px;font-family:monospace;border:1px solid #ccc;border-radius:5px;resize:vertical;box-sizing:border-box"></textarea>
+  <div style="margin-top:6px;font-size:12.5px;color:#888;display:flex;gap:4px;align-items:center;flex-wrap:wrap">
     Examples:
-    <button onclick="document.getElementById('genelist-input').value='Akt1\nfoxo\nInR\nchico\nS6k\nThor\nAtg1\nPi3K59F'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">Insulin/TOR</button>
-    <button onclick="document.getElementById('genelist-input').value='Delta\nN\nSer\nH\nSu(H)\nmam\nE(spl)m8-HLH\ngro'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">Notch</button>
-    <button onclick="document.getElementById('genelist-input').value='dsh\nfz\nfz2\narr\nwg\nAxn\nsgg\narm\npygo'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">Wnt</button>
-    <button onclick="document.getElementById('genelist-input').value='hh\nptc\nsmo\nci\nfu\ncos2\nSu(fu)\nsmo'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">Hedgehog</button>
-    <button onclick="document.getElementById('genelist-input').value='Egfr\nspi\nStar\nRas85D\nrl\nDsor1\npnt\nksr'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">EGFR/MAPK</button>
-    <button onclick="document.getElementById('genelist-input').value='hpo\nsav\nwts\nmats\nyki\nsd\nex\nMer\nkib'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">Hippo</button>
-    <button onclick="document.getElementById('genelist-input').value='Rpn3\nRpn5\nRpn7\nRpn8\nRpn11\nRpn12\nRpt1\nRpt3\nRpt5\nRpt6'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#59A14F;cursor:pointer">Proteasome</button>
-    <button onclick="document.getElementById('genelist-input').value='Atg1\nAtg8a\nAtg8b\nAtg5\nAtg6\nAtg7\nAtg13\nAtg16\nUvrag'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#59A14F;cursor:pointer">Autophagy</button>
-    <button onclick="document.getElementById('genelist-input').value='per\ntim\nClk\ncyc\nsgg\nvri'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#59A14F;cursor:pointer">Circadian</button>
-    <button onclick="document.getElementById('genelist-input').value='Arp2\nArp3\nArpc1\nArpc2\nArpc3A\nArpc4\nArpc5'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">Arp2/3</button>
-    <button onclick="document.getElementById('genelist-input').value='CCT1\nCCT2\nCCT3\nCCT4\nCCT5\nCCT6\nCCT7\nCCT8'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">CCT/TRiC</button>
-    <button onclick="document.getElementById('genelist-input').value='E(z)\nSu(z)12\nesc\nCaf1-55\nPcl'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">PRC2</button>
-    <button onclick="document.getElementById('genelist-input').value='Vps4\nVta1\nALiX\nCHMP2B\nVps25\nVps28\nVps36\nshrb'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">ESCRT</button>
-    <button onclick="document.getElementById('genelist-input').value='Cdk1\nCdk2\nCdk4\nCdk5\nCdk7\nCdk8\nCdk9\nCdk12\nCycA\nCycB\nCycD\nCycE'" style="padding:2px 8px;font-size:10px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">CDK-Cyclin</button>
+    <button onclick="document.getElementById('genelist-input').value='Akt1\nfoxo\nInR\nchico\nS6k\nThor\nAtg1\nPi3K59F'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">Insulin/TOR</button>
+    <button onclick="document.getElementById('genelist-input').value='Delta\nN\nSer\nH\nSu(H)\nmam\nE(spl)m8-HLH\ngro'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">Notch</button>
+    <button onclick="document.getElementById('genelist-input').value='dsh\nfz\nfz2\narr\nwg\nAxn\nsgg\narm\npygo'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">Wnt</button>
+    <button onclick="document.getElementById('genelist-input').value='hh\nptc\nsmo\nci\nfu\ncos2\nSu(fu)\nsmo'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">Hedgehog</button>
+    <button onclick="document.getElementById('genelist-input').value='Egfr\nspi\nStar\nRas85D\nrl\nDsor1\npnt\nksr'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">EGFR/MAPK</button>
+    <button onclick="document.getElementById('genelist-input').value='hpo\nsav\nwts\nmats\nyki\nsd\nex\nMer\nkib'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#2C73A8;cursor:pointer">Hippo</button>
+    <button onclick="document.getElementById('genelist-input').value='Rpn3\nRpn5\nRpn7\nRpn8\nRpn11\nRpn12\nRpt1\nRpt3\nRpt5\nRpt6'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#59A14F;cursor:pointer">Proteasome</button>
+    <button onclick="document.getElementById('genelist-input').value='Atg1\nAtg8a\nAtg8b\nAtg5\nAtg6\nAtg7\nAtg13\nAtg16\nUvrag'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#59A14F;cursor:pointer">Autophagy</button>
+    <button onclick="document.getElementById('genelist-input').value='per\ntim\nClk\ncyc\nsgg\nvri'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#59A14F;cursor:pointer">Circadian</button>
+    <button onclick="document.getElementById('genelist-input').value='Arp2\nArp3\nArpc1\nArpc2\nArpc3A\nArpc4\nArpc5'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">Arp2/3</button>
+    <button onclick="document.getElementById('genelist-input').value='CCT1\nCCT2\nCCT3\nCCT4\nCCT5\nCCT6\nCCT7\nCCT8'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">CCT/TRiC</button>
+    <button onclick="document.getElementById('genelist-input').value='E(z)\nSu(z)12\nesc\nCaf1-55\nPcl'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">PRC2</button>
+    <button onclick="document.getElementById('genelist-input').value='Vps4\nVta1\nALiX\nCHMP2B\nVps25\nVps28\nVps36\nshrb'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">ESCRT</button>
+    <button onclick="document.getElementById('genelist-input').value='Cdk1\nCdk2\nCdk4\nCdk5\nCdk7\nCdk8\nCdk9\nCdk12\nCycA\nCycB\nCycD\nCycE'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">CDK-Cyclin</button>
   </div>
   <div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
-    <button onclick="applyGeneList()" style="padding:8px 20px;font-size:13px;background:#2C73A8;color:#fff;border:none;border-radius:4px;cursor:pointer">Select &amp; Highlight</button>
-    <button onclick="applyGeneListSubnet()" style="padding:8px 20px;font-size:13px;background:#59A14F;color:#fff;border:none;border-radius:4px;cursor:pointer">Show Subnetwork</button>
-    <button onclick="clearGeneList()" style="padding:8px 20px;font-size:13px;background:#eee;color:#666;border:none;border-radius:4px;cursor:pointer">Clear</button>
+    <button onclick="applyGeneList()" style="padding:8px 20px;font-size:14.5px;background:#2C73A8;color:#fff;border:none;border-radius:4px;cursor:pointer">Select &amp; Highlight</button>
+    <button onclick="applyGeneListSubnet()" style="padding:8px 20px;font-size:14.5px;background:#59A14F;color:#fff;border:none;border-radius:4px;cursor:pointer">Show Subnetwork</button>
+    <button onclick="clearGeneList()" style="padding:8px 20px;font-size:14.5px;background:#eee;color:#666;border:none;border-radius:4px;cursor:pointer">Clear</button>
   </div>
-  <div id="genelist-stats" style="margin-top:8px;font-size:11px;color:#888"></div>
+  <div id="genelist-stats" style="margin-top:8px;font-size:12.5px;color:#888"></div>
 </div>
 </div>
 <script>
@@ -2635,6 +2648,109 @@ if (window.innerWidth <= 700) {
   if (b) b.classList.remove('opts-open');
   if (t) t.textContent = 'Options ▸';
 }
+</script>
+<script>
+/* ── FlyPredictome-network: surface AF3 higher-order complex structures + cLIP ─────────────────────
+   Non-invasive add-on (DOM injection + function wrapping; no existing code changed):
+   (1) home "featured" banner advertising the 3D structures + cLIP;
+   (2) a top-right FAB listing a sub / sub-sub-cluster's AF3 complex(es);
+   (3) a "View 3D complex" button under the per-gene cLIP fab when the selected protein is a structure member.
+   Driven by the FlyPredictome-cluster-structures manifest; matches by gene SET (cluster-numbering-agnostic). */
+(function(){
+  const REPO='https://flyark.github.io/FlyPredictome-cluster-structures';
+  const LIVIA='https://flyark.github.io/LIVIA/universal.html';   // patched with ?data= deep-link (live)
+  let LIST=null,_subG=null;
+  const css=document.createElement('style');
+  css.textContent=`
+#complex-fab{position:absolute;left:12px;top:48px;z-index:7;display:none;background:#fff;border:1px solid #d9c4d3;border-radius:9px;box-shadow:0 3px 12px rgba(0,0,0,.16);padding:7px;max-width:250px}
+.cx-hd{font-weight:800;color:#7b3f6e;margin:1px 5px 5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+.cx-row{display:block;width:100%;text-align:left;border:0;background:#f6eef4;color:#5a2d50;border-radius:6px;padding:6px 9px;margin:3px 0;cursor:pointer;font-size:13.5px;font-weight:600}
+.cx-row:hover{background:#e7d2e1}
+#complex-node-btn{position:absolute;left:12px;z-index:7;display:none;background:#fff;border:1px solid #d9c4d3;border-radius:9px;box-shadow:0 3px 12px rgba(0,0,0,.16);padding:7px;max-width:270px}
+.feat-wrap{display:flex;gap:12px;margin:2px 0 18px;flex-wrap:wrap}
+.feat-card{flex:1;min-width:270px;border-radius:11px;padding:15px 17px;cursor:pointer;color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.14);transition:transform .1s,box-shadow .1s}
+.feat-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.feat-card .ft{font-size:17px;font-weight:800;margin-bottom:4px}
+.feat-card .fd{font-size:13px;opacity:.94;line-height:1.45}
+.feat-a{background:linear-gradient(135deg,#7b3f6e,#a85c93)}
+.feat-b{background:linear-gradient(135deg,#2C73A8,#4a90c2)}
+.ex-btn{border:0;background:rgba(255,255,255,.22);color:#fff;border-radius:5px;padding:4px 10px;cursor:pointer;font-size:13px;font-weight:700}
+.ex-btn:hover{background:rgba(255,255,255,.38)}
+#cx-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60;display:none;align-items:center;justify-content:center}
+#cx-modal .box{background:#fff;border-radius:13px;max-width:660px;width:92%;max-height:82vh;overflow:auto;padding:18px 22px}
+#cx-modal .cx-row2{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 4px;border-bottom:1px solid #eee;font-size:14px}
+#cx-modal .cx-row2:hover{background:#faf5f9}
+#cx-modal .vbtn{border:0;background:#7b3f6e;color:#fff;border-radius:6px;padding:6px 11px;cursor:pointer;font-size:12.5px;font-weight:700;white-space:nowrap}
+#cx-modal .cl-btn{border:0;background:#e7eff6;color:#2C73A8;border-radius:5px;padding:3px 9px;cursor:pointer;font-size:13px;font-weight:800;margin-right:3px;white-space:nowrap}
+#cx-modal .cl-btn:hover{background:#cfe0f0}
+#grid .subplot{position:relative}
+.struct-badge{position:absolute;top:6px;right:6px;background:#7b3f6e;color:#fff;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:9px;cursor:pointer;z-index:2;box-shadow:0 1px 4px rgba(0,0,0,.25);display:inline-flex;align-items:center;gap:3px}
+.struct-badge:hover{background:#693459}
+.srt-btn{border:1px solid #d9c4d3;background:#fff;color:#7b3f6e;border-radius:5px;padding:2px 9px;cursor:pointer;font-size:12px;font-weight:700;margin-right:4px}
+.srt-btn.on{background:#7b3f6e;color:#fff;border-color:#7b3f6e}
+.cx-cl{display:inline-block;background:#e7d7e3;color:#7b3f6e;border-radius:4px;padding:0 5px;font-weight:800;font-size:11.5px}
+#cx-sort{display:flex;align-items:center;margin:2px 0 10px}
+.exp-b{display:inline-block;border-radius:4px;padding:0 6px;font-size:10.5px;font-weight:700;vertical-align:1px;white-space:nowrap}
+.exp-b.sup{background:#e2efe4;color:#2e7d32;cursor:pointer}
+.exp-b.sup:hover{background:#cfe6d2}
+.exp-b.dn{background:#efe7ee;color:#9a7a92}
+.cov{font-weight:800;color:#2e7d32}
+#exp-pop{position:fixed;z-index:99999;display:none;background:#fff;border:1px solid #cfe0d2;border-radius:9px;box-shadow:0 6px 22px rgba(0,0,0,.22);padding:9px 11px;max-width:360px;max-height:min(64vh,460px);overflow-y:auto;font-size:12px;color:#333}
+#exp-pop .ep-hd{position:sticky;top:-9px;background:#fff;padding-top:2px}
+#exp-pop .ep-hd{font-weight:800;color:#2e7d32;margin-bottom:6px;font-size:12.5px}
+#exp-pop .ep-row{padding:4px 0;border-top:1px solid #eef3ef}
+#exp-pop .ep-row a{color:#2C73A8;font-weight:800;text-decoration:none}
+#exp-pop .ep-row a:hover{text-decoration:underline}
+#exp-pop .ep-m{display:inline-block;background:#e2efe4;color:#2e7d32;border-radius:3px;padding:0 5px;font-size:10.5px;font-weight:700;margin:0 3px}
+#exp-pop .ep-t{color:#888;font-size:10.5px;margin-top:1px}`;
+  document.head.appendChild(css);
+  const cv=document.getElementById('cv-wrap')||document.body;
+  const fab=document.createElement('div'); fab.id='complex-fab'; cv.appendChild(fab);
+  const nbtn=document.createElement('div'); nbtn.id='complex-node-btn'; cv.appendChild(nbtn);
+  const modal=document.createElement('div'); modal.id='cx-modal';
+  modal.innerHTML='<div class="box"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b id="cx-title" style="font-size:18px;color:#7b3f6e"></b><button id="cx-x" style="border:0;background:none;font-size:24.5px;cursor:pointer;color:#999;line-height:1">×</button></div><div style="font-size:12.5px;color:#999;margin-bottom:8px">Higher-order complexes predicted by AlphaFold3 — click any to open the interactive 3D structure + interface analysis in LIVIA. Green 🔬 = subunits also seen in an experimental structure.</div><div id="cx-sort"></div><div id="cx-list"></div></div>';
+  document.body.appendChild(modal);
+  modal.onclick=e=>{if(e.target===modal)modal.style.display='none';};
+  modal.querySelector('#cx-x').onclick=()=>modal.style.display='none';
+  function openComplex(e){const label=e.members.slice(0,4).join('-')+(e.members.length>4?'…':'');window.open(LIVIA+'?data='+encodeURIComponent(e.url)+'&name='+encodeURIComponent(label),'_blank','noopener');}
+  function inSet(gs){return !LIST?[]:LIST.filter(e=>{const k=e.members.filter(g=>gs.has(g)).length;return k>=3&&k/e.members.length>=0.75;}).sort((a,b)=>b.members.length-a.members.length);}
+  function withMember(g){return !LIST?[]:LIST.filter(e=>e.members.includes(g)).sort((a,b)=>b.members.length-a.members.length);}
+  var _subP=null, CXHDR='AF3 structure';
+  function renderComplexFab(){var list=[];if(_subP&&_subP[0]!=null&&_subP[1]!=null){var idx=structIndex();list=(idx.bySub[_subP[0]+'-'+_subP[1]]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}if(!list.length){fab.style.display='none';fab.innerHTML='';return;}fab.innerHTML='<div class="cx-hd">'+CXHDR+(list.length>1?'s ('+list.length+')':'')+'</div>'+list.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'">'+CXI+' '+cl+e.n+'-mer · '+memHTML(e,e.members.slice(0,3),'·')+(e.members.length>3?'…':'')+expBadge(e)+'</button>';}).join('');[...fab.querySelectorAll('.cx-row')].forEach((b,i)=>b.onclick=()=>openComplex(list[i]));fab.style.display='block';}
+  function updateComplexFab(ci,si,ssi){_subP=(ci==null?null:[ci,si,ssi]);renderComplexFab();}
+  let _gl=[];
+  function posNode(){const clip=document.getElementById('clip-fab');nbtn.style.top=((clip&&clip.offsetParent!==null&&clip.offsetHeight)?(clip.offsetTop+clip.offsetHeight+8):48)+'px';}
+  function updateGeneBtn(g){_gl=g?withMember(g):[];if(!_gl.length){nbtn.style.display='none';return;}nbtn.innerHTML='<div class="cx-hd">'+CXHDR+(_gl.length>1?'s ('+_gl.length+')':'')+'</div>'+_gl.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'">'+CXI+' '+cl+e.n+'-mer · '+memHTML(e,e.members.slice(0,3),'·')+(e.members.length>3?'…':'')+expBadge(e)+'</button>';}).join('');[...nbtn.querySelectorAll('.cx-row')].forEach((b,i)=>b.onclick=()=>openComplex(_gl[i]));nbtn.style.display='block';posNode();setTimeout(posNode,0);}
+  nbtn.onclick=()=>{if(_gl.length===1)openComplex(_gl[0]);else openModal(_gl,'Complexes containing this protein');};
+  function findPath(members){var CLx=window.CL;if(!CLx)return null;var best=null;for(var ci=0;ci<CLx.length;ci++){var c=CLx[ci];if(!c||!c[8])continue;for(var si=0;si<c[8].length;si++){var sc=c[8][si];if(!sc||!sc[4])continue;var sg={};sc[4].forEach(function(n){sg[n[0]]=1;});var so=members.filter(function(g){return sg[g];}).length;if(so<2)continue;var bSsi=-1,bSso=0,subs=sc[7]||[];for(var ssi=0;ssi<subs.length;ssi++){var ss=subs[ssi];if(!ss||!ss[4])continue;var ssg={};ss[4].forEach(function(n){ssg[n[0]]=1;});var sso=members.filter(function(g){return ssg[g];}).length;if(sso>bSso){bSso=sso;bSsi=ssi;}}if(!best||so>best.so)best={ci:ci,si:si,so:so,ssi:(bSso>=so*0.7?bSsi:-1)};}}if(best)best.label='C'+(best.ci+1)+'-'+(best.si+1)+(best.ssi>=0?'-'+(best.ssi+1):'');return best;}
+  function pathFor(e){if(!e._path){var p=findPath(e.members);if(p)e._path=p;return p;}return e._path;}
+  var CXI='<svg viewBox="0 0 24 24" width="12" height="12" style="vertical-align:-1.5px;display:inline-block" fill="currentColor" stroke="currentColor" stroke-width="1.3"><g stroke-linecap="round"><line x1="7" y1="9" x2="17" y2="9"/><line x1="7.6" y1="10.3" x2="12" y2="16"/><line x1="16.4" y1="10.3" x2="12" y2="16"/></g><circle cx="7" cy="9" r="3"/><circle cx="17" cy="9" r="3"/><circle cx="12" cy="16.3" r="3"/></svg>';
+  function expBadge(e){var x=e&&e.exp;if(!x||!x.sup)return '';var m=x.methods||{};var parts=[];if(m.cryoEM)parts.push('cryoEM'+(m.cryoEM>1?' ×'+m.cryoEM:''));if(m['X-ray'])parts.push('X-ray'+(m['X-ray']>1?' ×'+m['X-ray']:''));if(m.NMR)parts.push('NMR'+(m.NMR>1?' ×'+m.NMR:''));var lbl=parts.join(' + ')||'exp';var tip='Click for '+(x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')+' — best '+x.best_pdb+' covers '+x.cover+'/'+e.n+' subunits';return ' <span class="exp-b sup" data-job="'+(e.job||'')+'" title="'+tip+'">🔬 '+lbl+' ▾</span>';}
+  function memHTML(e,list,sep){var cov={};((e.exp&&e.exp.covered)||[]).forEach(function(g){cov[g]=1;});return list.map(function(g){return cov[g]?'<b class="cov" title="present in an experimental structure">'+g+'</b>':g;}).join(sep);}
+  var expPop=document.createElement('div');expPop.id='exp-pop';document.body.appendChild(expPop);
+  function showExpPop(el){try{var job=el.getAttribute('data-job');var e=LIST&&LIST.filter(function(x){return x.job===job;})[0];if(!e||!e.exp||!e.exp.pdbs)return;var x=e.exp;var rows=x.pdbs.map(function(p){return '<div class="ep-row"><a href="https://www.rcsb.org/structure/'+p.pdb+'" target="_blank" rel="noopener">'+p.pdb+'</a><span class="ep-m">'+p.method+'</span>'+(p.year||'')+' · '+p.cover+'/'+e.n+' subunits'+(p.res?' · '+p.res+'Å':'')+(p.title?'<div class="ep-t">'+p.title+'</div>':'')+'</div>';}).join('');expPop.innerHTML='<div class="ep-hd">'+(x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')+' · covered: '+((x.covered||[]).join(', ')||'—')+'</div>'+rows;var r=el.getBoundingClientRect();expPop.style.display='block';expPop.style.left=Math.max(6,Math.min(r.left,window.innerWidth-350))+'px';expPop.style.top=(r.bottom+6)+'px';}catch(err){}}
+  document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('.exp-b.sup');if(b){ev.stopPropagation();ev.preventDefault();showExpPop(b);}},true);
+  document.addEventListener('click',function(ev){if(!(ev.target.closest&&(ev.target.closest('#exp-pop')||ev.target.closest('.exp-b.sup'))))expPop.style.display='none';});
+  function structIndex(){var byCl={},bySub={};if(!LIST)return{byCl:byCl,bySub:bySub};LIST.forEach(function(e){var p=pathFor(e);if(!p)return;if(p.ci!=null){(byCl[p.ci]=byCl[p.ci]||[]).push(e);}if(p.ci!=null&&p.si!=null){var k=p.ci+'-'+p.si;(bySub[k]=bySub[k]||[]).push(e);}});return{byCl:byCl,bySub:bySub};}
+  function badgeFor(tile,arr,ci,si){if(!arr||!arr.length||tile.querySelector('.struct-badge'))return;if(getComputedStyle(tile).position==='static')tile.style.position='relative';var b=document.createElement('div');b.className='struct-badge';b.innerHTML=CXI+' '+arr.length+' 3D';b.title=arr.length+' AlphaFold3 higher-order complex structure'+(arr.length>1?'s':'')+' here — click to view';b.onclick=function(ev){ev.stopPropagation();var ttl=(si==null?'C'+(ci+1):'C'+(ci+1)+'-'+(si+1))+' — 3D complex structure'+(arr.length>1?'s':'');openModal(arr,ttl);};tile.appendChild(b);}
+  function goToStructure(e){try{modal.style.display='none';var p=pathFor(e);if(!p)return;if(window.hideLanding)window.hideLanding();if(window.hideGrid)window.hideGrid();if(p.ssi>=0)showSubSub(p.ci,p.si,p.ssi);else if(p.si>=0)showSub(p.ci,p.si);else if(p.ci>=0)showCluster(p.ci);}catch(x){}}
+  var _modItems=null,_modTitle=null,_modSort='size';
+  function _cmpSize(a,b){return b.members.length-a.members.length;}
+  function _cmpCluster(a,b){var pa=pathFor(a)||{},pb=pathFor(b)||{};var ca=pa.ci==null?1e9:pa.ci,cb=pb.ci==null?1e9:pb.ci,sa=pa.si==null?1e9:pa.si,sb=pb.si==null?1e9:pb.si,za=pa.ssi==null?-1:pa.ssi,zb=pb.ssi==null?-1:pb.ssi;return (ca-cb)||(sa-sb)||(za-zb)||(b.members.length-a.members.length);}
+  function renderModal(){var L=(_modItems||LIST||[]).slice().sort(_modSort==='cluster'?_cmpCluster:_cmpSize);modal.querySelector('#cx-title').textContent=_modTitle||('Higher-order complex structures ('+L.length+')');modal.querySelector('#cx-sort').innerHTML='<span style="font-size:12px;color:#999;margin-right:4px">Sort:</span><button class="srt-btn'+(_modSort==='size'?' on':'')+'" data-s="size">by size</button><button class="srt-btn'+(_modSort==='cluster'?' on':'')+'" data-s="cluster">by cluster</button>';modal.querySelector('#cx-list').innerHTML=L.length?L.map(function(e,i){var _p=pathFor(e);var cl=(_p&&_p.label)||'';return '<div class="cx-row2"><div style="flex:1">'+(cl?'<button class="cl-btn" data-i="'+i+'" title="open this sub-cluster in the network">'+cl+' →</button> ':'')+'<b>'+e.n+'-mer</b> · '+memHTML(e,e.members,', ')+expBadge(e)+'</div><button class="vbtn" data-i="'+i+'">3D structure in LIVIA →</button></div>';}).join(''):'<div style="padding:14px;color:#999">No structures loaded yet.</div>';[...modal.querySelectorAll('.vbtn')].forEach(function(b){b.onclick=function(){openComplex(L[+b.dataset.i]);};});[...modal.querySelectorAll('.cl-btn')].forEach(function(s){s.onclick=function(){goToStructure(L[+s.dataset.i]);};});[...modal.querySelectorAll('.srt-btn')].forEach(function(b){b.onclick=function(){_modSort=b.dataset.s;renderModal();};});}
+  function openModal(items,title){_modItems=items;_modTitle=title;renderModal();modal.style.display='flex';}
+  function injectFeatured(){const host=document.querySelector('#landing > div');if(!host)return;let wrap=host.querySelector('.feat-wrap');if(!wrap){wrap=document.createElement('div');wrap.className='feat-wrap';wrap.innerHTML='<div class="feat-card feat-a"><div class="ft">'+CXI+' Higher-order complex structures</div><div class="fd"><b><span id="feat-count">…</span></b> sub-clusters have AlphaFold3-predicted 3D assemblies — browse them and open the interactive structure + interface analysis in LIVIA.</div></div><div class="feat-card feat-b" style="cursor:default"><div class="ft">🔬 cLIP — clustered Local Interaction Profiler</div><div class="fd">Groups the interaction partners of a protein by the contact residues they share — showing which partners compete for the <b>same binding surface</b> versus engage <b>distinct sites</b>. Select any protein node and a <b>cLIP</b> button appears in the <b>top-left corner</b>.</div><div style="margin-top:9px;display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span style="font-size:12.5px;opacity:.92">Try an example:</span>'+['Pka-C1','Akt1','Egfr','Rho1','Src42A','Myc'].map(function(g){return '<button class="ex-btn" data-g="'+g+'">'+g+'</button>';}).join('')+'</div></div>';const grid=host.querySelector('#landing-grid');const btnRow=[...host.children].find(el=>el.querySelector&&el.querySelector('[onclick*="showFullNetwork"]'));host.insertBefore(wrap,btnRow||(grid?grid.previousElementSibling:null));wrap.children[0].onclick=()=>openModal(null,null);[...wrap.querySelectorAll('.ex-btn')].forEach(function(b){b.onclick=function(ev){ev.stopPropagation();try{showGene(b.dataset.g);}catch(e){}};});}const c=wrap.querySelector('#feat-count');if(c&&LIST)c.textContent=LIST.length;}
+  function hintGrid(){if(!LIST)return;var idx=structIndex();document.querySelectorAll('#grid .subplot').forEach(function(tile){var t=tile.querySelector('.subplot-title');if(!t)return;var mm=t.textContent.match(/^C(\d+)-(\d+)/);if(mm){var ci=+mm[1]-1,si=+mm[2]-1;badgeFor(tile,idx.bySub[ci+'-'+si],ci,si);return;}var mc=t.textContent.match(/^C(\d+)\b/);if(mc){var ci2=+mc[1]-1;badgeFor(tile,idx.byCl[ci2],ci2,null);}});}
+  function hintLanding(){if(!LIST)return;var byCl=structIndex().byCl;var lg=document.getElementById('landing-grid');if(!lg)return;[...lg.children].forEach(function(tile){var m=(tile.textContent||'').match(/^\s*C(\d+)\b/);if(!m)return;var ci=+m[1]-1;badgeFor(tile,byCl[ci],ci,null);});}
+  window.onGridView=function(){hintGrid();};
+  fetch(REPO+'/cluster_available.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(j=>{if(!j)return;LIST=Object.values(j).filter(e=>e.url&&e.members&&e.members.length>=3);injectFeatured();renderComplexFab();hintGrid();hintLanding();if(typeof CURRENT_GENE!=='undefined'&&CURRENT_GENE)updateGeneBtn(CURRENT_GENE);}).catch(()=>{});
+  var _gridEl=document.getElementById('grid');if(_gridEl){var _gto=null;new MutationObserver(function(){if(_gto)clearTimeout(_gto);_gto=setTimeout(hintGrid,30);}).observe(_gridEl,{childList:true});}
+  var _lgEl=document.getElementById('landing-grid');if(_lgEl){var _lto=null;new MutationObserver(function(){if(_lto)clearTimeout(_lto);_lto=setTimeout(hintLanding,30);}).observe(_lgEl,{childList:true});}
+  window.onGeneComplex=updateGeneBtn;   // called by the patched updateClipFab on every gene selection
+  window.onSubView=updateComplexFab;    // called by the patched showSub/showSubSub with the (sub-)cluster's genes
+  if(typeof showLanding==='function'){const _s=showLanding;showLanding=function(){_s();injectFeatured();hintLanding();};window.showLanding=showLanding;}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',injectFeatured);else injectFeatured();
+})();
 </script>
 <script data-goatcounter="https://flypredictome-network.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
