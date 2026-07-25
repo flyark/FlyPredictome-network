@@ -2681,13 +2681,17 @@ if (window.innerWidth <= 700) {
   let LIST=null,_subG=null;
   const css=document.createElement('style');
   css.textContent=`
-#complex-fab{position:absolute;left:12px;top:48px;z-index:7;display:none;background:#fff;border:1px solid #c2d8ee;border-radius:9px;box-shadow:0 3px 12px rgba(0,0,0,.16);padding:7px;width:259px}
-.cx-hd{font-weight:800;color:#2f6ab5;margin:1px 5px 5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+#complex-fab{position:absolute;left:12px;top:48px;z-index:7;display:none;background:#fff;border:1px solid #c2d8ee;border-radius:9px;box-shadow:0 3px 12px rgba(0,0,0,.16);padding:7px;width:259px;max-height:calc(100% - 118px);overflow-y:auto;overscroll-behavior:contain}
+.cx-hd{font-weight:800;color:#2f6ab5;margin:0 5px 5px;padding:4px 0 3px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;position:sticky;top:-8px;background:#fff;z-index:2}
 .cx-row{display:block;width:100%;text-align:left;border:0;background:#f6f7f9;color:#2b3138;border-radius:6px;padding:6px 9px;margin:3px 0;cursor:pointer;font-size:13.5px;font-weight:600;white-space:normal}
 .cx-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px}
 .cx-mem{line-height:1.6;overflow-wrap:break-word;word-break:break-word}
 .cx-row:hover{background:#e6f3ea}
-#complex-node-btn{position:absolute;left:12px;z-index:7;display:none;background:#fff;border:1px solid #c2d8ee;border-radius:9px;box-shadow:0 3px 12px rgba(0,0,0,.16);padding:7px;width:259px}
+#complex-node-btn{position:absolute;left:12px;z-index:7;display:none;background:#fff;border:1px solid #c2d8ee;border-radius:9px;box-shadow:0 3px 12px rgba(0,0,0,.16);padding:7px;width:259px;overflow-y:auto;overscroll-behavior:contain}
+/* a cluster can hold 15+ complexes; the list scrolls inside the card instead of running over the controls */
+#complex-fab::-webkit-scrollbar,#complex-node-btn::-webkit-scrollbar{width:8px}
+#complex-fab::-webkit-scrollbar-thumb,#complex-node-btn::-webkit-scrollbar-thumb{background:#c9d6e6;border-radius:4px}
+#complex-fab::-webkit-scrollbar-thumb:hover,#complex-node-btn::-webkit-scrollbar-thumb:hover{background:#a9bed6}
 .feat-wrap{display:flex;gap:12px;margin:2px 0 18px;flex-wrap:wrap}
 .feat-card{flex:1;min-width:270px;border-radius:11px;padding:15px 17px;cursor:pointer;color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.14);transition:transform .1s,box-shadow .1s}
 .feat-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.2)}
@@ -2742,7 +2746,9 @@ if (window.innerWidth <= 700) {
   function updateComplexFab(ci,si,ssi){_clP=null;_subP=(ci==null?null:[ci,si,ssi]);renderComplexFab();}
   function updateClusterFab(ci){_clP=(ci==null?null:ci);_subP=null;renderComplexFab();}
   let _gl=[];
-  function posNode(){const clip=document.getElementById('clip-fab');nbtn.style.top=((clip&&clip.offsetParent!==null&&clip.offsetHeight)?(clip.offsetTop+clip.offsetHeight+8):48)+'px';}
+  function posNode(){const clip=document.getElementById('clip-fab');var top=((clip&&clip.offsetParent!==null&&clip.offsetHeight)?(clip.offsetTop+clip.offsetHeight+8):48);nbtn.style.top=top+'px';
+    // the card starts below the cLIP button, so its ceiling is whatever room is left above the bottom controls
+    var h=(nbtn.offsetParent||cv).clientHeight||0; if(h) nbtn.style.maxHeight=Math.max(160,h-top-70)+'px';}
   function updateGeneBtn(g){_gl=g?withMember(g):[];if(!_gl.length){nbtn.style.display='none';return;}nbtn.innerHTML='<div class="cx-hd">'+CXHDR+(_gl.length>1?'s ('+_gl.length+')':'')+'</div>'+_gl.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'"><div class="cx-top">'+CXI+' '+cl+'<b>'+e.n+'-mer</b>'+expBadge(e)+'</div><div class="cx-mem">'+memHTML(e,e.members,' · ')+'</div></button>';}).join('');[...nbtn.querySelectorAll('.cx-row')].forEach((b,i)=>{b.onclick=()=>openComplex(_gl[i]);b.onmouseenter=()=>window.highlightMembers(_gl[i].members);b.onmouseleave=()=>window.highlightMembers();var cc=b.querySelector('.cx-cl');if(cc){cc.title='Go to this cluster';cc.onclick=(ev)=>{ev.stopPropagation();goToStructure(_gl[i]);};}});nbtn.style.display='block';posNode();setTimeout(posNode,0);}
   nbtn.onclick=()=>{if(_gl.length===1)openComplex(_gl[0]);else openModal(_gl,'Complexes containing this protein');};
   function findPath(members){var CLx=window.CL;if(!CLx)return null;var M=members;function gS(node){var s={};((node&&node[4])||[]).forEach(function(n){s[n[0]]=1;});return s;}
@@ -2759,10 +2765,18 @@ if (window.innerWidth <= 700) {
     out.label='C'+(out.ci+1)+(out.si>=0?'-'+(out.si+1):'')+(out.ssi>=0?'-'+(out.ssi+1):'');return out;}
   function pathFor(e){if(!e._path){var p=findPath(e.members);if(p)e._path=p;return p;}return e._path;}
   var CXI='<svg viewBox="0 0 24 24" width="12" height="12" style="vertical-align:-1.5px;display:inline-block" fill="currentColor" stroke="currentColor" stroke-width="1.3"><g stroke-linecap="round"><line x1="7" y1="9" x2="17" y2="9"/><line x1="7.6" y1="10.3" x2="12" y2="16"/><line x1="16.4" y1="10.3" x2="12" y2="16"/></g><circle cx="7" cy="9" r="3"/><circle cx="17" cy="9" r="3"/><circle cx="12" cy="16.3" r="3"/></svg>';
-  function expBadge(e){var x=e&&e.exp;if(!x||!x.sup)return '';var m=x.methods||{};var parts=[];if(m.cryoEM)parts.push('cryoEM'+(m.cryoEM>1?' ×'+m.cryoEM:''));if(m['X-ray'])parts.push('X-ray'+(m['X-ray']>1?' ×'+m['X-ray']:''));if(m.NMR)parts.push('NMR'+(m.NMR>1?' ×'+m.NMR:''));var lbl=parts.join(' + ')||'exp';var tip='Click for '+(x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')+' — best '+x.best_pdb+' covers '+x.cover+'/'+e.n+' subunits';return ' <span class="exp-b sup" data-job="'+(e.job||'')+'" title="'+tip+'">🔬 '+lbl+' ▾</span>';}
+  // Only the top n_pdb candidates are method-verified against RCSB; n_cand is how many PDB entries actually
+  // cover >=2 subunits. When those differ, show the TRUE total and drop the per-method counts (they describe
+  // the verified sample, not the whole set) so the badge never under-reports the evidence.
+  function expBadge(e){var x=e&&e.exp;if(!x||!x.sup)return '';var m=x.methods||{};var tr=!!x.truncated;var tot=x.n_cand||x.n_pdb||0;
+    var parts=['cryoEM','X-ray','NMR'].filter(function(k){return m[k];}).map(function(k){return tr?k:(k+(m[k]>1?' ×'+m[k]:''));});
+    var lbl=(parts.join(' + ')||'exp')+(tr?' · '+tot:'');
+    var tip=tr?(tot+' PDB entries cover ≥2 subunits; methods read off the '+(x.n_pdb||0)+' highest-coverage ones. Best '+x.best_pdb+' covers '+x.cover+'/'+e.n+'.')
+              :('Click for '+(x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')+' — best '+x.best_pdb+' covers '+x.cover+'/'+e.n+' subunits');
+    return ' <span class="exp-b sup" data-job="'+(e.job||'')+'" title="'+tip+'">🔬 '+lbl+' ▾</span>';}
   function memHTML(e,list,sep){var cov={};((e.exp&&e.exp.covered)||[]).forEach(function(g){cov[g]=1;});return list.map(function(g){return cov[g]?'<b class="cov" title="present in an experimental structure">'+g+'</b>':g;}).join(sep);}
   var expPop=document.createElement('div');expPop.id='exp-pop';document.body.appendChild(expPop);
-  function showExpPop(el){try{var job=el.getAttribute('data-job');var e=LIST&&LIST.filter(function(x){return x.job===job;})[0];if(!e||!e.exp||!e.exp.pdbs)return;var x=e.exp;var rows=x.pdbs.map(function(p){return '<div class="ep-row"><a href="https://www.rcsb.org/structure/'+p.pdb+'" target="_blank" rel="noopener">'+p.pdb+'</a><span class="ep-m">'+p.method+'</span>'+(p.year||'')+' · '+p.cover+'/'+e.n+' subunits'+(p.res?' · '+p.res+'Å':'')+(p.title?'<div class="ep-t">'+p.title+'</div>':'')+'</div>';}).join('');expPop.innerHTML='<div class="ep-hd">'+(x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')+' · covered: '+((x.covered||[]).join(', ')||'—')+'</div>'+rows;var r=el.getBoundingClientRect();expPop.style.display='block';expPop._job=job;expPop.style.left=Math.max(6,Math.min(r.left,window.innerWidth-350))+'px';expPop.style.top=(r.bottom+6)+'px';}catch(err){}}
+  function showExpPop(el){try{var job=el.getAttribute('data-job');var e=LIST&&LIST.filter(function(x){return x.job===job;})[0];if(!e||!e.exp||!e.exp.pdbs)return;var x=e.exp;var rows=x.pdbs.map(function(p){return '<div class="ep-row"><a href="https://www.rcsb.org/structure/'+p.pdb+'" target="_blank" rel="noopener">'+p.pdb+'</a><span class="ep-m">'+p.method+'</span>'+(p.year||'')+' · '+p.cover+'/'+e.n+' subunits'+(p.res?' · '+p.res+'Å':'')+(p.title?'<div class="ep-t">'+p.title+'</div>':'')+'</div>';}).join('');expPop.innerHTML='<div class="ep-hd">'+(x.truncated?((x.n_cand||0)+' experimental structures (top '+((x.pdbs||[]).length)+' by coverage shown)'):((x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')))+' · covered: '+((x.covered||[]).join(', ')||'—')+'</div>'+rows;var r=el.getBoundingClientRect();expPop.style.display='block';expPop._job=job;expPop.style.left=Math.max(6,Math.min(r.left,window.innerWidth-350))+'px';expPop.style.top=(r.bottom+6)+'px';}catch(err){}}
   document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('.exp-b.sup');if(b){ev.stopPropagation();ev.preventDefault();var job=b.getAttribute('data-job');if(expPop.style.display==='block'&&expPop._job===job){expPop.style.display='none';expPop._job=null;}else{showExpPop(b);}}},true);
   document.addEventListener('click',function(ev){if(!(ev.target.closest&&(ev.target.closest('#exp-pop')||ev.target.closest('.exp-b.sup'))))expPop.style.display='none';});
   function structIndex(){var byCl={},bySub={};if(!LIST)return{byCl:byCl,bySub:bySub};LIST.forEach(function(e){var p=pathFor(e);if(!p||p.cross)return;if(p.ci>=0){(byCl[p.ci]=byCl[p.ci]||[]).push(e);}if(p.ci>=0&&p.si>=0){var k=p.ci+'-'+p.si;(bySub[k]=bySub[k]||[]).push(e);}});return{byCl:byCl,bySub:bySub};}
