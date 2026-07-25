@@ -2742,12 +2742,16 @@ if (window.innerWidth <= 700) {
   function inSet(gs){return !LIST?[]:LIST.filter(e=>{const k=e.members.filter(g=>gs.has(g)).length;return k>=3&&k/e.members.length>=0.75;}).sort((a,b)=>b.members.length-a.members.length);}
   function withMember(g){return !LIST?[]:LIST.filter(e=>e.members.includes(g)).sort((a,b)=>b.members.length-a.members.length);}
   var _subP=null, _clP=null, CXHDR='AF3 structure';
-  function renderComplexFab(){var list=[];var idx=structIndex();if(_clP!=null){list=(idx.byCl[_clP]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}else if(_subP&&_subP[0]!=null&&_subP[1]!=null){list=(idx.bySub[_subP[0]+'-'+_subP[1]]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}if(!list.length){fab.style.display='none';fab.innerHTML='';return;}fab.innerHTML='<div class="cx-hd">'+CXHDR+(list.length>1?'s ('+list.length+')':'')+'</div>'+list.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'"><div class="cx-top">'+CXI+' '+cl+'<b>'+e.n+'-mer</b>'+expBadge(e)+'</div><div class="cx-mem">'+memHTML(e,e.members,' · ')+'</div></button>';}).join('');[...fab.querySelectorAll('.cx-row')].forEach((b,i)=>{b.onclick=()=>openComplex(list[i]);b.onmouseenter=()=>window.highlightMembers(list[i].members);b.onmouseleave=()=>window.highlightMembers();var cc=b.querySelector('.cx-cl');if(cc){cc.title='Go to this cluster';cc.onclick=(ev)=>{ev.stopPropagation();goToStructure(list[i]);};}});fab.style.display='block';fitCard(fab,48);setTimeout(function(){fitCard(fab,48);},0);}
+  function renderComplexFab(){var list=[];var idx=structIndex();if(_clP!=null){list=(idx.byCl[_clP]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}else if(_subP&&_subP[0]!=null&&_subP[1]!=null){list=(idx.bySub[_subP[0]+'-'+_subP[1]]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}if(!list.length){fab.style.display='none';fab.innerHTML='';return;}fab.innerHTML='<div class="cx-hd">'+CXHDR+(list.length>1?'s ('+list.length+')':'')+'</div>'+list.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'"><div class="cx-top">'+CXI+' '+cl+'<b>'+e.n+'-mer</b>'+expBadge(e)+'</div><div class="cx-mem">'+memHTML(e,e.members,' · ')+'</div></button>';}).join('');[...fab.querySelectorAll('.cx-row')].forEach((b,i)=>{b.onclick=()=>openComplex(list[i]);b.onmouseenter=()=>window.highlightMembers(list[i].members);b.onmouseleave=()=>window.highlightMembers();var cc=b.querySelector('.cx-cl');if(cc){cc.title='Go to this cluster';cc.onclick=(ev)=>{ev.stopPropagation();goToStructure(list[i]);};}});fab.style.display='block';placeFab();setTimeout(function(){placeFab();},0);}
   function updateComplexFab(ci,si,ssi){_clP=null;_subP=(ci==null?null:[ci,si,ssi]);renderComplexFab();}
   function updateClusterFab(ci){_clP=(ci==null?null:ci);_subP=null;renderComplexFab();}
   let _gl=[];
   // Size a card so it stops above whatever sits at the bottom-left of the canvas (the legend, and below it the
   // colour/label bar). Measured rather than assumed: a fixed inset guessed wrong and still covered the legend.
+  // Where a top-left card may start: under the Options bar, measured. A hardcoded 48px broke whenever that bar
+  // changed height -- an expanded Options panel, or Chrome's "started debugging this browser" banner squeezing
+  // the page -- and the card then covered the sliders and the PNG/SVG buttons.
+  function cardTop(){var ec=document.getElementById('edge-ctrl');return (ec&&ec.offsetHeight)?(ec.offsetTop+ec.offsetHeight+8):48;}
   function fitCard(el, top, tries){
     // The card is often built while its host is still hidden (a cluster opens in the GRID view), and a hidden
     // element has no offsetParent and no measurable geometry. Retry on later frames instead of giving up, or the
@@ -2766,7 +2770,8 @@ if (window.innerWidth <= 700) {
     });
     el.style.maxHeight=Math.max(150,Math.round(floor-(hostR.top+top)))+'px';
   }
-  function posNode(){const clip=document.getElementById('clip-fab');var top=((clip&&clip.offsetParent!==null&&clip.offsetHeight)?(clip.offsetTop+clip.offsetHeight+8):48);nbtn.style.top=top+'px';fitCard(nbtn,top);}
+  function placeFab(){var top=cardTop();fab.style.top=top+'px';fitCard(fab,top);}
+  function posNode(){const clip=document.getElementById('clip-fab');var top=((clip&&clip.offsetParent!==null&&clip.offsetHeight)?(clip.offsetTop+clip.offsetHeight+8):cardTop());nbtn.style.top=top+'px';fitCard(nbtn,top);}
   function updateGeneBtn(g){_gl=g?withMember(g):[];if(!_gl.length){nbtn.style.display='none';return;}nbtn.innerHTML='<div class="cx-hd">'+CXHDR+(_gl.length>1?'s ('+_gl.length+')':'')+'</div>'+_gl.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'"><div class="cx-top">'+CXI+' '+cl+'<b>'+e.n+'-mer</b>'+expBadge(e)+'</div><div class="cx-mem">'+memHTML(e,e.members,' · ')+'</div></button>';}).join('');[...nbtn.querySelectorAll('.cx-row')].forEach((b,i)=>{b.onclick=()=>openComplex(_gl[i]);b.onmouseenter=()=>window.highlightMembers(_gl[i].members);b.onmouseleave=()=>window.highlightMembers();var cc=b.querySelector('.cx-cl');if(cc){cc.title='Go to this cluster';cc.onclick=(ev)=>{ev.stopPropagation();goToStructure(_gl[i]);};}});nbtn.style.display='block';posNode();setTimeout(posNode,0);}
   nbtn.onclick=()=>{if(_gl.length===1)openComplex(_gl[0]);else openModal(_gl,'Complexes containing this protein');};
   function findPath(members){var CLx=window.CL;if(!CLx)return null;var M=members;function gS(node){var s={};((node&&node[4])||[]).forEach(function(n){s[n[0]]=1;});return s;}
@@ -2818,11 +2823,12 @@ if (window.innerWidth <= 700) {
   // Re-fit whenever the canvas actually has a size. Sizing only at render time was wrong: a cluster opens in the
   // GRID view with #cv-wrap hidden, so offsetParent was null and the cards kept their CSS fallback height. The
   // observer covers every way the space changes -- grid<->network toggle, window resize, a 12" vs 16" display.
-  function refit(){if(fab.style.display!=='none')fitCard(fab,48);if(nbtn.style.display!=='none')posNode();}
+  function refit(){if(fab.style.display!=='none')placeFab();if(nbtn.style.display!=='none')posNode();}
   var _cardRO=null;   // keep the reference: an unreferenced ResizeObserver can be collected and stop firing
   if(typeof ResizeObserver!=='undefined'){
-    var _host=document.getElementById('cv-wrap');
-    if(_host){ _cardRO=new ResizeObserver(refit); _cardRO.observe(_host); }
+    _cardRO=new ResizeObserver(refit);
+    // the canvas (how much space there is) AND the Options bar (where a card may start) both move the cards
+    ['cv-wrap','edge-ctrl'].forEach(function(id){var el=document.getElementById(id);if(el)_cardRO.observe(el);});
   }
   addEventListener('resize',refit);
   if(typeof showLanding==='function'){const _s=showLanding;showLanding=function(){_s();injectFeatured();hintLanding();};window.showLanding=showLanding;}
