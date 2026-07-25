@@ -2791,15 +2791,28 @@ if (window.innerWidth <= 700) {
   // Only the top n_pdb candidates are method-verified against RCSB; n_cand is how many PDB entries actually
   // cover >=2 subunits. When those differ, show the TRUE total and drop the per-method counts (they describe
   // the verified sample, not the whole set) so the badge never under-reports the evidence.
-  function expBadge(e){var x=e&&e.exp;if(!x||!x.sup)return '';var m=x.methods||{};var tr=!!x.truncated;var tot=x.n_cand||x.n_pdb||0;
-    var parts=['cryoEM','X-ray','NMR'].filter(function(k){return m[k];}).map(function(k){return tr?k:(k+(m[k]>1?' ×'+m[k]:''));});
-    var lbl=(parts.join(' + ')||'exp')+(tr?' · '+tot:'');
-    var tip=tr?(tot+' PDB entries cover ≥2 subunits; methods read off the '+(x.n_pdb||0)+' highest-coverage ones. Best '+x.best_pdb+' covers '+x.cover+'/'+e.n+'.')
-              :('Click for '+(x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')+' — best '+x.best_pdb+' covers '+x.cover+'/'+e.n+' subunits');
+  // Count STUDIES, not depositions. One cryo-EM paper routinely deposits many entries for the same complex
+  // (conformational states, promoter variants), so a raw PDB count overstates the evidence -- and the count was
+  // capped at the 30 entries we method-verify anyway, which made a 298-entry set read as "30". The badge now
+  // shows independent primary citations; per-method counts are dropped whenever they describe only the verified
+  // sample rather than the whole set.
+  function expBadge(e){var x=e&&e.exp;if(!x||!x.sup)return '';var m=x.methods||{};
+    var st=x.n_studies||0, tot=x.n_cand||x.n_pdb||0, sampled=!!x.truncated;
+    var parts=['cryoEM','X-ray','NMR'].filter(function(k){return m[k];})
+                .map(function(k){return (st||sampled)?k:(k+(m[k]>1?' ×'+m[k]:''));});
+    var lbl=parts.join(' + ')||'exp';
+    // studies are counted over the entries we actually verified, so on a truncated set the count is a FLOOR
+    var listed=(x.pdbs||[]).length, partial=sampled||listed<tot;
+    if(st) lbl+=' · '+(partial?'≥':'')+st+(st>1?' studies':' study');
+    else if(sampled) lbl+=' · '+tot;
+    var tip=st?((partial?'at least ':'')+st+' independent stud'+(st>1?'ies':'y')
+                +' among the '+listed+' highest-coverage entries; '+tot+' PDB entr'+(tot>1?'ies':'y')+' cover ≥2 subunits'
+                +'. Best '+x.best_pdb+' covers '+x.cover+'/'+e.n+'.')
+             :('Click for '+(x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')+' — best '+x.best_pdb+' covers '+x.cover+'/'+e.n+' subunits');
     return ' <span class="exp-b sup" data-job="'+(e.job||'')+'" title="'+tip+'">🔬 '+lbl+' ▾</span>';}
   function memHTML(e,list,sep){var cov={};((e.exp&&e.exp.covered)||[]).forEach(function(g){cov[g]=1;});return list.map(function(g){return cov[g]?'<b class="cov" title="present in an experimental structure">'+g+'</b>':g;}).join(sep);}
   var expPop=document.createElement('div');expPop.id='exp-pop';document.body.appendChild(expPop);
-  function showExpPop(el){try{var job=el.getAttribute('data-job');var e=LIST&&LIST.filter(function(x){return x.job===job;})[0];if(!e||!e.exp||!e.exp.pdbs)return;var x=e.exp;var rows=x.pdbs.map(function(p){return '<div class="ep-row"><a href="https://www.rcsb.org/structure/'+p.pdb+'" target="_blank" rel="noopener">'+p.pdb+'</a><span class="ep-m">'+p.method+'</span>'+(p.year||'')+' · '+p.cover+'/'+e.n+' subunits'+(p.res?' · '+p.res+'Å':'')+(p.title?'<div class="ep-t">'+p.title+'</div>':'')+'</div>';}).join('');expPop.innerHTML='<div class="ep-hd">'+(x.truncated?((x.n_cand||0)+' experimental structures (top '+((x.pdbs||[]).length)+' by coverage shown)'):((x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')))+' · covered: '+((x.covered||[]).join(', ')||'—')+'</div>'+rows;var r=el.getBoundingClientRect();expPop.style.display='block';expPop._job=job;expPop.style.left=Math.max(6,Math.min(r.left,window.innerWidth-350))+'px';expPop.style.top=(r.bottom+6)+'px';}catch(err){}}
+  function showExpPop(el){try{var job=el.getAttribute('data-job');var e=LIST&&LIST.filter(function(x){return x.job===job;})[0];if(!e||!e.exp||!e.exp.pdbs)return;var x=e.exp;var rows=x.pdbs.map(function(p){return '<div class="ep-row"><a href="https://www.rcsb.org/structure/'+p.pdb+'" target="_blank" rel="noopener">'+p.pdb+'</a><span class="ep-m">'+p.method+'</span>'+(p.year||'')+' · '+p.cover+'/'+e.n+' subunits'+(p.res?' · '+p.res+'Å':'')+(p.title?'<div class="ep-t">'+p.title+'</div>':'')+'</div>';}).join('');expPop.innerHTML='<div class="ep-hd">'+(x.n_studies?(((x.pdbs||[]).length<(x.n_cand||0)?'≥':'')+x.n_studies+' independent stud'+(x.n_studies>1?'ies':'y')+' · '+(x.n_cand||x.n_pdb||0)+' PDB entries'+((x.pdbs||[]).length<(x.n_cand||0)?' (top '+((x.pdbs||[]).length)+' by coverage shown)':'')):(x.truncated?((x.n_cand||0)+' experimental structures (top '+((x.pdbs||[]).length)+' by coverage shown)'):((x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':''))))+' · covered: '+((x.covered||[]).join(', ')||'—')+'</div>'+rows;var r=el.getBoundingClientRect();expPop.style.display='block';expPop._job=job;expPop.style.left=Math.max(6,Math.min(r.left,window.innerWidth-350))+'px';expPop.style.top=(r.bottom+6)+'px';}catch(err){}}
   document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('.exp-b.sup');if(b){ev.stopPropagation();ev.preventDefault();var job=b.getAttribute('data-job');if(expPop.style.display==='block'&&expPop._job===job){expPop.style.display='none';expPop._job=null;}else{showExpPop(b);}}},true);
   document.addEventListener('click',function(ev){if(!(ev.target.closest&&(ev.target.closest('#exp-pop')||ev.target.closest('.exp-b.sup'))))expPop.style.display='none';});
   function structIndex(){var byCl={},bySub={};if(!LIST)return{byCl:byCl,bySub:bySub};LIST.forEach(function(e){var p=pathFor(e);if(!p||p.cross)return;if(p.ci>=0){(byCl[p.ci]=byCl[p.ci]||[]).push(e);}if(p.ci>=0&&p.si>=0){var k=p.ci+'-'+p.si;(bySub[k]=bySub[k]||[]).push(e);}});return{byCl:byCl,bySub:bySub};}
