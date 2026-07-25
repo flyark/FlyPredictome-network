@@ -657,6 +657,7 @@ function showMulti(ciSet){
     d.onclick=()=>showCluster(ci);side.appendChild(d);
   });
   autoLabelSettings(nodes.length);draw();
+  if(window.onMultiView)window.onMultiView(curMulti);   // surface the compared clusters' AF3 complexes
 }
 
 function showMultiSub(picks){
@@ -2749,10 +2750,12 @@ if (window.innerWidth <= 700) {
   function openComplex(e){const label=e.members.slice(0,4).join('-')+(e.members.length>4?'…':'');window.open(LIVIA+'?data='+encodeURIComponent(e.url)+'&name='+encodeURIComponent(label),'_blank','noopener');}
   function inSet(gs){return !LIST?[]:LIST.filter(e=>{const k=e.members.filter(g=>gs.has(g)).length;return k>=3&&k/e.members.length>=0.75;}).sort((a,b)=>b.members.length-a.members.length);}
   function withMember(g){return !LIST?[]:LIST.filter(e=>e.members.includes(g)).sort((a,b)=>b.members.length-a.members.length);}
-  var _subP=null, _clP=null, CXHDR='AF3 structure';
-  function renderComplexFab(){var list=[];var idx=structIndex();if(_clP!=null){list=(idx.byCl[_clP]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}else if(_subP&&_subP[0]!=null&&_subP[1]!=null){list=(idx.bySub[_subP[0]+'-'+_subP[1]]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}if(!list.length){fab.style.display='none';fab.innerHTML='';return;}fab.innerHTML='<div class="cx-hd">'+CXHDR+(list.length>1?'s ('+list.length+')':'')+'</div>'+list.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'"><div class="cx-top">'+CXI+' '+cl+'<b>'+e.n+'-mer</b>'+expBadge(e)+'</div><div class="cx-mem">'+memHTML(e,e.members,' · ')+'</div></button>';}).join('');[...fab.querySelectorAll('.cx-row')].forEach((b,i)=>{b.onclick=()=>openComplex(list[i]);b.onmouseenter=()=>window.highlightMembers(list[i].members);b.onmouseleave=()=>window.highlightMembers();var cc=b.querySelector('.cx-cl');if(cc){cc.title='Go to this cluster';cc.onclick=(ev)=>{ev.stopPropagation();goToStructure(list[i]);};}});fab.style.display='block';placeFab();setTimeout(function(){placeFab();},0);}
-  function updateComplexFab(ci,si,ssi){_clP=null;_subP=(ci==null?null:[ci,si,ssi]);renderComplexFab();}
-  function updateClusterFab(ci){_clP=(ci==null?null:ci);_subP=null;renderComplexFab();}
+  var _subP=null, _clP=null, _mulP=null, CXHDR='AF3 structure';
+  function _pathCis(e){var p=pathFor(e);if(!p)return [];return (p.cis&&p.cis.length)?p.cis:(p.ci>=0?[p.ci]:[]);}
+  function renderComplexFab(){var list=[];var idx=structIndex();if(_mulP&&_mulP.length){list=(LIST||[]).filter(function(e){var cs=_pathCis(e);return cs.some(function(c){return _mulP.indexOf(c)>=0;});}).slice().sort(function(a,b){return b.members.length-a.members.length;});}else if(_clP!=null){list=(idx.byCl[_clP]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}else if(_subP&&_subP[0]!=null&&_subP[1]!=null){list=(idx.bySub[_subP[0]+'-'+_subP[1]]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}if(!list.length){fab.style.display='none';fab.innerHTML='';return;}fab.innerHTML='<div class="cx-hd">'+CXHDR+(list.length>1?'s ('+list.length+')':'')+'</div>'+list.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'"><div class="cx-top">'+CXI+' '+cl+'<b>'+e.n+'-mer</b>'+expBadge(e)+'</div><div class="cx-mem">'+memHTML(e,e.members,' · ')+'</div></button>';}).join('');[...fab.querySelectorAll('.cx-row')].forEach((b,i)=>{b.onclick=()=>openComplex(list[i]);b.onmouseenter=()=>window.highlightMembers(list[i].members);b.onmouseleave=()=>window.highlightMembers();var cc=b.querySelector('.cx-cl');if(cc){cc.title='Go to this cluster';cc.onclick=(ev)=>{ev.stopPropagation();goToStructure(list[i]);};}});fab.style.display='block';placeFab();setTimeout(function(){placeFab();},0);}
+  function updateComplexFab(ci,si,ssi){_clP=null;_mulP=null;_subP=(ci==null?null:[ci,si,ssi]);renderComplexFab();}
+  function updateClusterFab(ci){_clP=(ci==null?null:ci);_subP=null;_mulP=null;renderComplexFab();}
+  function updateMultiFab(cis){_mulP=(cis&&cis.length)?cis.slice():null;_clP=null;_subP=null;renderComplexFab();}
   let _gl=[];
   // Size a card so it stops above whatever sits at the bottom-left of the canvas (the legend, and below it the
   // colour/label bar). Measured rather than assumed: a fixed inset guessed wrong and still covered the legend.
@@ -2788,7 +2791,7 @@ if (window.innerWidth <= 700) {
     var cnt={};for(var mi=0;mi<M.length;mi++){for(var ci=0;ci<CLx.length;ci++){if(CGsets[ci][M[mi]]){cnt[ci]=(cnt[ci]||0)+1;break;}}}
     var touched=Object.keys(cnt).map(function(k){return [parseInt(k,10),cnt[k]];}).sort(function(a,b){return b[1]-a[1];});
     if(!touched.length)return null;var primary=touched[0][0];
-    if(touched.length>=2)return {ci:primary,si:-1,ssi:-1,cross:true,label:touched.map(function(t){return 'C'+(t[0]+1);}).join('·')};
+    if(touched.length>=2)return {ci:primary,si:-1,ssi:-1,cross:true,cis:touched.map(function(t){return t[0];}),label:touched.map(function(t){return 'C'+(t[0]+1);}).join('·')};
     // 2) single cluster -> descend to sub / sub-sub only if the members CONCENTRATE (>=80% of the level AND no 2nd child holds >=2); else stop at the lowest common ancestor
     var out={ci:primary,si:-1,ssi:-1,cross:false};var bcov=touched[0][1];var subs=CLx[primary][8]||[];
     var counts=subs.map(function(sc){var g=gS(sc);return M.filter(function(x){return g[x];}).length;});var best1=-1,b1=0,b2=0;counts.forEach(function(v,i){if(v>b1){b2=b1;b1=v;best1=i;}else if(v>b2){b2=v;}});
@@ -2825,7 +2828,7 @@ if (window.innerWidth <= 700) {
   document.addEventListener('click',function(ev){if(!(ev.target.closest&&(ev.target.closest('#exp-pop')||ev.target.closest('.exp-b.sup'))))expPop.style.display='none';});
   function structIndex(){var byCl={},bySub={};if(!LIST)return{byCl:byCl,bySub:bySub};LIST.forEach(function(e){var p=pathFor(e);if(!p||p.cross)return;if(p.ci>=0){(byCl[p.ci]=byCl[p.ci]||[]).push(e);}if(p.ci>=0&&p.si>=0){var k=p.ci+'-'+p.si;(bySub[k]=bySub[k]||[]).push(e);}});return{byCl:byCl,bySub:bySub};}
   function badgeFor(tile,arr,ci,si){if(!arr||!arr.length||tile.querySelector('.struct-badge'))return;if(getComputedStyle(tile).position==='static')tile.style.position='relative';var b=document.createElement('div');b.className='struct-badge';b.innerHTML=CXI+' '+arr.length+' 3D';b.title=arr.length+' AlphaFold3 higher-order complex structure'+(arr.length>1?'s':'')+' here — click to view';b.onclick=function(ev){ev.stopPropagation();var ttl=(si==null?'C'+(ci+1):'C'+(ci+1)+'-'+(si+1))+' — 3D complex structure'+(arr.length>1?'s':'');openModal(arr,ttl);};tile.appendChild(b);}
-  function goToStructure(e){try{modal.style.display='none';var p=pathFor(e);if(!p)return;if(window.hideLanding)window.hideLanding();if(window.hideGrid)window.hideGrid();if(p.ssi>=0)showSubSub(p.ci,p.si,p.ssi);else if(p.si>=0)showSub(p.ci,p.si);else if(p.ci>=0)showCluster(p.ci);}catch(x){}}
+  function goToStructure(e){try{modal.style.display='none';var p=pathFor(e);if(!p)return;if(window.hideLanding)window.hideLanding();if(window.hideGrid)window.hideGrid();if(p.cross&&p.cis&&p.cis.length>1&&window.showMulti){showMulti(new Set(p.cis));return;}if(p.ssi>=0)showSubSub(p.ci,p.si,p.ssi);else if(p.si>=0)showSub(p.ci,p.si);else if(p.ci>=0)showCluster(p.ci);}catch(x){}}
   var _modItems=null,_modTitle=null,_modSort='size',_modClu=null;
   function _cmpSize(a,b){return b.members.length-a.members.length;}
   function _cmpCluster(a,b){var pa=pathFor(a)||{},pb=pathFor(b)||{};var ca=pa.ci==null?1e9:pa.ci,cb=pb.ci==null?1e9:pb.ci,sa=pa.si==null?1e9:pa.si,sb=pb.si==null?1e9:pb.si,za=pa.ssi==null?-1:pa.ssi,zb=pb.ssi==null?-1:pb.ssi;return (ca-cb)||(sa-sb)||(za-zb)||(b.members.length-a.members.length);}
@@ -2852,7 +2855,8 @@ if (window.innerWidth <= 700) {
   var _lgEl=document.getElementById('landing-grid');if(_lgEl){var _lto=null;new MutationObserver(function(){if(_lto)clearTimeout(_lto);_lto=setTimeout(hintLanding,30);}).observe(_lgEl,{childList:true});}
   window.onGeneComplex=updateGeneBtn;   // called by the patched updateClipFab on every gene selection
   window.onSubView=updateComplexFab;    // called by the patched showSub/showSubSub with the (sub-)cluster's genes
-  window.onClusterView=updateClusterFab; // called by showCluster to surface every AF3 complex whose LCA is in this cluster
+  window.onClusterView=updateClusterFab;
+  window.onMultiView=updateMultiFab;   // compare view: union of the compared clusters' complexes // called by showCluster to surface every AF3 complex whose LCA is in this cluster
   // Re-fit whenever the canvas actually has a size. Sizing only at render time was wrong: a cluster opens in the
   // GRID view with #cv-wrap hidden, so offsetParent was null and the cards kept their CSS fallback height. The
   // observer covers every way the space changes -- grid<->network toggle, window resize, a 12" vs 16" display.
