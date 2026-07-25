@@ -76,11 +76,11 @@ canvas { display:block; }
 #edge-ctrl button:not(.ev-btn):hover { border-color:var(--accent); color:var(--accent); }
 #edge-ctrl .ev-btn { font-size:12.5px; padding:4px 8px; }
 #clip-fab { position:absolute; left:12px; top:48px; z-index:6; display:none; flex-direction:column; line-height:1.25;
-  background:#B07AA1; color:#fff; text-decoration:none; padding:8px 16px; border-radius:9px;
+  background:#3f9fda; color:#fff; text-decoration:none; padding:8px 16px; border-radius:9px;
   box-shadow:0 3px 10px rgba(0,0,0,.20); transition:background .15s, box-shadow .15s, transform .1s; }
-#clip-fab:hover { background:#9a6a8d; box-shadow:0 4px 14px rgba(0,0,0,.30); transform:translateY(-1px); }
+#clip-fab:hover { background:#2f8fca; box-shadow:0 4px 14px rgba(0,0,0,.30); transform:translateY(-1px); }
 #clip-fab .clip-fab-top { font-size:18px; font-weight:800; letter-spacing:.2px; }
-#clip-fab .clip-fab-sub { font-size:12.5px; font-weight:500; opacity:.92; }
+#clip-fab .clip-fab-sub { font-size:14px; font-weight:500; opacity:.92; }
 #clip-fab .clip-fab-sub .k { font-weight:800; text-decoration:underline; }
 #pick-bar { padding:0 8px; font-size:13.5px; display:none; border-bottom:1px solid #eee; }
 #pick-bar.show { display:block; padding:8px; }
@@ -185,7 +185,7 @@ canvas { display:block; }
     <div style="padding:8px;border-bottom:1px solid #eee">
       <div style="display:flex;gap:4px;align-items:center">
         <input id="q" placeholder="Search protein or FBgn…" style="flex:1;padding:6px 10px;font-size:14.5px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box">
-        <button onclick="showGeneListModal()" title="Paste protein list" style="padding:6px 8px;font-size:12.5px;border:1px solid #B07AA1;border-radius:5px;background:none;color:#B07AA1;cursor:pointer;white-space:nowrap;font-weight:600">List</button>
+        <button onclick="showGeneListModal()" title="Paste protein list" style="padding:6px 8px;font-size:12.5px;border:1px solid #3f9fda;border-radius:5px;background:none;color:#3f9fda;cursor:pointer;white-space:nowrap;font-weight:600">List</button>
       </div>
       <div id="search-results" style="max-height:200px;overflow-y:auto"></div>
     </div>
@@ -211,10 +211,11 @@ canvas { display:block; }
         <span style="margin-left:8px;display:flex;gap:6px;align-items:center">
           <button onclick="downloadData()" style="padding:5px 12px;font-size:12.5px;border:1px solid #ccc;border-radius:4px;cursor:pointer;background:#fff;color:#555">Nodes CSV</button>
           <button onclick="downloadEdges()" style="padding:5px 12px;font-size:12.5px;border:1px solid #ccc;border-radius:4px;cursor:pointer;background:#fff;color:#555">Edges CSV</button>
-          <button class="btn" style="width:auto;padding:8px 20px;font-size:14.5px;background:#B07AA1" onclick="showGeneListModal()">Protein List</button>
+          <button class="btn" style="width:auto;padding:8px 20px;font-size:14.5px;background:#3f9fda" onclick="showGeneListModal()">Protein List</button>
           <button class="btn" style="width:auto;padding:8px 20px;font-size:14.5px;background:#59A14F" onclick="downloadAllGO()">Download All GO (CSV)</button>
           <a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" style="padding:5px 12px;font-size:12.5px;border:1px solid var(--accent);border-radius:4px;color:var(--accent);text-decoration:none">FlyPredictome DB ↗</a>
           <a href="https://github.com/flyark/AFM-LIS" target="_blank" style="padding:5px 12px;font-size:12.5px;border:1px solid #333;border-radius:4px;color:#333;text-decoration:none">AFM-LIS ↗</a>
+          <a href="https://flyark.github.io/LIVIA" target="_blank" style="padding:5px 12px;font-size:12.5px;border:1px solid #2f6ab5;border-radius:4px;color:#2f6ab5;text-decoration:none">LIVIA ↗</a>
         </span>
       </div>
       <div style="display:flex;align-items:center;margin-bottom:8px">
@@ -414,7 +415,8 @@ let W,H,sc=1,px=0,py=0;
 let level='overview',curCi=null,curSi=null,curSsi=null;
 let nodes=[],edges=[],allEdges=[],nmap={};
 let drag=false,dnode=null,lm=null,moved=false;
-let hover=null,hits=new Set(),nbrs=new Set(),focus=null;
+let hover=null,hits=new Set(),nbrs=new Set(),focus=null,hlMembers=new Set();
+window.highlightMembers=function(m){hlMembers=(m&&m.length)?new Set(m):new Set();draw();};
 let pickedGenes=[],pathNodes=new Set(),pathEdges=new Set();
 let pickedClusters=[]; // cluster picks: [{ci, label, color}]
 let pickedSubs=[]; // sub-cluster picks: [{ci, si, label, color}]
@@ -620,6 +622,7 @@ function showCluster(ci){ updateClipFab(null);
   bc_.innerHTML=`<a onclick="showOverview()">All</a> → <b>${c[0]} (${c[1]})</b>`;
   stats_.textContent=`${c[3]} proteins · ${c[5]} sub-clusters`;
   autoLabelSettings(nodes.length);updateEvCount();buildSide();showGrid(ci);draw();
+  if(window.onClusterView)window.onClusterView(ci);   // surface this cluster's AF3 complexes (card at top-left)
 }
 
 function showMulti(ciSet){
@@ -949,7 +952,7 @@ function showGene(gid){
     ${fbgnStr?`<a href="https://flybase.org/reports/${fbgnStr}" target="_blank" style="color:var(--accent)">FlyBase</a>`:''}
     <a href="https://www.flyrnai.org/tools/fly_predictome/web/famdb_summary/${fbgnStr}" target="_blank" style="color:var(--accent)">FlyPredictome</a>
     <a href="https://flyark.github.io/LIVIA/flypredictome.html?gene=${gid}" target="_blank" style="color:#59A14F">LIVIA</a>
-    ${fbgnStr&&(!CLIP_AVAIL||CLIP_AVAIL.has(fbgnStr))?`<a href="https://flyark.github.io/LIVIA/clip.html?data=https://flyark.github.io/FlyPredictome-clip-data/${fbgnStr}.zip&gene=${gid}" target="_blank" style="color:#B07AA1;font-weight:600" title="cLIP — cluster this protein's partners by their contact residues">cLIP</a>`:''}
+    ${fbgnStr&&(!CLIP_AVAIL||CLIP_AVAIL.has(fbgnStr))?`<a href="https://flyark.github.io/LIVIA/clip.html?data=https://flyark.github.io/FlyPredictome-clip-data/${fbgnStr}.zip&gene=${gid}" target="_blank" style="color:#3f9fda;font-weight:600" title="cLIP — cluster this protein's partners by their contact residues">cLIP</a>`:''}
     </div>`;
   side.appendChild(card);
   updateClipFab(gid);
@@ -1877,9 +1880,9 @@ function draw(){
   const sorted=[...nodes].filter(n=>!n.hidden).sort((a,b)=>(a.isTarget?3:a.isNbr?2:0)-(b.isTarget?3:b.isNbr?2:0));
   sorted.forEach(n=>{
     const[sx,sy]=ts(n.x,n.y);
-    const isH=hs&&hits.has(n.id),isPk=pickedGenes.includes(n.id);
+    const isH=hs&&hits.has(n.id),isPk=pickedGenes.includes(n.id),hl=hlMembers.size>0,isHl=hl&&hlMembers.has(n.id);
     const baseSz=nodeSizeMode==='uniform'?1.5:n.sz;
-    const r=n.isTarget?Math.max(4*nodeScale,baseSz*sc*nodeScale*1.2):(isH||isPk)?Math.max(3*nodeScale,baseSz*sc*nodeScale*1.1):Math.max(0.8,baseSz*sc*nodeScale);
+    const r=n.isTarget?Math.max(4*nodeScale,baseSz*sc*nodeScale*1.2):(isH||isPk||isHl)?Math.max(3*nodeScale,baseSz*sc*nodeScale*1.1):Math.max(0.8,baseSz*sc*nodeScale);
     if(n.isTarget){ctx.beginPath();ctx.arc(sx,sy,r+4,0,Math.PI*2);ctx.fillStyle='rgba(0,0,0,0.08)';ctx.fill();}
     if(isPk&&!n.isTarget){ctx.beginPath();ctx.arc(sx,sy,r+3,0,Math.PI*2);ctx.fillStyle='rgba(44,115,168,0.08)';ctx.fill();}
     ctx.beginPath();ctx.arc(sx,sy,r,0,Math.PI*2);
@@ -1887,7 +1890,7 @@ function draw(){
     if(colorMode==='cluster'){fillCol=geneClusterColor(n.id);}
     else if(colorMode==='subcluster'){fillCol=geneSubColor(n.id);}
     else if(colorMode==='subsubcluster'){fillCol=geneSubSubColor(n.id);}
-    ctx.fillStyle=(hs&&!isH&&!n.isTarget&&!n.isNbr)?'rgba(210,210,210,0.3)':fillCol;ctx.fill();
+    ctx.fillStyle=(hs&&!isH&&!n.isTarget&&!n.isNbr)?'rgba(210,210,210,0.3)':(hl&&!isHl&&!n.isTarget&&!n.isNbr)?'rgba(205,205,212,0.4)':fillCol;ctx.fill();if(isHl){ctx.beginPath();ctx.arc(sx,sy,r+3,0,Math.PI*2);ctx.strokeStyle='#2f6ab5';ctx.lineWidth=2;ctx.stroke();}
     ctx.strokeStyle=n.isTarget?'#000':isPk?'#2C73A8':n.isNbr?'white':n===hover?'rgba(0,0,0,0.5)':'rgba(255,255,255,0.7)';
     ctx.lineWidth=n.isTarget?3:isPk?2:n.isNbr?0.8:n===hover?1:0.5;ctx.stroke();
     if(isPk&&!n.isTarget){ctx.beginPath();ctx.arc(sx,sy,r+3.5,0,Math.PI*2);ctx.strokeStyle='rgba(44,115,168,0.5)';ctx.lineWidth=1;ctx.setLineDash([2,2]);ctx.stroke();ctx.setLineDash([]);}
@@ -2223,7 +2226,7 @@ function applyGeneListSubnet(){
   // Sidebar
   side.innerHTML='';
   const backBtn=el('button','btn');backBtn.textContent='← Overview';backBtn.onclick=showOverview;side.appendChild(backBtn);
-  const editBtn=el('button','btn');editBtn.textContent='Edit Protein List';editBtn.style.background='#B07AA1';editBtn.onclick=showGeneListModal;side.appendChild(editBtn);
+  const editBtn=el('button','btn');editBtn.textContent='Edit Protein List';editBtn.style.background='#3f9fda';editBtn.onclick=showGeneListModal;side.appendChild(editBtn);
 
   // Cluster distribution
   const clDist={};
@@ -2295,6 +2298,22 @@ function showLanding(){
     <div style="font-size:11px;color:#666">${c[3]} proteins &middot; ${c[5]} sub-clusters</div>
     ${goHint?'<div style="font-size:10px;color:#2C73A8;margin-top:3px">'+goHint+'</div>':''}`;
     lg.appendChild(card);
+  });
+  // Fill the persistent left sidebar with the cluster list on Home (was left empty)
+  side.innerHTML='';
+  const _lh=el('div','sh');_lh.textContent=`Clusters (${CL.length})`;side.appendChild(_lh);
+  CL.forEach((c,i)=>{
+    const col=c[2];
+    const d=el('div','si');d.style.cssText='display:flex;align-items:center;gap:4px;';
+    const addBtn=el('span');addBtn.textContent='+';addBtn.style.cssText='width:18px;height:18px;display:flex;align-items:center;justify-content:center;border-radius:3px;border:1px solid #ccc;font-size:12.5px;font-weight:700;color:#888;cursor:pointer;flex-shrink:0;';
+    addBtn.onmouseenter=()=>{addBtn.style.borderColor='var(--accent)';addBtn.style.color='var(--accent)';};
+    addBtn.onmouseleave=()=>{addBtn.style.borderColor='#ccc';addBtn.style.color='#888';};
+    addBtn.onclick=(e)=>{e.stopPropagation();pickCluster(i,'C'+(i+1),col);};
+    d.appendChild(addBtn);
+    const dot=el('div','dot');dot.style.background=col;d.appendChild(dot);
+    const goHint=_goDataHint(c[9]);
+    const sp=el('span');sp.style.cssText='flex:1;cursor:pointer;font-size:13.5px;min-width:0;';sp.innerHTML=`<b>C${i+1}</b> <span style="color:#999">${c[3]} proteins · ${c[1]}</span>${goHint?'<div style="font-size:12.5px;color:#2C73A8;margin-top:1px">'+goHint+'</div>':''}`;sp.onclick=()=>showCluster(i);d.appendChild(sp);
+    side.appendChild(d);
   });
 }
 
@@ -2380,7 +2399,7 @@ function buildNetworkSidebar(label,labelMap,nComm,opts){
   const rlBtn=el('button','btn');rlBtn.textContent='Re-layout';rlBtn.style.background='#59A14F';
   rlBtn.onclick=()=>{forceLayout(nodes,edges,150);nmap={};nodes.forEach(n=>nmap[n.id]=n);autoFit();draw();};
   side.appendChild(rlBtn);
-  const reBtn=el('button','btn');reBtn.textContent='Re-cluster Network';reBtn.style.background='#B07AA1';
+  const reBtn=el('button','btn');reBtn.textContent='Re-cluster Network';reBtn.style.background='#3f9fda';
   reBtn.onclick=opts&&opts.rebuild||buildSubNetwork;side.appendChild(reBtn);
   // Group genes by community
   const groups={};
@@ -2626,11 +2645,11 @@ setTimeout(parseHash,100);
     <button onclick="document.getElementById('genelist-input').value='Rpn3\nRpn5\nRpn7\nRpn8\nRpn11\nRpn12\nRpt1\nRpt3\nRpt5\nRpt6'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#59A14F;cursor:pointer">Proteasome</button>
     <button onclick="document.getElementById('genelist-input').value='Atg1\nAtg8a\nAtg8b\nAtg5\nAtg6\nAtg7\nAtg13\nAtg16\nUvrag'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#59A14F;cursor:pointer">Autophagy</button>
     <button onclick="document.getElementById('genelist-input').value='per\ntim\nClk\ncyc\nsgg\nvri'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#59A14F;cursor:pointer">Circadian</button>
-    <button onclick="document.getElementById('genelist-input').value='Arp2\nArp3\nArpc1\nArpc2\nArpc3A\nArpc4\nArpc5'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">Arp2/3</button>
-    <button onclick="document.getElementById('genelist-input').value='CCT1\nCCT2\nCCT3\nCCT4\nCCT5\nCCT6\nCCT7\nCCT8'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">CCT/TRiC</button>
-    <button onclick="document.getElementById('genelist-input').value='E(z)\nSu(z)12\nesc\nCaf1-55\nPcl'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">PRC2</button>
-    <button onclick="document.getElementById('genelist-input').value='Vps4\nVta1\nALiX\nCHMP2B\nVps25\nVps28\nVps36\nshrb'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">ESCRT</button>
-    <button onclick="document.getElementById('genelist-input').value='Cdk1\nCdk2\nCdk4\nCdk5\nCdk7\nCdk8\nCdk9\nCdk12\nCycA\nCycB\nCycD\nCycE'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#B07AA1;cursor:pointer">CDK-Cyclin</button>
+    <button onclick="document.getElementById('genelist-input').value='Arp2\nArp3\nArpc1\nArpc2\nArpc3A\nArpc4\nArpc5'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#3f9fda;cursor:pointer">Arp2/3</button>
+    <button onclick="document.getElementById('genelist-input').value='CCT1\nCCT2\nCCT3\nCCT4\nCCT5\nCCT6\nCCT7\nCCT8'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#3f9fda;cursor:pointer">CCT/TRiC</button>
+    <button onclick="document.getElementById('genelist-input').value='E(z)\nSu(z)12\nesc\nCaf1-55\nPcl'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#3f9fda;cursor:pointer">PRC2</button>
+    <button onclick="document.getElementById('genelist-input').value='Vps4\nVta1\nALiX\nCHMP2B\nVps25\nVps28\nVps36\nshrb'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#3f9fda;cursor:pointer">ESCRT</button>
+    <button onclick="document.getElementById('genelist-input').value='Cdk1\nCdk2\nCdk4\nCdk5\nCdk7\nCdk8\nCdk9\nCdk12\nCycA\nCycB\nCycD\nCycE'" style="padding:2px 8px;font-size:11px;border:1px solid #ddd;border-radius:3px;background:#fff;color:#3f9fda;cursor:pointer">CDK-Cyclin</button>
   </div>
   <div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
     <button onclick="applyGeneList()" style="padding:8px 20px;font-size:14.5px;background:#2C73A8;color:#fff;border:none;border-radius:4px;cursor:pointer">Select &amp; Highlight</button>
@@ -2662,38 +2681,41 @@ if (window.innerWidth <= 700) {
   let LIST=null,_subG=null;
   const css=document.createElement('style');
   css.textContent=`
-#complex-fab{position:absolute;left:12px;top:48px;z-index:7;display:none;background:#fff;border:1px solid #d9c4d3;border-radius:9px;box-shadow:0 3px 12px rgba(0,0,0,.16);padding:7px;max-width:250px}
-.cx-hd{font-weight:800;color:#7b3f6e;margin:1px 5px 5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
-.cx-row{display:block;width:100%;text-align:left;border:0;background:#f6eef4;color:#5a2d50;border-radius:6px;padding:6px 9px;margin:3px 0;cursor:pointer;font-size:13.5px;font-weight:600}
-.cx-row:hover{background:#e7d2e1}
-#complex-node-btn{position:absolute;left:12px;z-index:7;display:none;background:#fff;border:1px solid #d9c4d3;border-radius:9px;box-shadow:0 3px 12px rgba(0,0,0,.16);padding:7px;max-width:270px}
+#complex-fab{position:absolute;left:12px;top:48px;z-index:7;display:none;background:#fff;border:1px solid #c2d8ee;border-radius:9px;box-shadow:0 3px 12px rgba(0,0,0,.16);padding:7px;width:259px}
+.cx-hd{font-weight:800;color:#2f6ab5;margin:1px 5px 5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+.cx-row{display:block;width:100%;text-align:left;border:0;background:#f6f7f9;color:#2b3138;border-radius:6px;padding:6px 9px;margin:3px 0;cursor:pointer;font-size:13.5px;font-weight:600;white-space:normal}
+.cx-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.cx-mem{line-height:1.6;overflow-wrap:break-word;word-break:break-word}
+.cx-row:hover{background:#e6f3ea}
+#complex-node-btn{position:absolute;left:12px;z-index:7;display:none;background:#fff;border:1px solid #c2d8ee;border-radius:9px;box-shadow:0 3px 12px rgba(0,0,0,.16);padding:7px;width:259px}
 .feat-wrap{display:flex;gap:12px;margin:2px 0 18px;flex-wrap:wrap}
 .feat-card{flex:1;min-width:270px;border-radius:11px;padding:15px 17px;cursor:pointer;color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.14);transition:transform .1s,box-shadow .1s}
 .feat-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.2)}
 .feat-card .ft{font-size:17px;font-weight:800;margin-bottom:4px}
 .feat-card .fd{font-size:13px;opacity:.94;line-height:1.45}
-.feat-a{background:linear-gradient(135deg,#7b3f6e,#a85c93)}
-.feat-b{background:linear-gradient(135deg,#2C73A8,#4a90c2)}
+.feat-a{background:linear-gradient(135deg,#2f6ab5,#4f93cf)}
+.feat-b{background:linear-gradient(135deg,#2f8fca,#5cb3e8)}
 .ex-btn{border:0;background:rgba(255,255,255,.22);color:#fff;border-radius:5px;padding:4px 10px;cursor:pointer;font-size:13px;font-weight:700}
 .ex-btn:hover{background:rgba(255,255,255,.38)}
 #cx-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60;display:none;align-items:center;justify-content:center}
 #cx-modal .box{background:#fff;border-radius:13px;max-width:660px;width:92%;max-height:82vh;overflow:auto;padding:18px 22px}
 #cx-modal .cx-row2{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 4px;border-bottom:1px solid #eee;font-size:14px}
 #cx-modal .cx-row2:hover{background:#faf5f9}
-#cx-modal .vbtn{border:0;background:#7b3f6e;color:#fff;border-radius:6px;padding:6px 11px;cursor:pointer;font-size:12.5px;font-weight:700;white-space:nowrap}
+#cx-modal .vbtn{border:0;background:#2f6ab5;color:#fff;border-radius:6px;padding:6px 11px;cursor:pointer;font-size:12.5px;font-weight:700;white-space:nowrap}
 #cx-modal .cl-btn{border:0;background:#e7eff6;color:#2C73A8;border-radius:5px;padding:3px 9px;cursor:pointer;font-size:13px;font-weight:800;margin-right:3px;white-space:nowrap}
 #cx-modal .cl-btn:hover{background:#cfe0f0}
 #grid .subplot{position:relative}
-.struct-badge{position:absolute;top:6px;right:6px;background:#7b3f6e;color:#fff;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:9px;cursor:pointer;z-index:2;box-shadow:0 1px 4px rgba(0,0,0,.25);display:inline-flex;align-items:center;gap:3px}
-.struct-badge:hover{background:#693459}
-.srt-btn{border:1px solid #d9c4d3;background:#fff;color:#7b3f6e;border-radius:5px;padding:2px 9px;cursor:pointer;font-size:12px;font-weight:700;margin-right:4px}
-.srt-btn.on{background:#7b3f6e;color:#fff;border-color:#7b3f6e}
-.cx-cl{display:inline-block;background:#e7d7e3;color:#7b3f6e;border-radius:4px;padding:0 5px;font-weight:800;font-size:11.5px}
+.struct-badge{position:absolute;bottom:2px;right:6px;background:#2f6ab5;color:#fff;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:9px;cursor:pointer;z-index:2;box-shadow:0 1px 4px rgba(0,0,0,.25);display:inline-flex;align-items:center;gap:3px}
+.struct-badge:hover{background:#245489}
+.srt-btn{border:1px solid #c2d8ee;background:#fff;color:#2f6ab5;border-radius:5px;padding:2px 9px;cursor:pointer;font-size:12px;font-weight:700;margin-right:4px}
+.srt-btn.on{background:#2f6ab5;color:#fff;border-color:#2f6ab5}
+.cx-cl{display:inline-block;background:#dbe8f7;color:#1f2733;border:1px solid #b3ceef;border-radius:5px;padding:1px 7px;font-weight:800;font-size:13px;cursor:pointer}
+.cx-cl:hover{background:#c5daf5;border-color:#7fb0e6}
 #cx-sort{display:flex;align-items:center;margin:2px 0 10px}
-.exp-b{display:inline-block;border-radius:4px;padding:0 6px;font-size:10.5px;font-weight:700;vertical-align:1px;white-space:nowrap}
+.exp-b{display:inline-block;border-radius:4px;padding:1px 7px;font-size:12px;font-weight:700;vertical-align:1px;white-space:nowrap}
 .exp-b.sup{background:#e2efe4;color:#2e7d32;cursor:pointer}
 .exp-b.sup:hover{background:#cfe6d2}
-.exp-b.dn{background:#efe7ee;color:#9a7a92}
+.exp-b.dn{background:#eceff4;color:#7c8ba1}
 .cov{font-weight:800;color:#2e7d32}
 #exp-pop{position:fixed;z-index:99999;display:none;background:#fff;border:1px solid #cfe0d2;border-radius:9px;box-shadow:0 6px 22px rgba(0,0,0,.22);padding:9px 11px;max-width:360px;max-height:min(64vh,460px);overflow-y:auto;font-size:12px;color:#333}
 #exp-pop .ep-hd{position:sticky;top:-9px;background:#fff;padding-top:2px}
@@ -2708,38 +2730,50 @@ if (window.innerWidth <= 700) {
   const fab=document.createElement('div'); fab.id='complex-fab'; cv.appendChild(fab);
   const nbtn=document.createElement('div'); nbtn.id='complex-node-btn'; cv.appendChild(nbtn);
   const modal=document.createElement('div'); modal.id='cx-modal';
-  modal.innerHTML='<div class="box"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b id="cx-title" style="font-size:18px;color:#7b3f6e"></b><button id="cx-x" style="border:0;background:none;font-size:24.5px;cursor:pointer;color:#999;line-height:1">×</button></div><div style="font-size:12.5px;color:#999;margin-bottom:8px">Higher-order complexes predicted by AlphaFold3 — click any to open the interactive 3D structure + interface analysis in LIVIA. Green 🔬 = subunits also seen in an experimental structure.</div><div id="cx-sort"></div><div id="cx-list"></div></div>';
+  modal.innerHTML='<div class="box"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b id="cx-title" style="font-size:18px;color:#2f6ab5"></b><button id="cx-x" style="border:0;background:none;font-size:24.5px;cursor:pointer;color:#999;line-height:1">×</button></div><div style="font-size:12.5px;color:#999;margin-bottom:8px">Higher-order complexes predicted by AlphaFold3 — click any to open the interactive 3D structure + interface analysis in LIVIA. Subunits shown in green are also resolved in an experimental structure (🔬 = method).</div><div id="cx-sort"></div><div id="cx-list"></div></div>';
   document.body.appendChild(modal);
   modal.onclick=e=>{if(e.target===modal)modal.style.display='none';};
   modal.querySelector('#cx-x').onclick=()=>modal.style.display='none';
   function openComplex(e){const label=e.members.slice(0,4).join('-')+(e.members.length>4?'…':'');window.open(LIVIA+'?data='+encodeURIComponent(e.url)+'&name='+encodeURIComponent(label),'_blank','noopener');}
   function inSet(gs){return !LIST?[]:LIST.filter(e=>{const k=e.members.filter(g=>gs.has(g)).length;return k>=3&&k/e.members.length>=0.75;}).sort((a,b)=>b.members.length-a.members.length);}
   function withMember(g){return !LIST?[]:LIST.filter(e=>e.members.includes(g)).sort((a,b)=>b.members.length-a.members.length);}
-  var _subP=null, CXHDR='AF3 structure';
-  function renderComplexFab(){var list=[];if(_subP&&_subP[0]!=null&&_subP[1]!=null){var idx=structIndex();list=(idx.bySub[_subP[0]+'-'+_subP[1]]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}if(!list.length){fab.style.display='none';fab.innerHTML='';return;}fab.innerHTML='<div class="cx-hd">'+CXHDR+(list.length>1?'s ('+list.length+')':'')+'</div>'+list.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'">'+CXI+' '+cl+e.n+'-mer · '+memHTML(e,e.members.slice(0,3),'·')+(e.members.length>3?'…':'')+expBadge(e)+'</button>';}).join('');[...fab.querySelectorAll('.cx-row')].forEach((b,i)=>b.onclick=()=>openComplex(list[i]));fab.style.display='block';}
-  function updateComplexFab(ci,si,ssi){_subP=(ci==null?null:[ci,si,ssi]);renderComplexFab();}
+  var _subP=null, _clP=null, CXHDR='AF3 structure';
+  function renderComplexFab(){var list=[];var idx=structIndex();if(_clP!=null){list=(idx.byCl[_clP]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}else if(_subP&&_subP[0]!=null&&_subP[1]!=null){list=(idx.bySub[_subP[0]+'-'+_subP[1]]||[]).slice().sort(function(a,b){return b.members.length-a.members.length;});}if(!list.length){fab.style.display='none';fab.innerHTML='';return;}fab.innerHTML='<div class="cx-hd">'+CXHDR+(list.length>1?'s ('+list.length+')':'')+'</div>'+list.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'"><div class="cx-top">'+CXI+' '+cl+'<b>'+e.n+'-mer</b>'+expBadge(e)+'</div><div class="cx-mem">'+memHTML(e,e.members,' · ')+'</div></button>';}).join('');[...fab.querySelectorAll('.cx-row')].forEach((b,i)=>{b.onclick=()=>openComplex(list[i]);b.onmouseenter=()=>window.highlightMembers(list[i].members);b.onmouseleave=()=>window.highlightMembers();var cc=b.querySelector('.cx-cl');if(cc){cc.title='Go to this cluster';cc.onclick=(ev)=>{ev.stopPropagation();goToStructure(list[i]);};}});fab.style.display='block';}
+  function updateComplexFab(ci,si,ssi){_clP=null;_subP=(ci==null?null:[ci,si,ssi]);renderComplexFab();}
+  function updateClusterFab(ci){_clP=(ci==null?null:ci);_subP=null;renderComplexFab();}
   let _gl=[];
   function posNode(){const clip=document.getElementById('clip-fab');nbtn.style.top=((clip&&clip.offsetParent!==null&&clip.offsetHeight)?(clip.offsetTop+clip.offsetHeight+8):48)+'px';}
-  function updateGeneBtn(g){_gl=g?withMember(g):[];if(!_gl.length){nbtn.style.display='none';return;}nbtn.innerHTML='<div class="cx-hd">'+CXHDR+(_gl.length>1?'s ('+_gl.length+')':'')+'</div>'+_gl.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'">'+CXI+' '+cl+e.n+'-mer · '+memHTML(e,e.members.slice(0,3),'·')+(e.members.length>3?'…':'')+expBadge(e)+'</button>';}).join('');[...nbtn.querySelectorAll('.cx-row')].forEach((b,i)=>b.onclick=()=>openComplex(_gl[i]));nbtn.style.display='block';posNode();setTimeout(posNode,0);}
+  function updateGeneBtn(g){_gl=g?withMember(g):[];if(!_gl.length){nbtn.style.display='none';return;}nbtn.innerHTML='<div class="cx-hd">'+CXHDR+(_gl.length>1?'s ('+_gl.length+')':'')+'</div>'+_gl.map(function(e){var p=pathFor(e);var cl=(p&&p.label)?'<span class="cx-cl">'+p.label+'</span> ':'';return '<button class="cx-row" title="'+e.members.join(', ')+'"><div class="cx-top">'+CXI+' '+cl+'<b>'+e.n+'-mer</b>'+expBadge(e)+'</div><div class="cx-mem">'+memHTML(e,e.members,' · ')+'</div></button>';}).join('');[...nbtn.querySelectorAll('.cx-row')].forEach((b,i)=>{b.onclick=()=>openComplex(_gl[i]);b.onmouseenter=()=>window.highlightMembers(_gl[i].members);b.onmouseleave=()=>window.highlightMembers();var cc=b.querySelector('.cx-cl');if(cc){cc.title='Go to this cluster';cc.onclick=(ev)=>{ev.stopPropagation();goToStructure(_gl[i]);};}});nbtn.style.display='block';posNode();setTimeout(posNode,0);}
   nbtn.onclick=()=>{if(_gl.length===1)openComplex(_gl[0]);else openModal(_gl,'Complexes containing this protein');};
-  function findPath(members){var CLx=window.CL;if(!CLx)return null;var best=null;for(var ci=0;ci<CLx.length;ci++){var c=CLx[ci];if(!c||!c[8])continue;for(var si=0;si<c[8].length;si++){var sc=c[8][si];if(!sc||!sc[4])continue;var sg={};sc[4].forEach(function(n){sg[n[0]]=1;});var so=members.filter(function(g){return sg[g];}).length;if(so<2)continue;var bSsi=-1,bSso=0,subs=sc[7]||[];for(var ssi=0;ssi<subs.length;ssi++){var ss=subs[ssi];if(!ss||!ss[4])continue;var ssg={};ss[4].forEach(function(n){ssg[n[0]]=1;});var sso=members.filter(function(g){return ssg[g];}).length;if(sso>bSso){bSso=sso;bSsi=ssi;}}if(!best||so>best.so)best={ci:ci,si:si,so:so,ssi:(bSso>=so*0.7?bSsi:-1)};}}if(best)best.label='C'+(best.ci+1)+'-'+(best.si+1)+(best.ssi>=0?'-'+(best.ssi+1):'');return best;}
+  function findPath(members){var CLx=window.CL;if(!CLx)return null;var M=members;function gS(node){var s={};((node&&node[4])||[]).forEach(function(n){s[n[0]]=1;});return s;}
+    var CGsets=CLx._cgCache;if(!CGsets){CGsets=CLx.map(function(c){var s={};((c&&c[6])||[]).forEach(function(n){s[n[0]]=1;});return s;});CLx._cgCache=CGsets;}
+    // 1) assign each member to its cluster by the FULL node list c[6]; a complex whose members touch >=2 clusters is CROSS-CLUSTER (no single-cluster home -> label all touched clusters, hidden from the per-cluster cards)
+    var cnt={};for(var mi=0;mi<M.length;mi++){for(var ci=0;ci<CLx.length;ci++){if(CGsets[ci][M[mi]]){cnt[ci]=(cnt[ci]||0)+1;break;}}}
+    var touched=Object.keys(cnt).map(function(k){return [parseInt(k,10),cnt[k]];}).sort(function(a,b){return b[1]-a[1];});
+    if(!touched.length)return null;var primary=touched[0][0];
+    if(touched.length>=2)return {ci:primary,si:-1,ssi:-1,cross:true,label:touched.map(function(t){return 'C'+(t[0]+1);}).join('·')};
+    // 2) single cluster -> descend to sub / sub-sub only if the members CONCENTRATE (>=80% of the level AND no 2nd child holds >=2); else stop at the lowest common ancestor
+    var out={ci:primary,si:-1,ssi:-1,cross:false};var bcov=touched[0][1];var subs=CLx[primary][8]||[];
+    var counts=subs.map(function(sc){var g=gS(sc);return M.filter(function(x){return g[x];}).length;});var best1=-1,b1=0,b2=0;counts.forEach(function(v,i){if(v>b1){b2=b1;b1=v;best1=i;}else if(v>b2){b2=v;}});
+    if(best1>=0&&b1>=bcov*0.8&&b2<=1){out.si=best1;var ssubs=subs[best1][7]||[];var pc=b1;var sc2=ssubs.map(function(ss){var g=gS(ss);return M.filter(function(x){return g[x];}).length;});var bss=-1,s1=0,s2=0;sc2.forEach(function(v,i){if(v>s1){s2=s1;s1=v;bss=i;}else if(v>s2){s2=v;}});if(bss>=0&&s1>=pc*0.8&&s2<=1){out.ssi=bss;}}
+    out.label='C'+(out.ci+1)+(out.si>=0?'-'+(out.si+1):'')+(out.ssi>=0?'-'+(out.ssi+1):'');return out;}
   function pathFor(e){if(!e._path){var p=findPath(e.members);if(p)e._path=p;return p;}return e._path;}
   var CXI='<svg viewBox="0 0 24 24" width="12" height="12" style="vertical-align:-1.5px;display:inline-block" fill="currentColor" stroke="currentColor" stroke-width="1.3"><g stroke-linecap="round"><line x1="7" y1="9" x2="17" y2="9"/><line x1="7.6" y1="10.3" x2="12" y2="16"/><line x1="16.4" y1="10.3" x2="12" y2="16"/></g><circle cx="7" cy="9" r="3"/><circle cx="17" cy="9" r="3"/><circle cx="12" cy="16.3" r="3"/></svg>';
   function expBadge(e){var x=e&&e.exp;if(!x||!x.sup)return '';var m=x.methods||{};var parts=[];if(m.cryoEM)parts.push('cryoEM'+(m.cryoEM>1?' ×'+m.cryoEM:''));if(m['X-ray'])parts.push('X-ray'+(m['X-ray']>1?' ×'+m['X-ray']:''));if(m.NMR)parts.push('NMR'+(m.NMR>1?' ×'+m.NMR:''));var lbl=parts.join(' + ')||'exp';var tip='Click for '+(x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')+' — best '+x.best_pdb+' covers '+x.cover+'/'+e.n+' subunits';return ' <span class="exp-b sup" data-job="'+(e.job||'')+'" title="'+tip+'">🔬 '+lbl+' ▾</span>';}
   function memHTML(e,list,sep){var cov={};((e.exp&&e.exp.covered)||[]).forEach(function(g){cov[g]=1;});return list.map(function(g){return cov[g]?'<b class="cov" title="present in an experimental structure">'+g+'</b>':g;}).join(sep);}
   var expPop=document.createElement('div');expPop.id='exp-pop';document.body.appendChild(expPop);
-  function showExpPop(el){try{var job=el.getAttribute('data-job');var e=LIST&&LIST.filter(function(x){return x.job===job;})[0];if(!e||!e.exp||!e.exp.pdbs)return;var x=e.exp;var rows=x.pdbs.map(function(p){return '<div class="ep-row"><a href="https://www.rcsb.org/structure/'+p.pdb+'" target="_blank" rel="noopener">'+p.pdb+'</a><span class="ep-m">'+p.method+'</span>'+(p.year||'')+' · '+p.cover+'/'+e.n+' subunits'+(p.res?' · '+p.res+'Å':'')+(p.title?'<div class="ep-t">'+p.title+'</div>':'')+'</div>';}).join('');expPop.innerHTML='<div class="ep-hd">'+(x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')+' · covered: '+((x.covered||[]).join(', ')||'—')+'</div>'+rows;var r=el.getBoundingClientRect();expPop.style.display='block';expPop.style.left=Math.max(6,Math.min(r.left,window.innerWidth-350))+'px';expPop.style.top=(r.bottom+6)+'px';}catch(err){}}
-  document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('.exp-b.sup');if(b){ev.stopPropagation();ev.preventDefault();showExpPop(b);}},true);
+  function showExpPop(el){try{var job=el.getAttribute('data-job');var e=LIST&&LIST.filter(function(x){return x.job===job;})[0];if(!e||!e.exp||!e.exp.pdbs)return;var x=e.exp;var rows=x.pdbs.map(function(p){return '<div class="ep-row"><a href="https://www.rcsb.org/structure/'+p.pdb+'" target="_blank" rel="noopener">'+p.pdb+'</a><span class="ep-m">'+p.method+'</span>'+(p.year||'')+' · '+p.cover+'/'+e.n+' subunits'+(p.res?' · '+p.res+'Å':'')+(p.title?'<div class="ep-t">'+p.title+'</div>':'')+'</div>';}).join('');expPop.innerHTML='<div class="ep-hd">'+(x.n_pdb||0)+' experimental structure'+((x.n_pdb||0)>1?'s':'')+' · covered: '+((x.covered||[]).join(', ')||'—')+'</div>'+rows;var r=el.getBoundingClientRect();expPop.style.display='block';expPop._job=job;expPop.style.left=Math.max(6,Math.min(r.left,window.innerWidth-350))+'px';expPop.style.top=(r.bottom+6)+'px';}catch(err){}}
+  document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('.exp-b.sup');if(b){ev.stopPropagation();ev.preventDefault();var job=b.getAttribute('data-job');if(expPop.style.display==='block'&&expPop._job===job){expPop.style.display='none';expPop._job=null;}else{showExpPop(b);}}},true);
   document.addEventListener('click',function(ev){if(!(ev.target.closest&&(ev.target.closest('#exp-pop')||ev.target.closest('.exp-b.sup'))))expPop.style.display='none';});
-  function structIndex(){var byCl={},bySub={};if(!LIST)return{byCl:byCl,bySub:bySub};LIST.forEach(function(e){var p=pathFor(e);if(!p)return;if(p.ci!=null){(byCl[p.ci]=byCl[p.ci]||[]).push(e);}if(p.ci!=null&&p.si!=null){var k=p.ci+'-'+p.si;(bySub[k]=bySub[k]||[]).push(e);}});return{byCl:byCl,bySub:bySub};}
+  function structIndex(){var byCl={},bySub={};if(!LIST)return{byCl:byCl,bySub:bySub};LIST.forEach(function(e){var p=pathFor(e);if(!p||p.cross)return;if(p.ci>=0){(byCl[p.ci]=byCl[p.ci]||[]).push(e);}if(p.ci>=0&&p.si>=0){var k=p.ci+'-'+p.si;(bySub[k]=bySub[k]||[]).push(e);}});return{byCl:byCl,bySub:bySub};}
   function badgeFor(tile,arr,ci,si){if(!arr||!arr.length||tile.querySelector('.struct-badge'))return;if(getComputedStyle(tile).position==='static')tile.style.position='relative';var b=document.createElement('div');b.className='struct-badge';b.innerHTML=CXI+' '+arr.length+' 3D';b.title=arr.length+' AlphaFold3 higher-order complex structure'+(arr.length>1?'s':'')+' here — click to view';b.onclick=function(ev){ev.stopPropagation();var ttl=(si==null?'C'+(ci+1):'C'+(ci+1)+'-'+(si+1))+' — 3D complex structure'+(arr.length>1?'s':'');openModal(arr,ttl);};tile.appendChild(b);}
   function goToStructure(e){try{modal.style.display='none';var p=pathFor(e);if(!p)return;if(window.hideLanding)window.hideLanding();if(window.hideGrid)window.hideGrid();if(p.ssi>=0)showSubSub(p.ci,p.si,p.ssi);else if(p.si>=0)showSub(p.ci,p.si);else if(p.ci>=0)showCluster(p.ci);}catch(x){}}
   var _modItems=null,_modTitle=null,_modSort='size';
   function _cmpSize(a,b){return b.members.length-a.members.length;}
   function _cmpCluster(a,b){var pa=pathFor(a)||{},pb=pathFor(b)||{};var ca=pa.ci==null?1e9:pa.ci,cb=pb.ci==null?1e9:pb.ci,sa=pa.si==null?1e9:pa.si,sb=pb.si==null?1e9:pb.si,za=pa.ssi==null?-1:pa.ssi,zb=pb.ssi==null?-1:pb.ssi;return (ca-cb)||(sa-sb)||(za-zb)||(b.members.length-a.members.length);}
-  function renderModal(){var L=(_modItems||LIST||[]).slice().sort(_modSort==='cluster'?_cmpCluster:_cmpSize);modal.querySelector('#cx-title').textContent=_modTitle||('Higher-order complex structures ('+L.length+')');modal.querySelector('#cx-sort').innerHTML='<span style="font-size:12px;color:#999;margin-right:4px">Sort:</span><button class="srt-btn'+(_modSort==='size'?' on':'')+'" data-s="size">by size</button><button class="srt-btn'+(_modSort==='cluster'?' on':'')+'" data-s="cluster">by cluster</button>';modal.querySelector('#cx-list').innerHTML=L.length?L.map(function(e,i){var _p=pathFor(e);var cl=(_p&&_p.label)||'';return '<div class="cx-row2"><div style="flex:1">'+(cl?'<button class="cl-btn" data-i="'+i+'" title="open this sub-cluster in the network">'+cl+' →</button> ':'')+'<b>'+e.n+'-mer</b> · '+memHTML(e,e.members,', ')+expBadge(e)+'</div><button class="vbtn" data-i="'+i+'">3D structure in LIVIA →</button></div>';}).join(''):'<div style="padding:14px;color:#999">No structures loaded yet.</div>';[...modal.querySelectorAll('.vbtn')].forEach(function(b){b.onclick=function(){openComplex(L[+b.dataset.i]);};});[...modal.querySelectorAll('.cl-btn')].forEach(function(s){s.onclick=function(){goToStructure(L[+s.dataset.i]);};});[...modal.querySelectorAll('.srt-btn')].forEach(function(b){b.onclick=function(){_modSort=b.dataset.s;renderModal();};});}
+  function renderModal(){var L=(_modItems||LIST||[]).slice().sort(_modSort==='cluster'?_cmpCluster:_cmpSize);modal.querySelector('#cx-title').textContent=_modTitle||('Higher-order complex structures ('+L.length+')');modal.querySelector('#cx-sort').innerHTML='<span style="font-size:12px;color:#999;margin-right:4px">Sort:</span><button class="srt-btn'+(_modSort==='size'?' on':'')+'" data-s="size">by size</button><button class="srt-btn'+(_modSort==='cluster'?' on':'')+'" data-s="cluster">by cluster</button>';modal.querySelector('#cx-list').innerHTML=L.length?L.map(function(e,i){var _p=pathFor(e);var cl=(_p&&_p.label)||'';return '<div class="cx-row2"><div style="flex:1">'+(cl?'<button class="cl-btn" data-i="'+i+'" title="open this sub-cluster in the network">'+cl+'</button> ':'')+'<b>'+e.n+'-mer</b> · '+memHTML(e,e.members,', ')+expBadge(e)+'</div><button class="vbtn" data-i="'+i+'">3D structure in LIVIA →</button></div>';}).join(''):'<div style="padding:14px;color:#999">No structures loaded yet.</div>';[...modal.querySelectorAll('.vbtn')].forEach(function(b){b.onclick=function(){openComplex(L[+b.dataset.i]);};});[...modal.querySelectorAll('.cl-btn')].forEach(function(s){s.onclick=function(){goToStructure(L[+s.dataset.i]);};});[...modal.querySelectorAll('.srt-btn')].forEach(function(b){b.onclick=function(){_modSort=b.dataset.s;renderModal();};});}
   function openModal(items,title){_modItems=items;_modTitle=title;renderModal();modal.style.display='flex';}
-  function injectFeatured(){const host=document.querySelector('#landing > div');if(!host)return;let wrap=host.querySelector('.feat-wrap');if(!wrap){wrap=document.createElement('div');wrap.className='feat-wrap';wrap.innerHTML='<div class="feat-card feat-a"><div class="ft">'+CXI+' Higher-order complex structures</div><div class="fd"><b><span id="feat-count">…</span></b> sub-clusters have AlphaFold3-predicted 3D assemblies — browse them and open the interactive structure + interface analysis in LIVIA.</div></div><div class="feat-card feat-b" style="cursor:default"><div class="ft">🔬 cLIP — clustered Local Interaction Profiler</div><div class="fd">Groups the interaction partners of a protein by the contact residues they share — showing which partners compete for the <b>same binding surface</b> versus engage <b>distinct sites</b>. Select any protein node and a <b>cLIP</b> button appears in the <b>top-left corner</b>.</div><div style="margin-top:9px;display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span style="font-size:12.5px;opacity:.92">Try an example:</span>'+['Pka-C1','Akt1','Egfr','Rho1','Src42A','Myc'].map(function(g){return '<button class="ex-btn" data-g="'+g+'">'+g+'</button>';}).join('')+'</div></div>';const grid=host.querySelector('#landing-grid');const btnRow=[...host.children].find(el=>el.querySelector&&el.querySelector('[onclick*="showFullNetwork"]'));host.insertBefore(wrap,btnRow||(grid?grid.previousElementSibling:null));wrap.children[0].onclick=()=>openModal(null,null);[...wrap.querySelectorAll('.ex-btn')].forEach(function(b){b.onclick=function(ev){ev.stopPropagation();try{showGene(b.dataset.g);}catch(e){}};});}const c=wrap.querySelector('#feat-count');if(c&&LIST)c.textContent=LIST.length;}
+  function injectFeatured(){const host=document.querySelector('#landing > div');if(!host)return;let wrap=host.querySelector('.feat-wrap');if(!wrap){wrap=document.createElement('div');wrap.className='feat-wrap';wrap.innerHTML='<div class="feat-card feat-a"><div class="ft">'+CXI+' Higher-order complex structures</div><div class="fd"><b><span id="feat-count">…</span></b> sub-clusters have AlphaFold3-predicted complex assemblies — browse them and open the interactive structure + interface analysis in <b>LIVIA</b> (Local Interaction Visualization and Analysis).</div></div><div class="feat-card feat-b" style="cursor:default"><div class="ft">🔬 cLIP — clustered Local Interaction Profiler</div><div class="fd">Groups the interaction partners of a protein by the contact residues they share — showing which partners compete for the <b>same binding surface</b> versus engage <b>distinct sites</b>. Select any protein node and a <b>cLIP</b> button appears in the <b>top-left corner</b>.</div><div style="margin-top:9px;display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span style="font-size:12.5px;opacity:.92">Try an example:</span>'+['Pka-C1','Akt1','Egfr','Rho1','Src42A','Myc'].map(function(g){return '<button class="ex-btn" data-g="'+g+'">'+g+'</button>';}).join('')+'</div></div>';const grid=host.querySelector('#landing-grid');const btnRow=[...host.children].find(el=>el.querySelector&&el.querySelector('[onclick*="showFullNetwork"]'));host.insertBefore(wrap,btnRow||(grid?grid.previousElementSibling:null));wrap.children[0].onclick=()=>openModal(null,null);[...wrap.querySelectorAll('.ex-btn')].forEach(function(b){b.onclick=function(ev){ev.stopPropagation();try{showGene(b.dataset.g);}catch(e){}};});}const c=wrap.querySelector('#feat-count');if(c&&LIST)c.textContent=LIST.length;}
   function hintGrid(){if(!LIST)return;var idx=structIndex();document.querySelectorAll('#grid .subplot').forEach(function(tile){var t=tile.querySelector('.subplot-title');if(!t)return;var mm=t.textContent.match(/^C(\d+)-(\d+)/);if(mm){var ci=+mm[1]-1,si=+mm[2]-1;badgeFor(tile,idx.bySub[ci+'-'+si],ci,si);return;}var mc=t.textContent.match(/^C(\d+)\b/);if(mc){var ci2=+mc[1]-1;badgeFor(tile,idx.byCl[ci2],ci2,null);}});}
   function hintLanding(){if(!LIST)return;var byCl=structIndex().byCl;var lg=document.getElementById('landing-grid');if(!lg)return;[...lg.children].forEach(function(tile){var m=(tile.textContent||'').match(/^\s*C(\d+)\b/);if(!m)return;var ci=+m[1]-1;badgeFor(tile,byCl[ci],ci,null);});}
   window.onGridView=function(){hintGrid();};
@@ -2748,6 +2782,7 @@ if (window.innerWidth <= 700) {
   var _lgEl=document.getElementById('landing-grid');if(_lgEl){var _lto=null;new MutationObserver(function(){if(_lto)clearTimeout(_lto);_lto=setTimeout(hintLanding,30);}).observe(_lgEl,{childList:true});}
   window.onGeneComplex=updateGeneBtn;   // called by the patched updateClipFab on every gene selection
   window.onSubView=updateComplexFab;    // called by the patched showSub/showSubSub with the (sub-)cluster's genes
+  window.onClusterView=updateClusterFab; // called by showCluster to surface every AF3 complex whose LCA is in this cluster
   if(typeof showLanding==='function'){const _s=showLanding;showLanding=function(){_s();injectFeatured();hintLanding();};window.showLanding=showLanding;}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',injectFeatured);else injectFeatured();
 })();
