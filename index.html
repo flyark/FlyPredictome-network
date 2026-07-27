@@ -2798,7 +2798,7 @@ if (window.innerWidth <= 700) {
     var counts=subs.map(function(sc){var g=gS(sc);return M.filter(function(x){return g[x];}).length;});var best1=-1,b1=0,b2=0;counts.forEach(function(v,i){if(v>b1){b2=b1;b1=v;best1=i;}else if(v>b2){b2=v;}});
     if(best1>=0&&b1>=bcov*0.8&&b2<=1){out.si=best1;var ssubs=subs[best1][7]||[];var pc=b1;var sc2=ssubs.map(function(ss){var g=gS(ss);return M.filter(function(x){return g[x];}).length;});var bss=-1,s1=0,s2=0;sc2.forEach(function(v,i){if(v>s1){s2=s1;s1=v;bss=i;}else if(v>s2){s2=v;}});if(bss>=0&&s1>=pc*0.8&&s2<=1){out.ssi=bss;}}
     out.label='C'+(out.ci+1)+(out.si>=0?'-'+(out.si+1):'')+(out.ssi>=0?'-'+(out.ssi+1):'');return out;}
-  function chipOf(e){var k=e&&e.job;if(k)return k;var p=pathFor(e);return (p&&p.label)||'';}
+  function chipOf(e){var k=e&&e.job;if(!k){var p=pathFor(e);k=(p&&p.label)||'';}return String(k).replace(/_\d+$/,'');}
   function pathFor(e){if(!e._path){var p=findPath(e.members);if(p)e._path=p;return p;}return e._path;}
   var CXI='<svg viewBox="0 0 24 24" width="12" height="12" style="vertical-align:-1.5px;display:inline-block" fill="currentColor" stroke="currentColor" stroke-width="1.3"><g stroke-linecap="round"><line x1="7" y1="9" x2="17" y2="9"/><line x1="7.6" y1="10.3" x2="12" y2="16"/><line x1="16.4" y1="10.3" x2="12" y2="16"/></g><circle cx="7" cy="9" r="3"/><circle cx="17" cy="9" r="3"/><circle cx="12" cy="16.3" r="3"/></svg>';
   // Only the top n_pdb candidates are method-verified against RCSB; n_cand is how many PDB entries actually
@@ -2833,7 +2833,8 @@ if (window.innerWidth <= 700) {
   function goToStructure(e){try{modal.style.display='none';var p=pathFor(e);if(!p)return;if(window.hideLanding)window.hideLanding();if(window.hideGrid)window.hideGrid();if(p.cross&&p.cis&&p.cis.length>1&&window.showMulti){showMulti(new Set(p.cis));return;}if(p.ssi>=0)showSubSub(p.ci,p.si,p.ssi);else if(p.si>=0)showSub(p.ci,p.si);else if(p.ci>=0)showCluster(p.ci);}catch(x){}}
   var _modItems=null,_modTitle=null,_modSort='size',_modClu=null;
   function _cmpSize(a,b){return b.members.length-a.members.length;}
-  function _cmpCluster(a,b){var pa=pathFor(a)||{},pb=pathFor(b)||{};var ca=pa.ci==null?1e9:pa.ci,cb=pb.ci==null?1e9:pb.ci,sa=pa.si==null?1e9:pa.si,sb=pb.si==null?1e9:pb.si,za=pa.ssi==null?-1:pa.ssi,zb=pb.ssi==null?-1:pb.ssi;return (ca-cb)||(sa-sb)||(za-zb)||(b.members.length-a.members.length);}
+  function _labNums(e){var l=chipOf(e)||'';var m=/^C(\d+)((?:-\d+)*)/.exec(l);if(!m)return [1e9];var out=[+m[1]];(m[2]||'').split('-').forEach(function(t){if(t)out.push(+t);});return out;}
+  function _cmpCluster(a,b){var A=_labNums(a),B=_labNums(b);for(var i=0;i<Math.max(A.length,B.length);i++){var x=A[i]==null?-1:A[i],y=B[i]==null?-1:B[i];if(x!==y)return x-y;}return (b.members.length-a.members.length);}
   // which clusters an entry belongs to: "C16-3-1" -> [C16]; a cross-cluster "C1·C22" -> [C1, C22]
   function _clusOf(e){var p=pathFor(e);var lab=(p&&p.label)||'';var out=[];lab.split('·').forEach(function(t){var m=/^(C\d+)/.exec(t.trim());if(m&&out.indexOf(m[1])<0)out.push(m[1]);});return out;}
   function renderModal(){var ALL=(_modItems||LIST||[]).slice();
