@@ -1940,14 +1940,21 @@ function draw(){
 
   // 4) Zoom-based labels with overlap prevention + density control
   if(!isD&&lfs>=1&&labelDensity>0){
-    // labelDensity 0=none, 50=default, 100=show all
+    // Density = how tightly labels may pack (spacing); ZOOM = how many actually show.
+    // The candidate pool is every node (highest-degree first), but only ON-SCREEN
+    // ones are considered and the overlap test is in screen space — so labels reveal
+    // naturally as you zoom: at fit the nodes are dense so only well-separated hubs
+    // fit; zoom into a region and its nodes spread out until nearly all get a label.
+    // (Previously the pool was capped at labelDensity% of nodes by GLOBAL degree, so
+    // zooming into a low-degree region showed nothing new — see zoom label request.)
     const densityFactor=labelDensity/100; // 0-1
-    const nL=labelDensity>=100?nodes.length:Math.max(5,Math.floor(nodes.length*densityFactor));
+    const spacingFactor=0.8-densityFactor*0.6; // 0.8 (few) → 0.2 (many)
+    const cap=Math.min(nodes.length,4000); // perf guard on very large graphs
     const placed=[];
-    const spacingFactor=0.8-densityFactor*0.6; // smooth: 0.8 at 0% → 0.2 at 100%
-    [...nodes].sort((a,b)=>b.deg-a.deg).slice(0,nL).forEach(n=>{
+    [...nodes].sort((a,b)=>b.deg-a.deg).slice(0,cap).forEach(n=>{
       if(hits.has(n.id))return;
       const[sx,sy]=ts(n.x,n.y);
+      if(sx<-40||sx>W+40||sy<-40||sy>H+40)return; // off-screen → skip (perf + let on-screen labels win)
       const lblW=n.id.length*lfs*0.55;
       const lblH=lfs*1.2;
       const overlap=placed.some(p=>Math.abs(sx-p[0])<(lblW+p[2])*spacingFactor&&Math.abs(sy-p[1])<lblH*spacingFactor);
