@@ -175,6 +175,7 @@ canvas { display:block; }
     <span id="ev-count"></span>
   </div>
   <span id="stats" style="margin-left:auto"></span>
+  <button class="btn-help btn-tut" id="tut-open" type="button" title="Short video tutorials">&#9654; Tutorials</button>
   <button class="btn-help" onclick="document.getElementById('modal-bg').classList.add('show')">?</button>
 </div>
 <div id="sidebar-overlay" onclick="toggleSidebar()" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:49"></div>
@@ -288,6 +289,10 @@ canvas { display:block; }
 <h2>FlyPredictome Network Viewer</h2>
 <p>Interactive exploration of the <em>Drosophila</em> protein-protein interaction atlas.</p>
 <p style="margin-top:8px"><a href="https://www.flyrnai.org/tools/fly_predictome" target="_blank" style="color:var(--accent);font-weight:600">FlyPredictome Database →</a> — search any protein pair for predicted structures, PAE heatmaps, and the <a href="https://github.com/flyark/AFM-LIS" target="_blank" style="color:var(--accent)">iLIS metric</a>.</p>
+<h3>Tutorials</h3>
+<p style="font-size:13.5px">Short videos without sound, under 30 seconds each.</p>
+<div id="tut-help-list"></div>
+<p style="margin-top:8px"><button type="button" class="tut-textbtn" id="tut-intro-again">Show the intro again</button></p>
 <h3>Network Construction</h3>
 <p>This network shows <b>evidence-supported positive PPIs</b> from the FlyPredictome atlas:</p>
 <ol style="font-size:13.5px">
@@ -2891,6 +2896,124 @@ if (window.innerWidth <= 700) {
   addEventListener('resize',refit);
   if(typeof showLanding==='function'){const _s=showLanding;showLanding=function(){_s();injectFeatured();hintLanding();};window.showLanding=showLanding;}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',injectFeatured);else injectFeatured();
+})();
+</script>
+<!-- ═══ Tutorials: the first-visit intro popup and the short videos (files in media/, fetched only when played) ═══ -->
+<style>
+.btn-tut { font-size:13.5px; padding:3px 11px; }
+.tut-textbtn { background:none; border:0; padding:0; color:var(--accent); font:inherit; font-size:13.5px; font-weight:600; cursor:pointer; text-decoration:underline; text-underline-offset:2px; }
+#tut-help-list { display:flex; flex-direction:column; gap:2px; font-size:13.5px; }
+#tut-help-list button { text-align:left; }
+#tut-bg { position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; padding:16px; background:rgba(15,25,38,.62); }
+#tut-bg.show { display:flex; }
+#tut-bg [hidden] { display:none !important; }
+#tut-box { width:min(980px,100%); max-height:calc(100dvh - 32px); overflow:auto; background:#fff; border-radius:14px; box-shadow:0 24px 64px rgba(0,0,0,.35); padding:18px 20px 16px; }
+#tut-box .tut-hd { display:flex; align-items:baseline; gap:12px; margin-bottom:10px; }
+#tut-box h2 { font-size:19px; color:#222; font-weight:700; text-wrap:balance; }
+#tut-box .tut-sub { font-size:13.5px; color:#667; }
+#tut-box .tut-x { margin-left:auto; background:none; border:0; font-size:26px; line-height:1; color:#888; cursor:pointer; padding:0 4px; }
+#tut-box .tut-x:hover { color:#222; }
+#tut-player { display:block; width:100%; aspect-ratio:16/9; background:#0A1320; border-radius:9px; }
+#tut-back { margin:0 0 8px; }
+#tut-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; }
+.tut-card { display:flex; flex-direction:column; gap:6px; text-align:left; background:#f7f9fb; border:1px solid #e1e6ec; border-radius:10px; padding:8px; cursor:pointer; font:inherit; color:#333; }
+.tut-card:hover { border-color:var(--accent); box-shadow:0 3px 10px rgba(44,115,168,.15); }
+.tut-card img { width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; border-radius:6px; background:#0A1320; }
+.tut-card b { font-size:14px; color:#1d3d5c; }
+.tut-card span { font-size:12.5px; color:#667; line-height:1.35; }
+.tut-card .tut-len { font-variant-numeric:tabular-nums; color:#889; }
+#tut-ft { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px; }
+#tut-ft .tut-sp { flex:1; }
+#tut-ft .tut-btn { border:1px solid #c9d3de; background:#fff; color:#333; border-radius:6px; padding:7px 14px; font-size:14px; font-weight:600; cursor:pointer; }
+#tut-ft .tut-btn:hover { border-color:var(--accent); color:var(--accent); }
+#tut-ft .tut-btn.pri { background:var(--accent); border-color:var(--accent); color:#fff; }
+#tut-ft .tut-btn.pri:hover { background:#245f8c; color:#fff; }
+#tut-box button:focus-visible, .tut-card:focus-visible, .tut-textbtn:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+@media (max-width:600px) { #tut-box { padding:14px 14px 12px; } #tut-box h2 { font-size:17px; } #tut-box .tut-sub { display:none; } #tut-ft .tut-sp { display:none; } }
+</style>
+<div id="tut-bg" role="dialog" aria-modal="true" aria-labelledby="tut-title">
+  <div id="tut-box">
+    <div class="tut-hd"><h2 id="tut-title"></h2><span class="tut-sub" id="tut-sub"></span><button type="button" class="tut-x" id="tut-x" aria-label="Close">&times;</button></div>
+    <p id="tut-back" hidden><button type="button" class="tut-textbtn" id="tut-back-btn">&larr; All tutorials</button></p>
+    <video id="tut-player" controls playsinline muted preload="none"></video>
+    <div id="tut-grid" hidden></div>
+    <div id="tut-ft">
+      <button type="button" class="tut-textbtn" id="tut-never">Don't show again</button>
+      <span class="tut-sp"></span>
+      <button type="button" class="tut-btn" id="tut-list-btn">Watch tutorials</button>
+      <button type="button" class="tut-btn pri" id="tut-close">Close</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const MEDIA='media/';
+  const INTRO={id:'intro',title:'Welcome to the FlyPredictome Network',sub:'Quick tour, no sound'};
+  const TUTS=[
+    {id:'clusters',title:'Clusters and sub-clusters',text:'From 31 clusters down to single complexes, with GO terms.',len:'0:25'},
+    {id:'search',title:'Find a protein',text:'Search a protein, see its partners, and link out.',len:'0:18'},
+    {id:'filters',title:'Evidence and confidence',text:'Filter edges by evidence type and by FPR tier.',len:'0:21'},
+    {id:'complexes',title:'Complexes in 3D',text:'Open an AlphaFold3 complex in LIVIA.',len:'0:25'},
+    {id:'clip',title:'cLIP binding sites',text:'See which partners share a binding surface.',len:'0:19'},
+    {id:'lists',title:'Protein lists',text:'Highlight your genes, pull out their subnetwork.',len:'0:20'},
+    {id:'network',title:'Whole network, export, share',text:'Style the view, export images and data, share links.',len:'0:25'},
+  ];
+  const KEY='fpnet-intro-hidden';
+  const store={get(){try{return localStorage.getItem(KEY)==='1';}catch(e){return false;}},
+               set(v){try{v?localStorage.setItem(KEY,'1'):localStorage.removeItem(KEY);}catch(e){}}};
+  const calm=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches||!!(navigator.connection&&navigator.connection.saveData);}catch(e){return false;}};
+  const $=id=>document.getElementById(id);
+  const bg=$('tut-bg'),player=$('tut-player'),grid=$('tut-grid');
+  let lastFocus=null;
+
+  function play(t,auto){
+    player.hidden=false;grid.hidden=true;
+    player.poster=MEDIA+t.id+'.webp';
+    player.src=MEDIA+t.id+'.mp4';
+    if(auto&&!calm()){const p=player.play();if(p&&p.catch)p.catch(()=>{});}
+  }
+  function stop(){try{player.pause();}catch(e){} player.removeAttribute('src');player.load();}
+  function view(mode,t){
+    // mode: 'intro' (first visit), 'list' (all tutorials), 'one' (a single tutorial)
+    $('tut-never').hidden=mode!=='intro';
+    $('tut-list-btn').hidden=mode==='list';
+    $('tut-back').hidden=mode!=='one';
+    if(mode==='list'){stop();player.hidden=true;grid.hidden=false;$('tut-title').textContent='Tutorials';$('tut-sub').textContent='Short videos, no sound';}
+    else{$('tut-title').textContent=t.title;$('tut-sub').textContent=mode==='intro'?INTRO.sub:t.len;play(t,true);}
+  }
+  function open(mode,t){
+    if(!bg.classList.contains('show'))lastFocus=document.activeElement;
+    bg.classList.add('show');view(mode,t);
+    setTimeout(()=>{(mode==='list'?grid.querySelector('.tut-card'):$('tut-close')).focus();},30);
+  }
+  function close(){stop();bg.classList.remove('show');if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+
+  grid.innerHTML=TUTS.map((t,i)=>'<button type="button" class="tut-card" data-i="'+i+'"><img src="'+MEDIA+t.id+'.webp" alt="" loading="lazy" width="320" height="180"><b>'+t.title+'</b><span>'+t.text+'</span><span class="tut-len">'+t.len+'</span></button>').join('');
+  grid.addEventListener('click',e=>{const c=e.target.closest('.tut-card');if(c)view('one',TUTS[+c.dataset.i]);});
+  $('tut-help-list').innerHTML=TUTS.map((t,i)=>'<button type="button" class="tut-textbtn" data-i="'+i+'">'+t.title+'</button>').join('');
+  $('tut-help-list').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$('modal-bg').classList.remove('show');open('one',TUTS[+b.dataset.i]);});
+  $('tut-intro-again').onclick=()=>{store.set(false);$('modal-bg').classList.remove('show');open('intro',INTRO);};
+  $('tut-open').onclick=()=>open('list');
+  $('tut-list-btn').onclick=()=>view('list');
+  $('tut-back-btn').onclick=()=>view('list');
+  $('tut-close').onclick=close;$('tut-x').onclick=close;
+  $('tut-never').onclick=()=>{store.set(true);close();};
+  bg.addEventListener('click',e=>{if(e.target===bg)close();});
+  // Esc closes the popup before the viewer's own Esc (go up one level) sees it; Tab stays inside the popup
+  document.addEventListener('keydown',e=>{
+    if(!bg.classList.contains('show'))return;
+    if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();close();return;}
+    if(e.key==='Tab'){const f=[...bg.querySelectorAll('button:not([hidden]),video[controls]:not([hidden])')].filter(x=>x.offsetParent!==null);
+      if(!f.length)return;const a=f[0],z=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}
+  },true);
+
+  // First visit only: after the network data has loaded, and never over a shared link (#...) or with ?nointro
+  if(store.get()||location.hash||/[?&]nointro\b/.test(location.search))return;
+  let tries=0;const wait=setInterval(()=>{
+    const ready=!!(window.CL&&window.CL.length);
+    if(ready||++tries>60){clearInterval(wait);if(ready&&!location.hash&&!store.get())setTimeout(()=>open('intro',INTRO),500);}   // no data (e.g. an error page): no intro
+  },250);
 })();
 </script>
 <script data-goatcounter="https://flypredictome-network.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
